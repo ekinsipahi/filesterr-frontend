@@ -1,0 +1,30 @@
+{
+  "name": "filesterr",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node server/dev.js",
+    "build": "npm run build:client && npm run build:server",
+    "build:client": "vite build --outDir dist/client",
+    "build:server": "vite build --ssr src/entry-server.js --outDir dist/server",
+    "start": "cross-env NODE_ENV=production node server/prod.js"
+  },
+  "dependencies": {
+    "@vueuse/core": "^11.0.0",
+    "@vueuse/head": "^2.0.0",
+    "compression": "^1.7.4",
+    "express": "^4.21.0",
+    "sirv": "^2.0.4",
+    "vue": "^3.5.0",
+    "vue-i18n": "^9.14.0",
+    "vue-router": "^4.4.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^5.2.0",
+    "autoprefixer": "^10.5.0",
+    "cross-env": "^7.0.3",
+    "postcss": "^8.5.14",
+    "tailwindcss": "^3.4.19",
+    "vite": "^6.0.0"
+  }
+}

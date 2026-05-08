@@ -1,9 +1,27 @@
 <template>
   <section class="relative min-h-[72vh] flex items-center pt-32 pb-20 px-6 overflow-hidden">
-    <div class="absolute inset-0 pointer-events-none">
-      <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-brand-500/8 dark:bg-brand-500/12 blur-[120px] rounded-full" />
-      <div class="absolute inset-0 bg-grid opacity-50" />
-    </div>
+
+    <!-- ░░ MATRIX CANVAS — sağdan sola akan arka plan ░░ -->
+    <canvas
+      ref="matrixCanvas"
+      class="absolute inset-0 w-full h-full pointer-events-none"
+      style="opacity: 0.55; mix-blend-mode: normal;"
+    />
+
+    <!-- Soft vignette — kenarlarda söndür -->
+    <div class="absolute inset-0 pointer-events-none"
+      style="background: radial-gradient(ellipse 80% 60% at 50% 50%, transparent 30%, rgba(var(--bg-base-rgb,10,10,10), 0.82) 100%);" />
+
+    <!-- Sol taraf fade — içerik okunsun diye -->
+    <div class="absolute inset-y-0 left-0 w-1/2 pointer-events-none"
+      style="background: linear-gradient(to right, var(--hero-fade, rgba(255,255,255,0.92)) 0%, transparent 100%);" />
+
+    <!-- Sağ üst blur glow -->
+    <div class="absolute top-0 right-0 w-[600px] h-[500px] pointer-events-none"
+      style="background: radial-gradient(ellipse at top right, rgba(34,163,102,0.06) 0%, transparent 70%);" />
+
+    <div class="absolute inset-0 bg-grid opacity-30 pointer-events-none" />
+
     <div class="relative max-w-7xl mx-auto w-full">
       <div class="grid lg:grid-cols-2 gap-16 items-center">
         <!-- Copy -->
@@ -104,6 +122,10 @@
 </template>
 
 <script setup>
+import { ref, onMounted, onUnmounted } from 'vue'
+
+const matrixCanvas = ref(null)
+
 const pills = ['Real-time feed','Visitor fingerprinting','Bot detection','VPN / proxy flags','Geographic heatmaps','API access']
 const stats = [
   { value: '24', label: 'Total downloads', color: '' },
@@ -116,4 +138,105 @@ const feedRows = [
   { flag:'🇬🇧', city:'London, GB',      ip:'91.108.x.x',  time:'15 min ago', device:'Safari / iOS',  badge:null,        badgeColor:'' },
   { flag:'🚫',  city:'Datacenter — US', ip:'23.94.x.x',   time:'22 min ago', device:'curl/7.68',     badge:'Bot',       badgeColor:'bg-red-100 dark:bg-red-900/30 text-red-700' },
 ]
+
+// ── Matrix rain ──────────────────────────────────────────
+const CHARS   = '01アイウエオカキクケコサシスセソタチツテトナニヌネノ'
+const BRAND   = '#22a366'
+const FONT_SZ = 14
+
+let ctx, cols, drops, speeds, opacities, colors, raf
+
+function initMatrix(canvas) {
+  ctx  = canvas.getContext('2d')
+  cols = Math.ceil(canvas.width / FONT_SZ) + 2
+  drops    = []
+  speeds   = []
+  opacities= []
+  colors   = []
+  for (let i = 0; i < cols; i++) {
+    drops[i]     = Math.random() * -(canvas.height / FONT_SZ)
+    speeds[i]    = 0.25 + Math.random() * 0.6
+    opacities[i] = 0.05 + Math.random() * 0.20
+    colors[i]    = Math.random() < 0.12 ? '#ffffff' : BRAND
+  }
+}
+
+function drawMatrix(canvas) {
+  ctx.fillStyle = 'rgba(0,0,0,0.14)'
+  ctx.fillRect(0, 0, canvas.width, canvas.height)
+  ctx.font = `${FONT_SZ}px monospace`
+
+  for (let i = 0; i < cols; i++) {
+    const char = CHARS[Math.floor(Math.random() * CHARS.length)]
+    const x = canvas.width - i * FONT_SZ
+    const y = drops[i] * FONT_SZ
+    const distFromRight = i / cols
+    const crack = Math.max(0, 1 - distFromRight * 1.6)
+    const alpha  = opacities[i] * crack
+
+    if (alpha < 0.008) continue
+
+    const isWhite = colors[i] === '#ffffff'
+    ctx.fillStyle = isWhite
+      ? `rgba(255,255,255,${alpha * 2.2})`
+      : `rgba(34,163,102,${alpha * 2.8})`
+    ctx.fillText(char, x, y)
+
+    if (Math.random() > 0.6) {
+      ctx.fillStyle = `rgba(180,255,210,${Math.min(crack * 0.7, 0.85)})`
+      ctx.fillText(char, x, y)
+    }
+
+    drops[i] += speeds[i]
+    if (y > canvas.height && Math.random() > 0.975) {
+      drops[i] = Math.random() * -30
+    }
+  }
+}
+
+function loop() {
+  const canvas = matrixCanvas.value
+  if (!canvas) return
+  drawMatrix(canvas)
+  raf = requestAnimationFrame(loop)
+}
+
+function resize() {
+  const canvas = matrixCanvas.value
+  if (!canvas) return
+  canvas.width  = canvas.offsetWidth
+  canvas.height = canvas.offsetHeight
+  initMatrix(canvas)
+}
+
+onMounted(() => {
+  if (typeof window === 'undefined') return
+  const canvas = matrixCanvas.value
+  if (!canvas) return
+  canvas.width  = canvas.offsetWidth  || canvas.parentElement.offsetWidth
+  canvas.height = canvas.offsetHeight || 700
+  initMatrix(canvas)
+  loop()
+  window.addEventListener('resize', resize)
+})
+
+onUnmounted(() => {
+  cancelAnimationFrame(raf)
+  if (typeof window !== 'undefined') window.removeEventListener('resize', resize)
+})
 </script>
+
+<style scoped>
+section {
+  --hero-fade: rgba(255, 255, 255, 0.94);
+}
+
+:global(.dark) section,
+.dark section {
+  --hero-fade: rgba(9, 9, 11, 0.92);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  canvas { display: none; }
+}
+</style>

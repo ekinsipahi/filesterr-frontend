@@ -9,8 +9,9 @@ export const PLANS = [
     featured: false,
     badge: null,
     price: { monthly: 0, yearly: 0 },
-    storage: '1 GB',
-    perFile: '1 GB',
+    storage: '0.5 GB',
+    perFile: '200 MB',
+    retention: '24 hours',
     ads: 'More ads',
     analyticsLevel: 'Download count only',
     directLinks: false,
@@ -37,8 +38,9 @@ export const PLANS = [
     featured: false,
     badge: null,
     price: { monthly: 0, yearly: 0 },
-    storage: '10 GB',
-    perFile: '5 GB',
+    storage: '5 GB',
+    perFile: '1 GB',
+    retention: '7 days',
     featureKeys: [
       'plans.free.f1',
       'plans.free.f2',
@@ -55,9 +57,10 @@ export const PLANS = [
     taglineKey: 'plans.premium.tagline',
     featured: true,
     badgeKey: 'plans.popularBadge',
-    price: { monthly: 3.89, yearly: 3.00 },
-    storage: '150 GB',
-    perFile: '50 GB',
+    price: { monthly: 4.99, yearly: 3.99 },
+    storage: '100 GB',
+    perFile: '5 GB',
+    retention: 'Forever',
     featureKeys: [
       'plans.premium.f1',
       'plans.premium.f2',
@@ -76,9 +79,10 @@ export const PLANS = [
     taglineKey: 'plans.pro.tagline',
     featured: false,
     badgeKey: 'plans.bestValue',
-    price: { monthly: 8.00, yearly: 6.00 },
-    storage: '890 GB',
-    perFile: '50 GB',
+    price: { monthly: 9.99, yearly: 7.99 },
+    storage: '500 GB',
+    perFile: '20 GB',
+    retention: 'Forever',
     featureKeys: [
       'plans.pro.f1',
       'plans.pro.f2',
@@ -93,6 +97,43 @@ export const PLANS = [
     ],
     ctaKey: 'plans.pro.cta',
     ctaHref: '/register?plan=pro',
+  },
+
+  {
+    slug: 'promax',
+    nameKey: 'plans.promax.name',
+    taglineKey: 'plans.promax.tagline',
+    featured: false,
+    badgeKey: 'plans.promax_badge',
+
+    price: { monthly: 19.99, yearly: 15.99 },
+
+    storage: '2 TB',
+    perFile: '50 GB',
+    retention: 'Forever',
+
+    ads: 'No ads',
+    analyticsLevel: 'Full analytics + priority',
+
+    directLinks: true,
+    passwordProtect: true,
+    oneTimeLinks: true,
+    expirable: true,
+
+    visitorIntel: false,
+    zipBatch: true,
+    fullAnalytics: true,
+
+    featureKeys: [
+      'plans.promax.f1',
+      'plans.promax.f2',
+      'plans.promax.f3',
+      'plans.promax.f4',
+      'plans.promax.f5',
+    ],
+
+    ctaKey: 'plans.promax.cta',
+    ctaHref: '/register?plan=promax',
   },
 ]
 

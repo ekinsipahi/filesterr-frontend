@@ -10,7 +10,7 @@ const __dirname = fileURLToPath(new URL('.', import.meta.url))
 const tailwindcss = require('tailwindcss')
 const autoprefixer = require('autoprefixer')
 
-export default defineConfig({
+export default defineConfig(({ isSsrBuild }) => ({
   plugins: [vue()],
   resolve: {
     alias: {
@@ -25,10 +25,19 @@ export default defineConfig({
       ],
     },
   },
+  // Bundle all deps into the SSR output so the server is self-contained
+  // (required for Netlify Functions and Railway/Render deploys)
+  ssr: isSsrBuild ? { noExternal: true } : {},
   server: {
     watch: {
       usePolling: true,
       interval: 300,
     },
+    proxy: {
+      '/api': {
+        target: process.env.API_TARGET || 'http://localhost:8000',
+        changeOrigin: true,
+      },
+    },
   },
-})
+}))

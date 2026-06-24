@@ -31,20 +31,37 @@
         <div class="card p-8 shadow-2xl">
 
           <!-- File header -->
-          <div class="flex items-center gap-4 mb-8 pb-7 border-b border-zinc-100 dark:border-zinc-800">
+          <div class="flex items-center gap-4 mb-6 pb-6 border-b border-zinc-100 dark:border-zinc-800">
             <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-brand-600 to-brand-400 flex items-center justify-center shadow-glow shrink-0">
               <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
               </svg>
             </div>
-            <div class="min-w-0">
+            <div class="min-w-0 flex-1">
               <h1 class="font-display text-xl font-bold truncate">{{ file.name }}</h1>
               <p class="text-sm text-zinc-400 mt-1">{{ formatSize(file.size) }} · {{ file.mimeType || 'file' }}</p>
+              <!-- Premium badges -->
+              <div class="flex items-center gap-2 mt-2 flex-wrap">
+                <span v-if="file.isPasswordProtected"
+                  class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 text-amber-700 dark:text-amber-400 text-[10px] font-bold">
+                  <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+                  </svg>
+                  Password Protected
+                </span>
+                <span v-if="file.isOneTime"
+                  class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 text-red-700 dark:text-red-400 text-[10px] font-bold">
+                  <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 17h8m0 0V9m0 8l-8-8-4 4-6-6"/>
+                  </svg>
+                  One-Time Download
+                </span>
+              </div>
             </div>
           </div>
 
           <!-- File meta -->
-          <dl class="grid grid-cols-2 gap-4 mb-8">
+          <dl class="grid grid-cols-2 gap-4 mb-6">
             <div>
               <dt class="text-xs text-zinc-400 uppercase tracking-wider mb-1">Uploaded</dt>
               <dd class="text-sm font-medium">{{ formatDate(file.uploadedAt) }}</dd>
@@ -61,8 +78,44 @@
             </div>
           </dl>
 
+          <!-- One-time warning -->
+          <div v-if="file.isOneTime && !downloadStarted" class="mb-5 p-4 rounded-xl bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 flex items-start gap-3">
+            <svg class="w-4 h-4 text-red-500 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/>
+            </svg>
+            <div>
+              <p class="text-xs font-bold text-red-700 dark:text-red-400">One-time access link</p>
+              <p class="text-xs text-red-600 dark:text-red-300 mt-0.5">This file will be permanently deleted after you download it. Make sure you're ready.</p>
+            </div>
+          </div>
+
+          <!-- Password gate -->
+          <div v-if="file.isPasswordProtected && !passwordUnlocked" class="mb-5">
+            <label class="block text-xs font-semibold text-zinc-700 dark:text-zinc-300 mb-2">
+              <svg class="inline w-3.5 h-3.5 mr-1 mb-0.5 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+              </svg>
+              Enter password to unlock this file
+            </label>
+            <div class="flex gap-2">
+              <input v-model="password" type="password" placeholder="Password"
+                @keydown.enter="unlockPassword"
+                class="flex-1 px-4 py-3 rounded-xl border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 text-sm outline-none focus:ring-2 focus:ring-brand-500/40 focus:border-brand-500"
+                :class="passwordError ? 'border-red-400 dark:border-red-600' : ''" />
+              <button @click="unlockPassword" :disabled="!password || checkingPassword"
+                class="btn-primary px-5 py-3 text-sm shrink-0">
+                <svg v-if="checkingPassword" class="w-4 h-4 animate-spin" fill="none" viewBox="0 0 24 24">
+                  <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"/>
+                  <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"/>
+                </svg>
+                <span v-else>Unlock</span>
+              </button>
+            </div>
+            <p v-if="passwordError" class="text-xs text-red-500 mt-2">{{ passwordError }}</p>
+          </div>
+
           <!-- Ad countdown gate -->
-          <div v-if="showAd && !adDone" class="mb-6 p-5 rounded-xl bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700">
+          <div v-if="showAd && !adDone && (passwordUnlocked || !file.isPasswordProtected)" class="mb-6 p-5 rounded-xl bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700">
             <div class="flex items-center justify-between text-xs text-zinc-500 mb-3">
               <span>Your download starts in {{ adCountdown }}s</span>
               <span class="text-brand-500 font-medium">{{ Math.round(((file.adDuration - adCountdown) / file.adDuration) * 100) }}%</span>
@@ -71,7 +124,6 @@
               <div class="h-full bg-brand-500 rounded-full transition-all duration-1000"
                 :style="`width:${((file.adDuration - adCountdown) / file.adDuration) * 100}%`" />
             </div>
-            <!-- Ad placeholder -->
             <div class="mt-4 h-20 rounded-lg bg-zinc-100 dark:bg-zinc-700 flex items-center justify-center text-xs text-zinc-400 border border-dashed border-zinc-300 dark:border-zinc-600">
               Advertisement
             </div>
@@ -83,9 +135,9 @@
 
           <!-- Download button -->
           <button @click="handleDownload"
-            :disabled="(showAd && !adDone) || downloading"
+            :disabled="downloadBtnDisabled"
             class="w-full py-4 rounded-xl font-bold text-sm transition-all duration-200 flex items-center justify-center gap-3"
-            :class="(showAd && !adDone)
+            :class="downloadBtnDisabled
               ? 'bg-zinc-100 dark:bg-zinc-800 text-zinc-400 cursor-not-allowed'
               : 'btn-primary-lg text-base'">
             <svg v-if="!downloading" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -95,7 +147,7 @@
               <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"/>
               <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"/>
             </svg>
-            {{ downloading ? 'Starting download...' : 'Download File' }}
+            {{ downloadBtnLabel }}
           </button>
 
           <!-- Download error -->
@@ -135,22 +187,60 @@ const adCountdown = ref(0)
 const adDone = ref(false)
 const downloading = ref(false)
 const downloadError = ref(null)
+const downloadStarted = ref(false)
+
+// Password state
+const password = ref('')
+const passwordUnlocked = ref(false)
+const passwordError = ref('')
+const checkingPassword = ref(false)
+
 let timer = null
 
-// Pro users skip ads — in real app check auth state
 const userIsPro = typeof window !== 'undefined' && window.__USER__?.isPro
 
 const showAd = computed(() => file.value?.requiresAd && !userIsPro)
 const isExpiringSoon = computed(() => {
   if (!file.value?.expiresAt) return false
-  return new Date(file.value.expiresAt) - Date.now() < 3 * 24 * 60 * 60 * 1000 // 3 days
+  return new Date(file.value.expiresAt) - Date.now() < 3 * 24 * 60 * 60 * 1000
+})
+
+const needsPassword = computed(() => file.value?.isPasswordProtected && !passwordUnlocked.value)
+
+const downloadBtnDisabled = computed(() => {
+  if (needsPassword.value) return true
+  if (showAd.value && !adDone.value) return true
+  if (downloading.value) return true
+  return false
+})
+
+const downloadBtnLabel = computed(() => {
+  if (downloading.value) return 'Starting download...'
+  if (needsPassword.value) return 'Enter password to download'
+  return 'Download File'
 })
 
 onMounted(async () => {
   try {
-    const res = await fetch(`/api/v1/files/${route.params.id}/info/`)
-    if (!res.ok) throw new Error('File not found or has been deleted.')
-    file.value = await res.json()
+    const res = await fetch(`/api/v1/files/public/${route.params.id}/`)
+    if (!res.ok) {
+      const d = await res.json().catch(() => ({}))
+      throw new Error(d.error?.message || 'File not found or has been deleted.')
+    }
+    const data = await res.json()
+    file.value = {
+      name:               data.original_name,
+      size:               data.size,
+      mimeType:           data.mime_type,
+      downloadsCount:     data.download_count,
+      uploadedAt:         data.created_at,
+      expiresAt:          data.expires_at,
+      requiresAd:         !userIsPro,
+      adDuration:         10,
+      shareToken:         data.share_token,
+      isPasswordProtected: !!data.is_password_protected,
+      isOneTime:           !!data.is_one_time,
+    }
   } catch (e) {
     error.value = e.message
   } finally {
@@ -160,10 +250,16 @@ onMounted(async () => {
 
 onUnmounted(() => { if (timer) clearInterval(timer) })
 
-async function handleDownload() {
-  if (!file.value) return
+function unlockPassword() {
+  if (!password.value) return
+  passwordError.value = ''
+  // Optimistically unlock — wrong password surfaces on actual download
+  passwordUnlocked.value = true
+}
 
-  // If ad required and not yet done — start countdown
+async function handleDownload() {
+  if (!file.value || downloadBtnDisabled.value) return
+
   if (showAd.value && !adDone.value) {
     adCountdown.value = file.value.adDuration || 10
     timer = setInterval(() => {
@@ -171,7 +267,6 @@ async function handleDownload() {
       if (adCountdown.value <= 0) {
         clearInterval(timer)
         adDone.value = true
-        // Auto-trigger download after ad completes
         triggerDownload()
       }
     }, 1000)
@@ -185,19 +280,50 @@ async function triggerDownload() {
   downloading.value = true
   downloadError.value = null
   try {
-    const res = await fetch(`/api/v1/files/${route.params.id}/download/`, {
+    fetch('/api/v1/analytics/event/', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ adCompleted: adDone.value }),
-    })
-    if (!res.ok) throw new Error('Download failed.')
-    const { downloadUrl } = await res.json()
-    const a = document.createElement('a')
-    a.href = downloadUrl
-    a.download = file.value.name
-    document.body.appendChild(a)
-    a.click()
-    document.body.removeChild(a)
+      body: JSON.stringify({ share_token: file.value.shareToken, event_type: 'download' }),
+    }).catch(() => {})
+
+    const passwordParam = file.value.isPasswordProtected ? `?password=${encodeURIComponent(password.value)}` : ''
+    const downloadUrl = `/api/v1/files/public/${route.params.id}/download/${passwordParam}`
+
+    // For protected/one-time files use fetch so we can handle auth errors
+    if (file.value.isPasswordProtected || file.value.isOneTime) {
+      const res = await fetch(downloadUrl)
+      if (res.status === 401 || res.status === 403) {
+        const d = await res.json().catch(() => ({}))
+        if (res.status === 403) {
+          passwordUnlocked.value = false
+          passwordError.value = 'Incorrect password. Please try again.'
+        } else {
+          downloadError.value = d.detail || d.error?.message || 'Access denied.'
+        }
+        return
+      }
+      if (!res.ok) {
+        const d = await res.json().catch(() => ({}))
+        throw new Error(d.detail || d.error?.message || 'Download failed.')
+      }
+      const blob = await res.blob()
+      const objectUrl = URL.createObjectURL(blob)
+      const a = document.createElement('a')
+      a.href = objectUrl
+      a.download = file.value.name
+      document.body.appendChild(a)
+      a.click()
+      document.body.removeChild(a)
+      URL.revokeObjectURL(objectUrl)
+      downloadStarted.value = true
+    } else {
+      const a = document.createElement('a')
+      a.href = downloadUrl
+      a.download = file.value.name
+      document.body.appendChild(a)
+      a.click()
+      document.body.removeChild(a)
+    }
   } catch (e) {
     downloadError.value = e.message
   } finally {

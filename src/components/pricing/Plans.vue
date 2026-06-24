@@ -32,7 +32,7 @@
       </div>
 
       <!-- Plan cards -->
-      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 items-start">
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-5 items-start">
         <div
           v-for="plan in PLANS" :key="plan.slug"
           class="relative flex flex-col rounded-2xl border transition-all duration-300"
@@ -41,8 +41,8 @@
             : 'card hover:shadow-glow hover:border-brand-400/30'"
         >
           <!-- Badge -->
-          <div v-if="plan.badgeKey" class="absolute -top-3.5 left-1/2 -translate-x-1/2 z-10">
-            <span class="px-4 py-1 rounded-full text-xs font-bold uppercase tracking-wider shadow-md"
+          <div v-if="plan.badgeKey" class="absolute -top-3.5 left-1/2 -translate-x-1/2 z-10 w-full flex justify-center px-2">
+            <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wide shadow-md whitespace-nowrap"
               :class="plan.featured ? 'bg-amber-400 text-amber-900' : 'bg-zinc-800 text-zinc-100'">
               {{ t(plan.badgeKey) }}
             </span>
@@ -85,19 +85,48 @@
 
             <!-- Features -->
             <ul class="space-y-3 flex-1">
-              <li v-for="(_, fi) in plan.featureKeys" :key="fi"
+              <!-- Storage and per-file come directly from plans.js -->
+              <li class="flex items-start gap-2.5 text-sm" :class="plan.featured ? 'text-brand-100' : 'text-zinc-600 dark:text-zinc-400'">
+                <svg class="w-4 h-4 shrink-0 mt-0.5" :class="plan.featured ? 'text-brand-300' : 'text-brand-500'" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/>
+                </svg>
+                {{ plan.storage }} storage
+              </li>
+              <li class="flex items-start gap-2.5 text-sm" :class="plan.featured ? 'text-brand-100' : 'text-zinc-600 dark:text-zinc-400'">
+                <svg class="w-4 h-4 shrink-0 mt-0.5" :class="plan.featured ? 'text-brand-300' : 'text-brand-500'" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/>
+                </svg>
+                {{ plan.perFile }} per file
+              </li>
+              <!-- Retention -->
+              <li v-if="plan.retention" class="flex items-start gap-2.5 text-sm">
+                <template v-if="plan.retention === 'Forever'">
+                  <span class="shrink-0 mt-0.5 text-base leading-none font-black" :class="plan.featured ? 'text-brand-300' : 'text-brand-500'">∞</span>
+                  <span :class="plan.featured ? 'text-brand-100' : 'text-zinc-600 dark:text-zinc-400'">
+                    <strong :class="plan.featured ? 'text-white' : 'text-zinc-900 dark:text-white'">Files kept forever</strong> — never auto-deleted
+                  </span>
+                </template>
+                <template v-else>
+                  <svg class="w-4 h-4 shrink-0 mt-0.5 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                  </svg>
+                  <span :class="plan.featured ? 'text-brand-100' : 'text-zinc-600 dark:text-zinc-400'">Files kept for {{ plan.retention }}</span>
+                </template>
+              </li>
+              <!-- Rest of features from i18n (skip f1/f2 which were storage/perFile) -->
+              <li v-for="(_, fi) in plan.featureKeys.slice(2)" :key="fi"
                 class="flex items-start gap-2.5 text-sm"
                 :class="plan.featured ? 'text-brand-100' : 'text-zinc-600 dark:text-zinc-400'">
                 <svg class="w-4 h-4 shrink-0 mt-0.5" :class="plan.featured ? 'text-brand-300' : 'text-brand-500'"
                   fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/>
                 </svg>
-                {{ t(`plans.${plan.slug}_f${fi + 1}`) }}
+                {{ t(`plans.${plan.slug}_f${fi + 3}`) }}
               </li>
             </ul>
 
             <!-- CTA -->
-            <a :href="plan.ctaHref"
+            <a :href="ctaHref(plan)"
               class="block w-full text-center py-3.5 rounded-xl font-bold text-sm transition-all duration-200"
               :class="plan.featured ? 'bg-white text-brand-700 hover:bg-brand-50 shadow-md' : 'btn-primary'">
               {{ t(`plans.${plan.slug}_cta`) }}
@@ -122,10 +151,23 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { PLANS } from '../../data/plans.js'
 
 const { t } = useI18n()
 const billing = ref('monthly')
+const isAuth = ref(false)
+
+onMounted(() => {
+  isAuth.value = !!window.__USER__?.isAuthenticated || !!localStorage.getItem('access_token')
+})
+
+function ctaHref(plan) {
+  if (!plan.price.monthly) return plan.ctaHref
+  const annualSuffix = billing.value === 'yearly' ? '&billing=annual' : ''
+  if (isAuth.value) return `/checkout?plan=${plan.slug}${annualSuffix}`
+  const base = plan.ctaHref  // e.g. /register?plan=premium
+  return billing.value === 'yearly' ? `${base}&billing=annual` : base
+}
 </script>

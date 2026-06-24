@@ -184,9 +184,9 @@ async function canvasFingerprint() {
     ctx.fillStyle = '#f60'
     ctx.fillRect(125, 1, 62, 20)
     ctx.fillStyle = '#069'
-    ctx.fillText('VaultDrop🔒', 2, 15)
+    ctx.fillText('Filesterr🔒', 2, 15)
     ctx.fillStyle = 'rgba(102,204,0,0.7)'
-    ctx.fillText('VaultDrop🔒', 4, 17)
+    ctx.fillText('Filesterr🔒', 4, 17)
     return c.toDataURL().slice(-50) // last 50 chars = unique hash
   } catch { return null }
 }

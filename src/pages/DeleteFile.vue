@@ -50,7 +50,7 @@
           <p class="text-zinc-400 text-sm mb-8">
             The file and its download link have been permanently removed.
           </p>
-          <a href="/" class="btn-primary w-full justify-center">Back to VaultDrop</a>
+          <a href="/" class="btn-primary w-full justify-center">Back to Filesterr</a>
         </template>
 
         <!-- Error state -->
@@ -65,7 +65,7 @@
       <!-- Logo -->
       <div class="text-center mt-8">
         <a href="/" class="font-display font-bold text-lg text-zinc-400 hover:text-brand-500 transition-colors">
-          VaultDrop
+          Filesterr
         </a>
       </div>
     </div>
@@ -83,9 +83,13 @@ const errorMsg = ref('')
 async function deleteFile() {
   state.value = 'loading'
   try {
+    const token = typeof localStorage !== 'undefined' ? localStorage.getItem('access_token') : null
     const res = await fetch(`/api/v1/files/delete/${route.params.token}/`, {
       method: 'DELETE',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+        ...(token ? { Authorization: `Bearer ${token}` } : {}),
+      },
     })
     if (!res.ok) {
       const data = await res.json().catch(() => ({}))

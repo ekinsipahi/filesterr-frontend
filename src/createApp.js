@@ -1,7 +1,10 @@
 import { createSSRApp } from 'vue'
 import { createRouter, createMemoryHistory, createWebHistory } from 'vue-router'
+import { createHead } from '@vueuse/head'
 import { createAppI18n, SUPPORTED_LOCALES, RTL_LOCALES } from './i18n/index.js'
 import App from './App.vue'
+import { authRoutes } from './router/index.js'
+
 
 const LOCALE_PATTERN = SUPPORTED_LOCALES.join('|')
 
@@ -13,6 +16,8 @@ export function createApp(ssrLocale) {
       ? createMemoryHistory()
       : createWebHistory(),
     routes: [
+      // OAuth callback + reset-password: no locale prefix (URLs registered externally)
+      ...authRoutes,
       {
         path: `/:locale(${LOCALE_PATTERN})?`,
         component: () => import('./components/layout/DefaultLayout.vue'),
@@ -28,6 +33,9 @@ export function createApp(ssrLocale) {
           { path: 'login',         name: 'login',     component: () => import('./pages/auth/Login.vue'),    meta: { layout: 'auth', redirectIfAuth: true } },
           { path: 'register',      name: 'register',  component: () => import('./pages/auth/Register.vue'), meta: { layout: 'auth', redirectIfAuth: true } },
           { path: 'forgot',        name: 'forgot',    component: () => import('./pages/auth/Forgot.vue'),   meta: { layout: 'auth' } },
+          { path: 'dashboard',            name: 'dashboard',  component: () => import('./pages/Dashboard.vue'),          meta: { requiresAuth: true } },
+          { path: 'dashboard/analytics', name: 'dash-analytics', component: () => import('./pages/DashboardAnalytics.vue'), meta: { requiresAuth: true } },
+          { path: 'checkout',      name: 'checkout',  component: () => import('./pages/Checkout.vue'),  meta: { bare: true } },
 
           // ── File actions ──
           { path: 'f/:id',         name: 'download',  component: () => import('./pages/Download.vue') },
@@ -57,16 +65,27 @@ export function createApp(ssrLocale) {
 
     // 2. Redirect already-logged-in users away from auth pages
     if (to.meta.redirectIfAuth && typeof window !== 'undefined') {
-      const isAuth = window.__USER__?.isAuthenticated
+      const isAuth = window.__USER__?.isAuthenticated || !!localStorage.getItem('access_token')
       if (isAuth) {
         return { name: 'home', params: to.params }
       }
     }
+
+    // 3. Guard auth-required pages
+    if (to.meta.requiresAuth && typeof window !== 'undefined') {
+      const isAuth = window.__USER__?.isAuthenticated || !!localStorage.getItem('access_token')
+      if (!isAuth) {
+        return { name: 'login', query: { next: to.fullPath } }
+      }
+    }
   })
+
+  const head = createHead()
 
   const app = createSSRApp(App)
   app.use(router)
   app.use(i18n)
+  app.use(head)
 
-  return { app, router, i18n }
+  return { app, router, i18n, head }
 }

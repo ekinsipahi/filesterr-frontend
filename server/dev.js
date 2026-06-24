@@ -7,7 +7,7 @@ import { networkInterfaces } from 'os'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 const ROOT = resolve(__dirname, '..')
-const PORT = process.env.PORT || 3001
+const PORT = process.env.PORT || 3000
 const LOCALES = ['tr', 'de', 'fr', 'es', 'ar']
 
 // WSL'de gerçek eth0 IP'sini bul
@@ -29,13 +29,21 @@ function getNetworkIP() {
 async function start() {
   const app = express()
   const networkIP = getNetworkIP()
+  const API_TARGET = process.env.API_TARGET || 'http://localhost:8000'
 
   const vite = await createViteServer({
     root: ROOT,
     server: {
       middlewareMode: true,
+      // Proxy /api/* to Django. Passed here directly because vite.config.js
+      // proxy is not applied when Vite runs in middlewareMode inside Express.
+      proxy: {
+        '/api': {
+          target: API_TARGET,
+          changeOrigin: true,
+        },
+      },
       // HMR: WSL'de browser localhost'ta, Vite WSL IP'sinde
-      // host: localhost = browser WebSocket'i buraya açar
       hmr: {
         host: 'localhost',
         port: 24678,

@@ -1,40 +1,28 @@
 /**
  * useUpload
  *
- * Client-side pipeline:
- * 1. File picked/dropped → cache it in memory
- * 2. Client-side checks: size, type blacklist, name
- * 3. MD5 hash (SparkMD5 via CDN or inline)
- * 4. User clicks Upload → send to backend
+ * Pipeline:
+ * 1. File picked/dropped → validate size against user's plan
+ * 2. Compute SHA-256 partial hash (UX indicator)
+ * 3. User clicks Upload → POST multipart to /api/v1/files/upload/
+ * 4. On success → result with shareUrl, deleteUrl, isAnonymous flag
  *
- * Backend receives: hash (dedup check), chunks
+ * Plan limits mirror backend PLAN_CONFIG.file_size_limit exactly.
  */
+import { ref, computed, onMounted } from 'vue'
 
-import { ref, computed } from 'vue'
-
-// Max sizes per plan
-const LIMITS = {
-  anonymous: 1   * 1024 * 1024 * 1024,  // 1 GB
-  free:      5   * 1024 * 1024 * 1024,  // 5 GB
-  premium:   50  * 1024 * 1024 * 1024,  // 50 GB
-  pro:       Infinity,
+// Must match backend PLAN_CONFIG['file_size_limit']
+const PLAN_FILE_LIMITS = {
+  anonymous: 200  * 1024 * 1024,          // 200 MB
+  free:        1  * 1024 * 1024 * 1024,   // 1 GB
+  premium:     5  * 1024 * 1024 * 1024,   // 5 GB
+  pro:        20  * 1024 * 1024 * 1024,   // 20 GB
+  promax:     50  * 1024 * 1024 * 1024,   // 50 GB
 }
 
-const BLOCKED_EXTENSIONS = [
-  '.exe', '.msi', '.bat', '.cmd', '.com', '.scr', '.pif',
-  '.vbs', '.js', '.jse', '.wsf', '.wsh', '.ps1', '.reg',
-]
-
-const CHUNK_SIZE = 5 * 1024 * 1024  // 5 MB
-
-// MD5 — inline implementation (no dep needed for this)
-// We use SubtleCrypto SHA-256 for hash (MD5 not available in SubtleCrypto)
 async function computeHash(file) {
-  // Read first 1MB + last 1MB + middle 1MB for speed
-  // Full hash would be too slow for large files in browser
   const MB = 1024 * 1024
   const chunks = []
-
   if (file.size <= 3 * MB) {
     chunks.push(await file.arrayBuffer())
   } else {
@@ -43,96 +31,81 @@ async function computeHash(file) {
     chunks.push(await file.slice(mid, mid + MB).arrayBuffer())
     chunks.push(await file.slice(file.size - MB).arrayBuffer())
   }
-
-  // Combine and hash with SHA-256
   const combined = new Uint8Array(chunks.reduce((acc, c) => acc + c.byteLength, 0))
   let offset = 0
-  for (const chunk of chunks) {
-    combined.set(new Uint8Array(chunk), offset)
-    offset += chunk.byteLength
-  }
-
-  const hashBuffer = await crypto.subtle.digest('SHA-256', combined)
-  const hashArray = Array.from(new Uint8Array(hashBuffer))
-  return hashArray.map(b => b.toString(16).padStart(2, '0')).join('')
+  for (const chunk of chunks) { combined.set(new Uint8Array(chunk), offset); offset += chunk.byteLength }
+  const buf = await crypto.subtle.digest('SHA-256', combined)
+  return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('')
 }
 
-export function useUpload(planOverride = null) {
-  // State
-  const cachedFile = ref(null)        // File object in memory
-  const fileHash = ref(null)          // SHA-256 hash
-  const hashProgress = ref(0)         // 0-100 while hashing
-  const isHashing = ref(false)
-  const uploadProgress = ref(0)       // 0-100 while uploading
-  const isUploading = ref(false)
-  const result = ref(null)            // { shareUrl, deleteUrl, name, size }
-  const error = ref(null)
-  const stage = ref('idle')           // idle | checking | hashing | ready | uploading | done | error
+export function useUpload() {
+  const cachedFile     = ref(null)
+  const fileHash       = ref(null)
+  const hashProgress   = ref(0)
+  const isHashing      = ref(false)
+  const uploadProgress = ref(0)
+  const isUploading    = ref(false)
+  const result         = ref(null)
+  const error          = ref(null)
+  const stage          = ref('idle') // idle|checking|hashing|ready|uploading|done|error
 
-  // Derived
-  const plan = computed(() => {
-    if (planOverride) return planOverride
-    if (typeof window !== 'undefined') return window.__USER__?.plan || 'anonymous'
+  // entry-client.js populates window.__USER__ before mount; fall back to localStorage cache
+  function _resolvePlan() {
+    if (typeof window === 'undefined') return 'anonymous'
+    if (window.__USER__?.plan) return window.__USER__.plan
+    try {
+      const cached = JSON.parse(localStorage.getItem('cached_user') || 'null')
+      if (cached?.plan) return cached.plan
+    } catch {}
     return 'anonymous'
+  }
+
+  const plan      = ref(_resolvePlan())
+  const sizeLimit = computed(() => PLAN_FILE_LIMITS[plan.value] ?? PLAN_FILE_LIMITS.anonymous)
+
+  onMounted(() => {
+    // Re-read after mount in case window.__USER__ updated after SSR hydration
+    plan.value = _resolvePlan()
   })
+  const readableSize = computed(() => cachedFile.value ? formatSize(cachedFile.value.size) : '')
+  const isReady   = computed(() => stage.value === 'ready' || stage.value === 'captcha')
 
-  const sizeLimit = computed(() => LIMITS[plan.value] ?? LIMITS.anonymous)
-
-  const readableSize = computed(() => {
-    if (!cachedFile.value) return ''
-    return formatSize(cachedFile.value.size)
-  })
-
-  const isReady = computed(() => stage.value === 'ready')
-
-  // ── Step 1: Accept file ──
+  // ── Step 1: Accept file ─────────────────────────────────────────────────
   async function acceptFile(file) {
-    error.value = null
+    error.value  = null
     result.value = null
     fileHash.value = null
-    stage.value = 'checking'
+    stage.value  = 'checking'
 
-    // Size check
-    if (file.size > sizeLimit.value) {
-      const limit = formatSize(sizeLimit.value)
-      error.value = `File too large. Your plan allows up to ${limit}. Upgrade for larger uploads.`
-      stage.value = 'error'
-      return false
-    }
-
-    // Empty file
     if (file.size === 0) {
       error.value = 'File is empty.'
       stage.value = 'error'
       return false
     }
 
-    // Extension blacklist
-    const ext = '.' + file.name.split('.').pop().toLowerCase()
-    if (BLOCKED_EXTENSIONS.includes(ext)) {
-      error.value = `File type "${ext}" is not allowed for security reasons.`
+    if (file.size > sizeLimit.value) {
+      const planName = plan.value === 'anonymous' ? 'anonymous users' : `your ${plan.value} plan`
+      error.value = `File exceeds the ${formatSize(sizeLimit.value)} limit for ${planName}.`
+      if (plan.value === 'anonymous' || plan.value === 'free') {
+        error.value += ' Upgrade for larger uploads.'
+      }
       stage.value = 'error'
       return false
     }
 
-    // Cache the file
     cachedFile.value = file
-    stage.value = 'hashing'
-
-    // ── Step 2: Hash ──
-    isHashing.value = true
+    stage.value      = 'hashing'
+    isHashing.value  = true
     hashProgress.value = 0
+
     try {
-      // Simulate progress (hashing is fast, just UX)
       const ticker = setInterval(() => {
-        if (hashProgress.value < 85) hashProgress.value += 15
-      }, 80)
-
+        if (hashProgress.value < 85) hashProgress.value += 18
+      }, 70)
       fileHash.value = await computeHash(file)
-
       clearInterval(ticker)
       hashProgress.value = 100
-    } catch (e) {
+    } catch {
       error.value = 'Could not read file. Please try again.'
       stage.value = 'error'
       return false
@@ -140,90 +113,65 @@ export function useUpload(planOverride = null) {
       isHashing.value = false
     }
 
-    stage.value = 'ready'
+    stage.value = 'captcha'
     return true
   }
 
-  // ── Step 3: Upload (called by user clicking button) ──
-  async function upload() {
-    if (!cachedFile.value || !fileHash.value) {
-      error.value = 'No file selected.'
-      return false
-    }
+  // ── Step 2: Upload ──────────────────────────────────────────────────────
+  async function upload(captchaToken = '', options = {}) {
+    if (!cachedFile.value) { error.value = 'No file selected.'; return false }
 
-    error.value = null
+    error.value      = null
     isUploading.value = true
-    stage.value = 'uploading'
+    stage.value      = 'uploading'
     uploadProgress.value = 0
 
     try {
-      const csrf = getCsrf()
-      const headers = { 'Content-Type': 'application/json', 'X-CSRFToken': csrf }
+      const fd = new FormData()
+      fd.append('file', cachedFile.value)
+      if (captchaToken)       fd.append('cf_turnstile_response', captchaToken)
+      if (options.password)   fd.append('password', options.password)
+      if (options.isOneTime)  fd.append('is_one_time', 'true')
+      if (options.expiresIn)  fd.append('expires_in', String(options.expiresIn))
 
-      // 1. Init — send hash for dedup check
-      const initRes = await fetch('/api/v1/files/upload/init/', {
-        method: 'POST',
-        headers,
-        body: JSON.stringify({
-          filename: cachedFile.value.name,
-          size: cachedFile.value.size,
-          type: cachedFile.value.type || 'application/octet-stream',
-          hash: fileHash.value,
-          plan: plan.value,
-        }),
+      const token = typeof localStorage !== 'undefined' ? localStorage.getItem('access_token') ?? '' : ''
+      const csrf  = typeof document !== 'undefined' ? (document.cookie.match(/csrftoken=([^;]+)/)?.[1] ?? '') : ''
+
+      const data = await new Promise((resolve, reject) => {
+        const xhr = new XMLHttpRequest()
+        xhr.open('POST', '/api/v1/files/upload/')
+        if (token)  xhr.setRequestHeader('Authorization', `Bearer ${token}`)
+        if (csrf)   xhr.setRequestHeader('X-CSRFToken', csrf)
+
+        xhr.upload.onprogress = (e) => {
+          if (e.lengthComputable) uploadProgress.value = Math.min(99, Math.round((e.loaded / e.total) * 100))
+        }
+
+        xhr.onload = () => {
+          uploadProgress.value = 100
+          try {
+            const json = JSON.parse(xhr.responseText)
+            if (xhr.status >= 200 && xhr.status < 300) {
+              resolve(json)
+            } else {
+              reject(new Error(json?.error?.message || `Upload failed (${xhr.status})`))
+            }
+          } catch {
+            reject(new Error(`Upload failed (${xhr.status})`))
+          }
+        }
+        xhr.onerror = () => reject(new Error('Network error. Please check your connection.'))
+        xhr.send(fd)
       })
-
-      if (!initRes.ok) {
-        const d = await initRes.json().catch(() => ({}))
-        throw new Error(d.error || `Server error ${initRes.status}`)
-      }
-
-      const { uploadId, alreadyExists, shareUrl: existingUrl, deleteUrl: existingDeleteUrl } = await initRes.json()
-
-      // Dedup: same hash already on server
-      if (alreadyExists) {
-        result.value = { name: cachedFile.value.name, size: cachedFile.value.size, shareUrl: existingUrl, deleteUrl: existingDeleteUrl }
-        uploadProgress.value = 100
-        stage.value = 'done'
-        return true
-      }
-
-      // 2. Upload chunks
-      const total = Math.ceil(cachedFile.value.size / CHUNK_SIZE)
-      for (let i = 0; i < total; i++) {
-        const start = i * CHUNK_SIZE
-        const end = Math.min(start + CHUNK_SIZE, cachedFile.value.size)
-        const fd = new FormData()
-        fd.append('upload_id', uploadId)
-        fd.append('chunk_index', String(i))
-        fd.append('total_chunks', String(total))
-        fd.append('chunk', cachedFile.value.slice(start, end))
-
-        const chunkRes = await fetch('/api/v1/files/upload/chunk/', {
-          method: 'POST',
-          headers: { 'X-CSRFToken': csrf },
-          body: fd,
-        })
-
-        if (!chunkRes.ok) throw new Error(`Chunk ${i} failed`)
-        uploadProgress.value = Math.round(((i + 1) / total) * 100)
-      }
-
-      // 3. Finalize
-      const finalRes = await fetch('/api/v1/files/upload/finalize/', {
-        method: 'POST',
-        headers,
-        body: JSON.stringify({ upload_id: uploadId, hash: fileHash.value }),
-      })
-
-      if (!finalRes.ok) throw new Error('Finalize failed')
-      const data = await finalRes.json()
 
       result.value = {
-        name: cachedFile.value.name,
-        size: cachedFile.value.size,
-        shareUrl: data.shareUrl,
-        deleteUrl: data.deleteUrl,
+        name:        data.original_name,
+        size:        data.size,
+        shareUrl:    `/f/${data.share_token}`,
+        deleteUrl:   `/delete/${data.share_token}`,
+        isAnonymous: data.is_anonymous,
+        fileId:      data.id,
+        visitorId:   typeof localStorage !== 'undefined' ? getCookieVisitorId() : null,
       }
 
       stage.value = 'done'
@@ -238,34 +186,33 @@ export function useUpload(planOverride = null) {
   }
 
   function reset() {
-    cachedFile.value = null
-    fileHash.value = null
-    hashProgress.value = 0
+    cachedFile.value     = null
+    fileHash.value       = null
+    hashProgress.value   = 0
     uploadProgress.value = 0
-    isHashing.value = false
-    isUploading.value = false
-    result.value = null
-    error.value = null
-    stage.value = 'idle'
+    isHashing.value      = false
+    isUploading.value    = false
+    result.value         = null
+    error.value          = null
+    stage.value          = 'idle'
   }
 
   return {
-    // State
     cachedFile, fileHash, hashProgress, uploadProgress,
     isHashing, isUploading, result, error, stage,
     isReady, readableSize, sizeLimit,
-    // Actions
     acceptFile, upload, reset,
   }
 }
 
-// ── Helpers ──
-function getCsrf() {
-  return document.cookie.match(/csrftoken=([^;]+)/)?.[1] || ''
+export function formatSize(bytes) {
+  if (!bytes) return '0 B'
+  if (bytes >= 1099511627776) return `${(bytes / 1099511627776).toFixed(1)} TB`
+  if (bytes >= 1073741824)    return `${(bytes / 1073741824).toFixed(1)} GB`
+  if (bytes >= 1048576)       return `${(bytes / 1048576).toFixed(1)} MB`
+  return `${Math.round(bytes / 1024)} KB`
 }
 
-export function formatSize(bytes) {
-  if (bytes >= 1073741824) return `${(bytes / 1073741824).toFixed(1)} GB`
-  if (bytes >= 1048576)    return `${(bytes / 1048576).toFixed(1)} MB`
-  return `${(bytes / 1024).toFixed(0)} KB`
+function getCookieVisitorId() {
+  return document.cookie.match(/fstr_vid=([^;]+)/)?.[1] ?? null
 }

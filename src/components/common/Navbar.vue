@@ -78,12 +78,28 @@
           </svg>
         </button>
 
-        <RouterLink :to="lp('login')" class="hidden sm:block text-sm font-medium text-zinc-600 dark:text-zinc-400 hover:text-brand-500 transition-colors px-3 py-2">
-          Sign In
-        </RouterLink>
-        <RouterLink :to="lp('register')" class="btn-primary text-sm">
-          Get Started Free
-        </RouterLink>
+        <!-- Authenticated -->
+        <template v-if="isAuth">
+          <a href="/dashboard" class="hidden sm:flex items-center gap-2 text-sm font-medium text-zinc-600 dark:text-zinc-400 hover:text-brand-500 transition-colors px-3 py-2">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zm10 0a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zm10 0a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"/>
+            </svg>
+            Dashboard
+          </a>
+          <button @click="signOut" class="btn-ghost text-sm">
+            Sign Out
+          </button>
+        </template>
+
+        <!-- Guest -->
+        <template v-else>
+          <RouterLink :to="lp('login')" class="hidden sm:block text-sm font-medium text-zinc-600 dark:text-zinc-400 hover:text-brand-500 transition-colors px-3 py-2">
+            Sign In
+          </RouterLink>
+          <RouterLink :to="lp('register')" class="btn-primary text-sm">
+            Get Started Free
+          </RouterLink>
+        </template>
 
         <!-- Mobile burger -->
         <button
@@ -115,8 +131,14 @@
           @click="mobileOpen = false"
         >Reviews</a>
         <div class="pt-3 border-t border-zinc-200 dark:border-zinc-800 flex gap-3">
-          <RouterLink :to="lp('login')"    class="btn-ghost text-sm flex-1 justify-center" @click="mobileOpen = false">Sign In</RouterLink>
-          <RouterLink :to="lp('register')" class="btn-primary text-sm flex-1 justify-center" @click="mobileOpen = false">Get Started</RouterLink>
+          <template v-if="isAuth">
+            <a href="/dashboard" class="btn-ghost text-sm flex-1 justify-center" @click="mobileOpen = false">Dashboard</a>
+            <button @click="signOut" class="btn-primary text-sm flex-1 justify-center">Sign Out</button>
+          </template>
+          <template v-else>
+            <RouterLink :to="lp('login')"    class="btn-ghost text-sm flex-1 justify-center" @click="mobileOpen = false">Sign In</RouterLink>
+            <RouterLink :to="lp('register')" class="btn-primary text-sm flex-1 justify-center" @click="mobileOpen = false">Get Started</RouterLink>
+          </template>
         </div>
       </div>
     </Transition>
@@ -131,6 +153,7 @@ import { useTheme } from '../../composables/useTheme.js'
 import { useLocalePath } from '../../composables/useLocalePath.js'
 import { SUPPORTED_LOCALES, LOCALE_NAMES, LOCALE_FLAGS } from '../../i18n/index.js'
 import { onClickOutside } from '@vueuse/core'
+import { clearAuth } from '../../api/index.js'
 
 const { locale } = useI18n()
 const { isDark, init, toggle } = useTheme()
@@ -140,6 +163,13 @@ const scrolled   = ref(false)
 const mobileOpen = ref(false)
 const langOpen   = ref(false)
 const langEl     = ref(null)
+const isAuth     = ref(false)
+
+function signOut() {
+  clearAuth()
+  mobileOpen.value = false
+  window.location.href = '/'
+}
 
 const localeNames = LOCALE_NAMES
 const flags       = LOCALE_FLAGS
@@ -169,6 +199,7 @@ function switchLocale(loc) {
 let onScroll
 onMounted(() => {
   init()
+  isAuth.value = !!window.__USER__?.isAuthenticated || !!localStorage.getItem('access_token')
   onScroll = () => { scrolled.value = window.scrollY > 30 }
   window.addEventListener('scroll', onScroll, { passive: true })
 })

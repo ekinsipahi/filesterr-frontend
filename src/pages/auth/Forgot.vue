@@ -59,6 +59,7 @@
 <script setup>
 import { ref, reactive } from 'vue'
 import AuthLayout from '../../components/layout/AuthLayout.vue'
+import { forgotPassword } from '../../api/index.js'
 import { useHead } from '@vueuse/head'
 
 useHead({
@@ -73,13 +74,10 @@ const sent = ref(false)
 async function onSubmit() {
   loading.value = true
   try {
-    const csrf = document.cookie.match(/csrftoken=([^;]+)/)?.[1] || ''
-    await fetch('/api/v1/auth/password-reset/', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'X-CSRFToken': csrf },
-      body: JSON.stringify({ email: form.email }),
-    })
-    // Always show success (security — don't leak if email exists)
+    await forgotPassword(form.email)
+    sent.value = true
+  } catch {
+    // Always show success — don't leak whether email exists
     sent.value = true
   } finally {
     loading.value = false

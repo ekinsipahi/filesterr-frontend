@@ -1,5 +1,5 @@
 <template>
-  <section class="relative min-h-screen flex items-center pt-28 pb-20 overflow-hidden">
+  <section class="relative min-h-screen flex items-center pt-28 pb-20 overflow-hidden" id="hero">
 
     <!-- ░░ MATRIX CANVAS — sağdan sola akan arka plan ░░ -->
     <canvas
@@ -71,16 +71,76 @@
         </div>
 
         <!-- Upload widget -->
-        <div class="relative animate-float">
-          <div class="absolute -inset-6 bg-brand-500/10 blur-3xl rounded-3xl" />
-          <div class="relative card p-8 shadow-2xl">
-            <div class="flex items-center gap-2 mb-6 pb-5 border-b border-zinc-100 dark:border-zinc-800">
-              <div class="w-3 h-3 rounded-full bg-red-400/80" />
-              <div class="w-3 h-3 rounded-full bg-amber-400/80" />
-              <div class="w-3 h-3 rounded-full bg-green-400/80" />
-              <span class="ml-auto font-mono text-xs text-zinc-400">filesterr.com</span>
+        <div class="relative">
+          <!-- Glow halo — static, no animation -->
+          <div class="absolute -inset-px rounded-2xl bg-gradient-to-br from-brand-500/20 via-transparent to-brand-400/10 pointer-events-none" />
+          <div class="relative bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-2xl shadow-2xl overflow-hidden">
+
+            <!-- Toolbar -->
+            <div class="flex items-center gap-2 px-5 py-4 border-b border-zinc-100 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900">
+              <div class="w-2.5 h-2.5 rounded-full bg-red-400/70" />
+              <div class="w-2.5 h-2.5 rounded-full bg-amber-400/70" />
+              <div class="w-2.5 h-2.5 rounded-full bg-green-400/70" />
+              <span class="ml-auto font-mono text-[11px] text-zinc-400">filesterr.com</span>
             </div>
-            <UploadWidget />
+
+            <!-- Upload widget -->
+            <div class="p-5">
+              <UploadWidget />
+            </div>
+
+            <!-- What you get strip -->
+            <div class="border-t border-zinc-100 dark:border-zinc-800 bg-zinc-50/60 dark:bg-zinc-950/40 px-5 py-4">
+              <p class="text-[10px] font-semibold text-zinc-400 uppercase tracking-wider mb-3">After upload you instantly get</p>
+              <div class="grid grid-cols-3 gap-3">
+                <div class="flex flex-col gap-1">
+                  <div class="w-7 h-7 rounded-lg bg-brand-50 dark:bg-brand-900/30 flex items-center justify-center">
+                    <svg class="w-3.5 h-3.5 text-brand-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/>
+                    </svg>
+                  </div>
+                  <p class="text-[11px] font-semibold text-zinc-700 dark:text-zinc-300">Share link</p>
+                  <p class="text-[10px] text-zinc-400 leading-tight">Copy & send instantly</p>
+                </div>
+                <div class="flex flex-col gap-1">
+                  <div class="w-7 h-7 rounded-lg bg-violet-50 dark:bg-violet-900/30 flex items-center justify-center">
+                    <svg class="w-3.5 h-3.5 text-violet-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+                    </svg>
+                  </div>
+                  <p class="text-[11px] font-semibold text-zinc-700 dark:text-zinc-300">Analytics</p>
+                  <p class="text-[10px] text-zinc-400 leading-tight">Who, when, where</p>
+                </div>
+                <div class="flex flex-col gap-1">
+                  <div class="w-7 h-7 rounded-lg bg-red-50 dark:bg-red-900/30 flex items-center justify-center">
+                    <svg class="w-3.5 h-3.5 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+                    </svg>
+                  </div>
+                  <p class="text-[11px] font-semibold text-zinc-700 dark:text-zinc-300">Delete link</p>
+                  <p class="text-[10px] text-zinc-400 leading-tight">Remove anytime</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Live stat bar -->
+            <div class="flex items-center justify-between px-5 py-3 border-t border-zinc-100 dark:border-zinc-800 bg-white dark:bg-zinc-900">
+              <div class="flex items-center gap-1.5">
+                <span class="w-1.5 h-1.5 rounded-full bg-brand-500 inline-block" style="box-shadow:0 0 0 3px rgba(34,163,102,.18)"/>
+                <span class="text-[11px] text-zinc-500">No account needed</span>
+              </div>
+              <div class="flex items-center gap-4">
+                <span class="flex items-center gap-1 text-[11px] text-zinc-400">
+                  <svg class="w-3 h-3 text-brand-400" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                  AES-256
+                </span>
+                <span class="flex items-center gap-1 text-[11px] text-zinc-400">
+                  <svg class="w-3 h-3 text-brand-400" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                  Any file type
+                </span>
+              </div>
+            </div>
+
           </div>
         </div>
 

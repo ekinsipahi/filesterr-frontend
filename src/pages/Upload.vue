@@ -65,10 +65,16 @@ import { getMe, setUserState } from '../api/index.js'
 import { useHead } from '@vueuse/head'
 
 useHead({
-  title: 'Upload a File — Filesterr',
+  title: 'Upload & Share Files Free — No Signup | Filesterr',
   meta: [
-    { name: 'description', content: 'Upload any file anonymously. Get a shareable link instantly. Up to 200MB free — no account needed.' },
-    { name: 'robots', content: 'index, follow' },
+    { name: 'description',        content: 'Upload any file and get a shareable link in seconds. 200MB free, no account needed. Password protection, expiry dates, and real-time download analytics.' },
+    { name: 'robots',             content: 'index, follow' },
+    { property: 'og:title',       content: 'Upload & Share Files Free — No Signup | Filesterr' },
+    { property: 'og:description', content: 'Upload any file. Share a link. See who downloads it. 200MB free — no account, no credit card.' },
+    { property: 'og:image',       content: 'https://filesterr.com/logo.png' },
+    { name: 'twitter:card',       content: 'summary_large_image' },
+    { name: 'twitter:title',      content: 'Upload & Share Files Free — No Signup | Filesterr' },
+    { name: 'twitter:description', content: 'Upload any file. Share a link. See who downloads it. 200MB free.' },
   ],
   link: [{ rel: 'canonical', href: 'https://filesterr.com/upload' }],
 })

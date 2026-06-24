@@ -178,9 +178,21 @@
 <script setup>
 import { ref, computed, onMounted, onUnmounted } from 'vue'
 import { useRoute } from 'vue-router'
+import { useHead } from '@vueuse/head'
 
 const route = useRoute()
 const file = ref(null)
+
+useHead(computed(() => ({
+  title: file.value ? `${file.value.name} — Download on Filesterr` : 'Download File — Filesterr',
+  meta: [
+    { name: 'description',        content: file.value ? `Download "${file.value.name}" on Filesterr — fast, secure file sharing. No account needed.` : 'Secure file download powered by Filesterr.' },
+    { name: 'robots',             content: 'noindex, follow' },
+    { property: 'og:title',       content: file.value ? `${file.value.name} — Filesterr` : 'File Download — Filesterr' },
+    { property: 'og:description', content: 'Secure file sharing powered by Filesterr.' },
+    { property: 'og:image',       content: 'https://filesterr.com/logo.png' },
+  ],
+})))
 const loading = ref(true)
 const error = ref(null)
 const adCountdown = ref(0)
@@ -287,25 +299,38 @@ async function triggerDownload() {
     }).catch(() => {})
 
     const passwordParam = file.value.isPasswordProtected ? `?password=${encodeURIComponent(password.value)}` : ''
-    const downloadUrl = `/api/v1/files/public/${route.params.id}/download/${passwordParam}`
+    const apiUrl = `/api/v1/files/public/${route.params.id}/download/${passwordParam}`
 
-    // For protected/one-time files use fetch so we can handle auth errors
-    if (file.value.isPasswordProtected || file.value.isOneTime) {
-      const res = await fetch(downloadUrl)
-      if (res.status === 401 || res.status === 403) {
-        const d = await res.json().catch(() => ({}))
-        if (res.status === 403) {
-          passwordUnlocked.value = false
-          passwordError.value = 'Incorrect password. Please try again.'
-        } else {
-          downloadError.value = d.detail || d.error?.message || 'Access denied.'
-        }
-        return
+    const res = await fetch(apiUrl)
+
+    if (res.status === 401 || res.status === 403) {
+      const d = await res.json().catch(() => ({}))
+      if (res.status === 403) {
+        passwordUnlocked.value = false
+        passwordError.value = 'Incorrect password. Please try again.'
+      } else {
+        downloadError.value = d.detail || d.error?.message || 'Access denied.'
       }
-      if (!res.ok) {
-        const d = await res.json().catch(() => ({}))
-        throw new Error(d.detail || d.error?.message || 'Download failed.')
-      }
+      return
+    }
+    if (!res.ok) {
+      const d = await res.json().catch(() => ({}))
+      throw new Error(d.detail || d.error?.message || 'Download failed.')
+    }
+
+    const contentType = res.headers.get('content-type') || ''
+
+    if (contentType.includes('application/json')) {
+      // Production (R2): backend returned a short-lived signed URL
+      const { url } = await res.json()
+      const a = document.createElement('a')
+      a.href = url
+      a.rel = 'noopener'
+      document.body.appendChild(a)
+      a.click()
+      document.body.removeChild(a)
+    } else {
+      // Dev (FileSystemStorage): backend streamed the file directly
       const blob = await res.blob()
       const objectUrl = URL.createObjectURL(blob)
       const a = document.createElement('a')
@@ -315,15 +340,8 @@ async function triggerDownload() {
       a.click()
       document.body.removeChild(a)
       URL.revokeObjectURL(objectUrl)
-      downloadStarted.value = true
-    } else {
-      const a = document.createElement('a')
-      a.href = downloadUrl
-      a.download = file.value.name
-      document.body.appendChild(a)
-      a.click()
-      document.body.removeChild(a)
     }
+    downloadStarted.value = true
   } catch (e) {
     downloadError.value = e.message
   } finally {

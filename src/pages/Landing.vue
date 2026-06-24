@@ -21,8 +21,23 @@ import LandingTestimonials from '../components/landing/Testimonials.vue'
 import LandingTrust       from '../components/landing/Trust.vue'
 import LandingFinalCta    from '../components/landing/FinalCta.vue'
 import { useI18n } from 'vue-i18n'
+import { useHead } from '@vueuse/head'
 
 const { t } = useI18n()
+
+useHead({
+  title: 'Filesterr — Free File Sharing with Download Analytics',
+  meta: [
+    { name: 'description',        content: 'Share any file in seconds. See exactly who downloads it — country, device, bot or real person. 200MB free, no signup. Upgrade for 50GB, analytics & more.' },
+    { property: 'og:title',       content: 'Filesterr — Free File Sharing with Download Analytics' },
+    { property: 'og:description', content: 'Upload any file. Share a link. See who downloads it — real-time analytics, bot & proxy detection. 200MB free, no account.' },
+    { property: 'og:image',       content: 'https://filesterr.com/logo.png' },
+    { name: 'twitter:card',       content: 'summary_large_image' },
+    { name: 'twitter:title',      content: 'Filesterr — Free File Sharing with Download Analytics' },
+    { name: 'twitter:description', content: 'Upload any file. Share a link. See who downloads it — real-time analytics, bot & proxy detection. 200MB free.' },
+  ],
+  link: [{ rel: 'canonical', href: 'https://filesterr.com' }],
+})
 
 if (!import.meta.env.SSR) {
   const s = document.createElement('script')

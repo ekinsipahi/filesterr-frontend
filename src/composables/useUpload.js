@@ -62,6 +62,7 @@ export function useUpload() {
 
   const plan      = ref(_resolvePlan())
   const sizeLimit = computed(() => PLAN_FILE_LIMITS[plan.value] ?? PLAN_FILE_LIMITS.anonymous)
+  const errorCode = ref(null)
 
   onMounted(() => {
     // Re-read after mount in case window.__USER__ updated after SSR hydration
@@ -154,7 +155,10 @@ export function useUpload() {
             if (xhr.status >= 200 && xhr.status < 300) {
               resolve(json)
             } else {
-              reject(new Error(json?.error?.message || `Upload failed (${xhr.status})`))
+              const code = json?.error?.code || null
+              const err  = new Error(json?.error?.message || `Upload failed (${xhr.status})`)
+              err.code   = code
+              reject(err)
             }
           } catch {
             reject(new Error(`Upload failed (${xhr.status})`))
@@ -177,8 +181,9 @@ export function useUpload() {
       stage.value = 'done'
       return true
     } catch (e) {
-      error.value = e.message || 'Upload failed. Please try again.'
-      stage.value = 'error'
+      errorCode.value = e.code || null
+      error.value     = e.message || 'Upload failed. Please try again.'
+      stage.value     = 'error'
       return false
     } finally {
       isUploading.value = false
@@ -194,12 +199,13 @@ export function useUpload() {
     isUploading.value    = false
     result.value         = null
     error.value          = null
+    errorCode.value      = null
     stage.value          = 'idle'
   }
 
   return {
     cachedFile, fileHash, hashProgress, uploadProgress,
-    isHashing, isUploading, result, error, stage,
+    isHashing, isUploading, result, error, errorCode, stage,
     isReady, readableSize, sizeLimit,
     acceptFile, upload, reset,
   }

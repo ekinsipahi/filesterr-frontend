@@ -10,9 +10,9 @@
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M6 6l12 12"/>
             </svg>
           </div>
-          <h1 class="font-display text-xl font-extrabold mb-2">Sign in failed</h1>
+          <h1 class="font-display text-xl font-extrabold mb-2">{{ t('auth.oauth.signInFailed') }}</h1>
           <p class="text-sm text-zinc-500 dark:text-zinc-400 mb-6">{{ error }}</p>
-          <a href="/login" class="btn-primary text-sm">Back to Sign In</a>
+          <a href="/login" class="btn-primary text-sm">{{ t('auth.oauth.backToSignIn') }}</a>
         </div>
 
         <!-- Loading -->
@@ -21,7 +21,7 @@
             <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"/>
             <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"/>
           </svg>
-          <p class="text-sm text-zinc-500 dark:text-zinc-400 mt-4">Completing sign in...</p>
+          <p class="text-sm text-zinc-500 dark:text-zinc-400 mt-4">{{ t('auth.oauth.completing') }}</p>
         </div>
 
       </div>
@@ -34,6 +34,9 @@ import { ref, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import AuthLayout from '../../components/layout/AuthLayout.vue'
 import { handleOAuthCallback } from '../../api/index.js'
+import { useI18n } from 'vue-i18n'
+
+const { t } = useI18n()
 
 const route = useRoute()
 const error = ref(null)

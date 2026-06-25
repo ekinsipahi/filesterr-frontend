@@ -11,8 +11,8 @@
             </svg>
           </a>
           <div>
-            <h1 class="font-display text-2xl font-extrabold text-zinc-900 dark:text-white">Visitor Analytics</h1>
-            <p class="text-sm text-zinc-400 mt-0.5">Fingerprint-level visitor intelligence — bot, proxy & VPN detection</p>
+            <h1 class="font-display text-2xl font-extrabold text-zinc-900 dark:text-white">{{ t('dashboardAnalytics.title') }}</h1>
+            <p class="text-sm text-zinc-400 mt-0.5">{{ t('dashboardAnalytics.subtitle') }}</p>
           </div>
         </div>
 
@@ -36,9 +36,9 @@
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
           </svg>
         </div>
-        <h2 class="font-display text-xl font-bold text-zinc-900 dark:text-white mb-2">Pro Plan Required</h2>
-        <p class="text-sm text-zinc-400 mb-6 max-w-sm">Visitor analytics with fingerprinting, bot detection, and heatmaps are available on Pro and Pro Max plans.</p>
-        <a href="/checkout?plan=pro" class="btn-primary text-sm">Upgrade to Pro</a>
+        <h2 class="font-display text-xl font-bold text-zinc-900 dark:text-white mb-2">{{ t('dashboardAnalytics.proRequired') }}</h2>
+        <p class="text-sm text-zinc-400 mb-6 max-w-sm">{{ t('dashboardAnalytics.proRequiredSub') }}</p>
+        <a href="/checkout?plan=pro" class="btn-primary text-sm">{{ t('dashboardAnalytics.upgradeToPro') }}</a>
       </div>
 
       <!-- Loading skeleton -->
@@ -69,15 +69,15 @@
           <div class="lg:col-span-2 card p-6 overflow-hidden">
             <div class="flex items-center justify-between mb-5">
               <div>
-                <h2 class="font-semibold text-zinc-900 dark:text-white text-sm">Download Activity Heatmap</h2>
-                <p class="text-xs text-zinc-400 mt-0.5">Hour of day × day of week (last {{ period }}d)</p>
+                <h2 class="font-semibold text-zinc-900 dark:text-white text-sm">{{ t('dashboardAnalytics.heatmapTitle') }}</h2>
+                <p class="text-xs text-zinc-400 mt-0.5">{{ t('dashboardAnalytics.heatmapSub', { n: period }) }}</p>
               </div>
               <div class="flex items-center gap-1.5 text-[10px] text-zinc-400">
-                <span>Low</span>
+                <span>{{ t('dashboardAnalytics.low') }}</span>
                 <div class="flex gap-0.5">
                   <div v-for="i in 5" :key="i" class="w-3 h-3 rounded-sm" :style="`opacity: ${i * 0.2}; background: var(--color-brand-500, #6366f1)`" />
                 </div>
-                <span>High</span>
+                <span>{{ t('dashboardAnalytics.high') }}</span>
               </div>
             </div>
 
@@ -101,9 +101,9 @@
 
           <!-- ── COUNTRIES ──────────────────────────────────────────────── -->
           <div class="card p-6 flex flex-col">
-            <h2 class="font-semibold text-zinc-900 dark:text-white text-sm mb-4">Top Countries</h2>
+            <h2 class="font-semibold text-zinc-900 dark:text-white text-sm mb-4">{{ t('dashboardAnalytics.topCountries') }}</h2>
             <div v-if="data.countries.length === 0" class="flex-1 flex items-center justify-center text-xs text-zinc-400">
-              No geo data yet
+              {{ t('dashboardAnalytics.noGeoData') }}
             </div>
             <div v-else class="space-y-2.5 flex-1 overflow-auto">
               <div v-for="(c, i) in data.countries" :key="c.code" class="flex items-center gap-3">
@@ -125,12 +125,12 @@
           <!-- ── RECENT VISITORS ────────────────────────────────────────── -->
           <div class="lg:col-span-2 card overflow-hidden">
             <div class="px-5 py-4 border-b border-zinc-100 dark:border-zinc-800 flex items-center justify-between">
-              <h2 class="font-semibold text-zinc-900 dark:text-white text-sm">Recent Visitors</h2>
-              <span class="text-xs text-zinc-400">{{ data.recent_visitors.length }} unique fingerprints</span>
+              <h2 class="font-semibold text-zinc-900 dark:text-white text-sm">{{ t('dashboardAnalytics.recentVisitors') }}</h2>
+              <span class="text-xs text-zinc-400">{{ t('dashboardAnalytics.uniqueFingerprints', { n: data.recent_visitors.length }) }}</span>
             </div>
 
             <div v-if="data.recent_visitors.length === 0" class="px-5 py-12 text-center text-xs text-zinc-400">
-              No visitor data yet — analytics populate as files are viewed.
+              {{ t('dashboardAnalytics.noVisitorData') }}
             </div>
 
             <div v-else class="divide-y divide-zinc-100 dark:divide-zinc-800 max-h-96 overflow-auto">
@@ -154,15 +154,15 @@
                       {{ v.visitor_id.slice(0, 8) }}…
                     </span>
                     <!-- Signal badges -->
-                    <span v-if="v.is_returning" class="px-1.5 py-0.5 rounded-full text-[10px] font-bold bg-brand-50 dark:bg-brand-900/30 text-brand-600 dark:text-brand-400">RETURNING</span>
-                    <span v-if="v.is_bot" class="px-1.5 py-0.5 rounded-full text-[10px] font-bold bg-red-50 dark:bg-red-900/30 text-red-600 dark:text-red-400">BOT</span>
-                    <span v-if="v.is_proxy" class="px-1.5 py-0.5 rounded-full text-[10px] font-bold bg-amber-50 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400">PROXY/VPN</span>
+                    <span v-if="v.is_returning" class="px-1.5 py-0.5 rounded-full text-[10px] font-bold bg-brand-50 dark:bg-brand-900/30 text-brand-600 dark:text-brand-400">{{ t('dashboardAnalytics.returning') }}</span>
+                    <span v-if="v.is_bot" class="px-1.5 py-0.5 rounded-full text-[10px] font-bold bg-red-50 dark:bg-red-900/30 text-red-600 dark:text-red-400">{{ t('dashboardAnalytics.bot') }}</span>
+                    <span v-if="v.is_proxy" class="px-1.5 py-0.5 rounded-full text-[10px] font-bold bg-amber-50 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400">{{ t('dashboardAnalytics.proxyVpn') }}</span>
                     <span v-if="v.risk_score >= 60 && !v.is_bot && !v.is_proxy"
-                      class="px-1.5 py-0.5 rounded-full text-[10px] font-bold bg-orange-50 dark:bg-orange-900/30 text-orange-600 dark:text-orange-400">HIGH RISK</span>
+                      class="px-1.5 py-0.5 rounded-full text-[10px] font-bold bg-orange-50 dark:bg-orange-900/30 text-orange-600 dark:text-orange-400">{{ t('dashboardAnalytics.highRisk') }}</span>
                   </div>
                   <p class="text-[10px] text-zinc-400 mt-0.5">
-                    {{ [v.browser, v.os].filter(Boolean).join(' · ') || 'Unknown browser' }}
-                    · {{ v.event_count }} event{{ v.event_count !== 1 ? 's' : '' }}
+                    {{ [v.browser, v.os].filter(Boolean).join(' · ') || t('dashboardAnalytics.unknownBrowser') }}
+                    · {{ t('dashboardAnalytics.eventSuffix', { n: v.event_count }, v.event_count) }}
                   </p>
                 </div>
 
@@ -171,7 +171,7 @@
                   <CountryFlag v-if="v.country_code" :code="v.country_code" :width="20" :height="15" />
                   <div class="text-right">
                     <div class="text-[10px] font-bold" :class="riskColor(v.risk_score)">{{ v.risk_score }}</div>
-                    <div class="text-[9px] text-zinc-400">risk</div>
+                    <div class="text-[9px] text-zinc-400">{{ t('dashboardAnalytics.riskLabel') }}</div>
                   </div>
                 </div>
               </div>
@@ -183,8 +183,8 @@
 
             <!-- Top files -->
             <div class="card p-5">
-              <h2 class="font-semibold text-zinc-900 dark:text-white text-sm mb-4">Top Files</h2>
-              <div v-if="data.top_files.length === 0" class="text-xs text-zinc-400 text-center py-4">No downloads yet</div>
+              <h2 class="font-semibold text-zinc-900 dark:text-white text-sm mb-4">{{ t('dashboardAnalytics.topFiles') }}</h2>
+              <div v-if="data.top_files.length === 0" class="text-xs text-zinc-400 text-center py-4">{{ t('dashboardAnalytics.noDownloads') }}</div>
               <div v-else class="space-y-2.5">
                 <div v-for="f in data.top_files" :key="f.id" class="flex items-center gap-2">
                   <div class="w-1.5 h-1.5 rounded-full bg-brand-500 shrink-0" />
@@ -196,7 +196,7 @@
 
             <!-- Device breakdown -->
             <div class="card p-5">
-              <h2 class="font-semibold text-zinc-900 dark:text-white text-sm mb-4">Devices</h2>
+              <h2 class="font-semibold text-zinc-900 dark:text-white text-sm mb-4">{{ t('dashboardAnalytics.devices') }}</h2>
               <div class="space-y-2.5">
                 <div v-for="[device, count] in deviceRows" :key="device" class="flex items-center gap-2.5">
                   <svg class="w-3.5 h-3.5 text-zinc-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -227,6 +227,9 @@
 import { ref, computed, onMounted } from 'vue'
 import { useHead } from '@vueuse/head'
 import CountryFlag from '../components/CountryFlag.vue'
+import { useI18n } from 'vue-i18n'
+
+const { t } = useI18n()
 
 useHead({ title: 'Visitor Analytics — Filesterr', meta: [{ name: 'robots', content: 'noindex' }] })
 
@@ -244,37 +247,37 @@ const overviewStats = computed(() => {
   if (!data.value) return []
   const o = data.value.overview
   return [
-    { label: 'Total Views',        value: o.total_views.toLocaleString() },
-    { label: 'Total Downloads',    value: o.total_downloads.toLocaleString() },
-    { label: 'Unique Visitors',    value: o.unique_visitors.toLocaleString() },
+    { label: t('dashboardAnalytics.statTotalViews'),     value: o.total_views.toLocaleString() },
+    { label: t('dashboardAnalytics.statTotalDownloads'), value: o.total_downloads.toLocaleString() },
+    { label: t('dashboardAnalytics.statUniqueVisitors'), value: o.unique_visitors.toLocaleString() },
     {
-      label: 'Returning Visitors',
+      label: t('dashboardAnalytics.statReturning'),
       value: o.returning_visitors.toLocaleString(),
-      sub: `${o.returning_rate_pct}% return rate`,
+      sub: t('dashboardAnalytics.statReturnRate', { pct: o.returning_rate_pct }),
       subClass: 'text-brand-500',
     },
     {
-      label: 'Bot Traffic',
+      label: t('dashboardAnalytics.statBotTraffic'),
       value: o.bot_count.toLocaleString(),
-      sub: `${o.bot_pct}% of events`,
+      sub: t('dashboardAnalytics.statBotPct', { pct: o.bot_pct }),
       subClass: o.bot_pct > 10 ? 'text-red-500' : 'text-zinc-400',
     },
     {
-      label: 'Proxy / VPN',
+      label: t('dashboardAnalytics.statProxyVpn'),
       value: o.proxy_count.toLocaleString(),
-      sub: `${o.proxy_pct}% of events`,
+      sub: t('dashboardAnalytics.statBotPct', { pct: o.proxy_pct }),
       subClass: o.proxy_pct > 15 ? 'text-amber-500' : 'text-zinc-400',
     },
     {
-      label: 'Human Visitors',
+      label: t('dashboardAnalytics.statHuman'),
       value: (o.unique_visitors - o.bot_count).toLocaleString(),
-      sub: `${(100 - o.bot_pct).toFixed(1)}% human`,
+      sub: t('dashboardAnalytics.statHumanPct', { pct: (100 - o.bot_pct).toFixed(1) }),
       subClass: 'text-green-600 dark:text-green-400',
     },
     {
-      label: 'Period',
+      label: t('dashboardAnalytics.statPeriod'),
       value: `${period.value}d`,
-      sub: 'Select above to change',
+      sub: t('dashboardAnalytics.statPeriodSub'),
     },
   ]
 })

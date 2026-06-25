@@ -21,9 +21,9 @@
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01M5.07 19H19a2 2 0 001.75-2.75L13.75 4a2 2 0 00-3.5 0L3.25 16.25A2 2 0 005.07 19z"/>
           </svg>
         </div>
-        <p class="font-semibold mb-2">File Not Found</p>
+        <p class="font-semibold mb-2">{{ t('download.notFound') }}</p>
         <p class="text-sm text-zinc-500 mb-6">{{ error }}</p>
-        <a href="/" class="btn-primary">Go Home</a>
+        <a href="/" class="btn-primary">{{ t('download.goHome') }}</a>
       </div>
 
       <!-- File card -->
@@ -32,14 +32,15 @@
 
           <!-- File header -->
           <div class="flex items-center gap-4 mb-6 pb-6 border-b border-zinc-100 dark:border-zinc-800">
-            <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-brand-600 to-brand-400 flex items-center justify-center shadow-glow shrink-0">
-              <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+            <div class="w-16 h-16 rounded-2xl flex items-center justify-center shrink-0"
+              :class="fileType(file.mimeType).bg">
+              <svg class="w-7 h-7" :class="fileType(file.mimeType).icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" :d="fileType(file.mimeType).path"/>
               </svg>
             </div>
             <div class="min-w-0 flex-1">
               <h1 class="font-display text-xl font-bold truncate">{{ file.name }}</h1>
-              <p class="text-sm text-zinc-400 mt-1">{{ formatSize(file.size) }} · {{ file.mimeType || 'file' }}</p>
+              <p class="text-sm text-zinc-400 mt-1">{{ formatSize(file.size) }} · {{ friendlyMime(file.mimeType) }}</p>
               <!-- Premium badges -->
               <div class="flex items-center gap-2 mt-2 flex-wrap">
                 <span v-if="file.isPasswordProtected"
@@ -47,14 +48,14 @@
                   <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
                   </svg>
-                  Password Protected
+                  {{ t('download.passwordProtected') }}
                 </span>
                 <span v-if="file.isOneTime"
                   class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 text-red-700 dark:text-red-400 text-[10px] font-bold">
                   <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 17h8m0 0V9m0 8l-8-8-4 4-6-6"/>
                   </svg>
-                  One-Time Download
+                  {{ t('download.oneTimeDownload') }}
                 </span>
               </div>
             </div>
@@ -63,15 +64,15 @@
           <!-- File meta -->
           <dl class="grid grid-cols-2 gap-4 mb-6">
             <div>
-              <dt class="text-xs text-zinc-400 uppercase tracking-wider mb-1">Uploaded</dt>
+              <dt class="text-xs text-zinc-400 uppercase tracking-wider mb-1">{{ t('download.uploaded') }}</dt>
               <dd class="text-sm font-medium">{{ formatDate(file.uploadedAt) }}</dd>
             </div>
             <div>
-              <dt class="text-xs text-zinc-400 uppercase tracking-wider mb-1">Downloads</dt>
+              <dt class="text-xs text-zinc-400 uppercase tracking-wider mb-1">{{ t('download.downloads') }}</dt>
               <dd class="text-sm font-medium">{{ file.downloadsCount }}</dd>
             </div>
             <div v-if="file.expiresAt">
-              <dt class="text-xs text-zinc-400 uppercase tracking-wider mb-1">Expires</dt>
+              <dt class="text-xs text-zinc-400 uppercase tracking-wider mb-1">{{ t('download.expires') }}</dt>
               <dd class="text-sm font-medium" :class="isExpiringSoon ? 'text-amber-500' : ''">
                 {{ formatDate(file.expiresAt) }}
               </dd>
@@ -84,8 +85,8 @@
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/>
             </svg>
             <div>
-              <p class="text-xs font-bold text-red-700 dark:text-red-400">One-time access link</p>
-              <p class="text-xs text-red-600 dark:text-red-300 mt-0.5">This file will be permanently deleted after you download it. Make sure you're ready.</p>
+              <p class="text-xs font-bold text-red-700 dark:text-red-400">{{ t('download.oneTimeWarningTitle') }}</p>
+              <p class="text-xs text-red-600 dark:text-red-300 mt-0.5">{{ t('download.oneTimeWarningBody') }}</p>
             </div>
           </div>
 
@@ -95,10 +96,10 @@
               <svg class="inline w-3.5 h-3.5 mr-1 mb-0.5 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
               </svg>
-              Enter password to unlock this file
+              {{ t('download.passwordLabel') }}
             </label>
             <div class="flex gap-2">
-              <input v-model="password" type="password" placeholder="Password"
+              <input v-model="password" type="password" :placeholder="t('download.passwordPlaceholder')"
                 @keydown.enter="unlockPassword"
                 class="flex-1 px-4 py-3 rounded-xl border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 text-sm outline-none focus:ring-2 focus:ring-brand-500/40 focus:border-brand-500"
                 :class="passwordError ? 'border-red-400 dark:border-red-600' : ''" />
@@ -108,7 +109,7 @@
                   <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"/>
                   <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"/>
                 </svg>
-                <span v-else>Unlock</span>
+                <span v-else>{{ t('download.unlock') }}</span>
               </button>
             </div>
             <p v-if="passwordError" class="text-xs text-red-500 mt-2">{{ passwordError }}</p>
@@ -117,7 +118,7 @@
           <!-- Ad countdown gate -->
           <div v-if="showAd && !adDone && (passwordUnlocked || !file.isPasswordProtected)" class="mb-6 p-5 rounded-xl bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700">
             <div class="flex items-center justify-between text-xs text-zinc-500 mb-3">
-              <span>Your download starts in {{ adCountdown }}s</span>
+              <span>{{ t('download.adCountdown', { n: adCountdown }) }}</span>
               <span class="text-brand-500 font-medium">{{ Math.round(((file.adDuration - adCountdown) / file.adDuration) * 100) }}%</span>
             </div>
             <div class="h-1.5 bg-zinc-200 dark:bg-zinc-700 rounded-full overflow-hidden">
@@ -125,11 +126,11 @@
                 :style="`width:${((file.adDuration - adCountdown) / file.adDuration) * 100}%`" />
             </div>
             <div class="mt-4 h-20 rounded-lg bg-zinc-100 dark:bg-zinc-700 flex items-center justify-center text-xs text-zinc-400 border border-dashed border-zinc-300 dark:border-zinc-600">
-              Advertisement
+              {{ t('download.advertisement') }}
             </div>
             <p class="text-center text-xs text-zinc-400 mt-3">
-              Skip ads →
-              <a href="/register?plan=premium" class="text-brand-500 font-medium hover:underline">Get Premium</a>
+              {{ t('download.skipAds') }}
+              <a href="/register?plan=premium" class="text-brand-500 font-medium hover:underline">{{ t('download.getPremium') }}</a>
             </p>
           </div>
 
@@ -164,10 +165,10 @@
             </svg>
           </div>
           <div class="flex-1">
-            <p class="text-sm font-semibold">Download without waiting</p>
-            <p class="text-xs text-zinc-500 mt-0.5">Premium users skip all ads and download instantly.</p>
+            <p class="text-sm font-semibold">{{ t('download.upsellTitle') }}</p>
+            <p class="text-xs text-zinc-500 mt-0.5">{{ t('download.upsellSub') }}</p>
           </div>
-          <a href="/register?plan=premium" class="btn-primary text-xs shrink-0">Go Premium</a>
+          <a href="/register?plan=premium" class="btn-primary text-xs shrink-0">{{ t('download.goPremium') }}</a>
         </div>
       </template>
 
@@ -179,7 +180,9 @@
 import { ref, computed, onMounted, onUnmounted } from 'vue'
 import { useRoute } from 'vue-router'
 import { useHead } from '@vueuse/head'
+import { useI18n } from 'vue-i18n'
 
+const { t } = useI18n()
 const route = useRoute()
 const file = ref(null)
 
@@ -227,9 +230,9 @@ const downloadBtnDisabled = computed(() => {
 })
 
 const downloadBtnLabel = computed(() => {
-  if (downloading.value) return 'Starting download...'
-  if (needsPassword.value) return 'Enter password to download'
-  return 'Download File'
+  if (downloading.value) return t('download.btnStarting')
+  if (needsPassword.value) return t('download.btnEnterPassword')
+  return t('download.btnDownload')
 })
 
 onMounted(async () => {
@@ -307,7 +310,7 @@ async function triggerDownload() {
       const d = await res.json().catch(() => ({}))
       if (res.status === 403) {
         passwordUnlocked.value = false
-        passwordError.value = 'Incorrect password. Please try again.'
+        passwordError.value = t('download.passwordError')
       } else {
         downloadError.value = d.detail || d.error?.message || 'Access denied.'
       }
@@ -358,5 +361,82 @@ function formatSize(b) {
 
 function formatDate(d) {
   return new Date(d).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })
+}
+
+function friendlyMime(mime) {
+  if (!mime) return 'File'
+  const map = {
+    'application/pdf': 'PDF',
+    'application/zip': 'ZIP Archive',
+    'application/x-rar-compressed': 'RAR Archive',
+    'application/x-7z-compressed': '7-Zip Archive',
+    'application/x-tar': 'TAR Archive',
+    'application/msword': 'Word Document',
+    'application/vnd.openxmlformats-officedocument.wordprocessingml.document': 'Word Document',
+    'application/vnd.ms-excel': 'Excel Spreadsheet',
+    'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet': 'Excel Spreadsheet',
+    'application/vnd.ms-powerpoint': 'PowerPoint',
+    'application/vnd.openxmlformats-officedocument.presentationml.presentation': 'PowerPoint',
+    'text/plain': 'Text File',
+    'text/csv': 'CSV File',
+  }
+  if (map[mime]) return map[mime]
+  if (mime.startsWith('image/')) return mime.replace('image/', '').toUpperCase() + ' Image'
+  if (mime.startsWith('video/')) return mime.replace('video/', '').toUpperCase() + ' Video'
+  if (mime.startsWith('audio/')) return mime.replace('audio/', '').toUpperCase() + ' Audio'
+  if (mime.startsWith('text/')) return 'Text File'
+  return mime.split('/')[1]?.toUpperCase() || 'File'
+}
+
+function fileType(mime) {
+  if (!mime) return defaults()
+  if (mime.startsWith('image/')) return {
+    bg: 'bg-gradient-to-br from-emerald-500 to-teal-400',
+    icon: 'text-white',
+    path: 'M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z',
+  }
+  if (mime.startsWith('video/')) return {
+    bg: 'bg-gradient-to-br from-blue-500 to-indigo-400',
+    icon: 'text-white',
+    path: 'M15 10l4.553-2.276A1 1 0 0121 8.382v7.236a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z',
+  }
+  if (mime.startsWith('audio/')) return {
+    bg: 'bg-gradient-to-br from-purple-500 to-violet-400',
+    icon: 'text-white',
+    path: 'M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3',
+  }
+  if (mime === 'application/pdf') return {
+    bg: 'bg-gradient-to-br from-red-500 to-rose-400',
+    icon: 'text-white',
+    path: 'M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z',
+  }
+  if (mime.includes('zip') || mime.includes('rar') || mime.includes('tar') || mime.includes('7z')) return {
+    bg: 'bg-gradient-to-br from-amber-500 to-orange-400',
+    icon: 'text-white',
+    path: 'M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4',
+  }
+  if (mime.includes('spreadsheet') || mime.includes('excel') || mime === 'text/csv') return {
+    bg: 'bg-gradient-to-br from-green-500 to-emerald-400',
+    icon: 'text-white',
+    path: 'M3 10h18M3 14h18M10 3v18M6 3h12a2 2 0 012 2v14a2 2 0 01-2 2H6a2 2 0 01-2-2V5a2 2 0 012-2z',
+  }
+  if (mime.includes('word') || mime.includes('document')) return {
+    bg: 'bg-gradient-to-br from-blue-600 to-blue-400',
+    icon: 'text-white',
+    path: 'M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z',
+  }
+  if (mime.startsWith('text/') || mime.includes('json') || mime.includes('xml')) return {
+    bg: 'bg-gradient-to-br from-zinc-500 to-zinc-400',
+    icon: 'text-white',
+    path: 'M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4',
+  }
+  return defaults()
+}
+function defaults() {
+  return {
+    bg: 'bg-gradient-to-br from-brand-600 to-brand-400 shadow-glow',
+    icon: 'text-white',
+    path: 'M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z',
+  }
 }
 </script>

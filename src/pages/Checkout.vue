@@ -135,14 +135,22 @@
                 </div>
               </div>
 
+              <!-- Error message -->
+              <p v-if="cryptoError" class="mb-3 text-sm text-red-500 dark:text-red-400 text-center">{{ cryptoError }}</p>
+
               <button
                 @click="startCryptoPayment"
-                class="btn-primary w-full justify-center py-3"
+                :disabled="cryptoLoading"
+                class="btn-primary w-full justify-center py-3 disabled:opacity-60 disabled:cursor-not-allowed"
               >
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg v-if="cryptoLoading" class="w-4 h-4 animate-spin" fill="none" viewBox="0 0 24 24">
+                  <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"/>
+                  <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"/>
+                </svg>
+                <svg v-else class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"/>
                 </svg>
-                Continue with Crypto
+                {{ cryptoLoading ? 'Preparing payment…' : 'Continue with Crypto' }}
               </button>
             </div>
 
@@ -356,8 +364,41 @@ const coins = [
   { symbol: 'USDC', emoji: '$' },
 ]
 
-function startCryptoPayment() {
-  // TODO: integrate crypto payment gateway (e.g. NOWPayments, CoinPayments)
-  alert('Crypto payment integration coming soon. Check back shortly!')
+const cryptoLoading = ref(false)
+const cryptoError   = ref('')
+
+async function startCryptoPayment() {
+  if (!planData.value) return
+  cryptoLoading.value = true
+  cryptoError.value   = ''
+
+  try {
+    const token = localStorage.getItem('access_token') ?? ''
+    const resp  = await fetch('/api/v1/payments/create/', {
+      method:  'POST',
+      headers: {
+        'Content-Type':  'application/json',
+        'Authorization': `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        plan:           plan.value,
+        billing_period: billingMode.value,
+      }),
+    })
+
+    const data = await resp.json()
+
+    if (!resp.ok) {
+      cryptoError.value = data?.error?.message || 'Payment could not be started. Please try again.'
+      return
+    }
+
+    // Redirect to NOWPayments invoice page
+    window.location.href = data.invoice_url
+  } catch {
+    cryptoError.value = 'Network error. Please check your connection and try again.'
+  } finally {
+    cryptoLoading.value = false
+  }
 }
 </script>

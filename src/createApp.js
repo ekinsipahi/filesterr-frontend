@@ -35,11 +35,23 @@ export function createApp(ssrLocale) {
           { path: 'forgot',        name: 'forgot',    component: () => import('./pages/auth/Forgot.vue'),   meta: { layout: 'auth' } },
           { path: 'dashboard',            name: 'dashboard',  component: () => import('./pages/Dashboard.vue'),          meta: { requiresAuth: true } },
           { path: 'dashboard/analytics', name: 'dash-analytics', component: () => import('./pages/DashboardAnalytics.vue'), meta: { requiresAuth: true } },
-          { path: 'checkout',      name: 'checkout',  component: () => import('./pages/Checkout.vue'),  meta: { bare: true } },
+          { path: 'checkout',          name: 'checkout',         component: () => import('./pages/Checkout.vue'),        meta: { bare: true } },
+          { path: 'checkout/success',  name: 'checkout-success', component: () => import('./pages/CheckoutSuccess.vue'),  meta: { bare: true } },
 
           // ── File actions ──
           { path: 'f/:id',         name: 'download',  component: () => import('./pages/Download.vue') },
           { path: 'delete/:token', name: 'delete',    component: () => import('./pages/DeleteFile.vue') },
+
+          // ── Legal & company ──
+          { path: 'about',    name: 'about',    component: () => import('./pages/About.vue') },
+          { path: 'terms',    name: 'terms',    component: () => import('./pages/Terms.vue') },
+          { path: 'privacy',  name: 'privacy',  component: () => import('./pages/Privacy.vue') },
+          { path: 'cookies',  name: 'cookies',  component: () => import('./pages/Cookies.vue') },
+          { path: 'gdpr',     name: 'gdpr',     component: () => import('./pages/Gdpr.vue') },
+          { path: 'careers',  name: 'careers',  component: () => import('./pages/Careers.vue') },
+          { path: 'blog',     name: 'blog',     component: () => import('./pages/Blog.vue') },
+          { path: 'status',   name: 'status',   component: () => import('./pages/Status.vue') },
+          { path: 'docs',     name: 'docs',     component: () => import('./pages/Docs.vue') },
 
           // ── 404 ──
           { path: ':pathMatch(.*)*', name: 'notfound', component: () => import('./pages/NotFound.vue') },

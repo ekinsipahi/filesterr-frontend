@@ -24,40 +24,41 @@
 
         <!-- Confirm state -->
         <template v-if="state === 'confirm'">
-          <h1 class="font-display text-2xl font-bold mb-2">Delete this file?</h1>
+          <h1 class="font-display text-2xl font-bold mb-2">{{ t('deleteFile.confirmTitle') }}</h1>
           <p class="text-zinc-400 text-sm mb-8 leading-relaxed">
-            This action is <strong class="text-zinc-900 dark:text-white">permanent</strong> and cannot be undone.
-            The download link will stop working immediately.
+            <i18n-t keypath="deleteFile.confirmBody" tag="span">
+              <template #strong>
+                <strong class="text-zinc-900 dark:text-white">{{ t('deleteFile.permanent') }}</strong>
+              </template>
+            </i18n-t>
           </p>
           <div class="flex gap-3">
-            <a href="/" class="btn-ghost flex-1 justify-center">Cancel</a>
+            <a href="/" class="btn-ghost flex-1 justify-center">{{ t('deleteFile.cancel') }}</a>
             <button @click="deleteFile"
               class="flex-1 py-2.5 rounded-xl bg-red-500 hover:bg-red-400 text-white font-semibold text-sm transition-all shadow-sm">
-              Yes, Delete It
+              {{ t('deleteFile.confirmBtn') }}
             </button>
           </div>
         </template>
 
         <!-- Loading state -->
         <template v-else-if="state === 'loading'">
-          <h1 class="font-display text-xl font-bold mb-2">Deleting...</h1>
-          <p class="text-zinc-400 text-sm">Please wait.</p>
+          <h1 class="font-display text-xl font-bold mb-2">{{ t('deleteFile.deletingTitle') }}</h1>
+          <p class="text-zinc-400 text-sm">{{ t('deleteFile.deletingBody') }}</p>
         </template>
 
         <!-- Deleted state -->
         <template v-else-if="state === 'deleted'">
-          <h1 class="font-display text-2xl font-bold mb-2">File deleted.</h1>
-          <p class="text-zinc-400 text-sm mb-8">
-            The file and its download link have been permanently removed.
-          </p>
-          <a href="/" class="btn-primary w-full justify-center">Back to Filesterr</a>
+          <h1 class="font-display text-2xl font-bold mb-2">{{ t('deleteFile.deletedTitle') }}</h1>
+          <p class="text-zinc-400 text-sm mb-8">{{ t('deleteFile.deletedBody') }}</p>
+          <a href="/" class="btn-primary w-full justify-center">{{ t('deleteFile.backToHome') }}</a>
         </template>
 
         <!-- Error state -->
         <template v-else-if="state === 'error'">
-          <h1 class="font-display text-xl font-bold mb-2 text-red-500">Something went wrong</h1>
+          <h1 class="font-display text-xl font-bold mb-2 text-red-500">{{ t('deleteFile.errorTitle') }}</h1>
           <p class="text-zinc-400 text-sm mb-8">{{ errorMsg }}</p>
-          <a href="/" class="btn-ghost w-full justify-center">Go Home</a>
+          <a href="/" class="btn-ghost w-full justify-center">{{ t('deleteFile.goHome') }}</a>
         </template>
 
       </div>
@@ -75,6 +76,9 @@
 <script setup>
 import { ref } from 'vue'
 import { useRoute } from 'vue-router'
+import { useI18n } from 'vue-i18n'
+
+const { t } = useI18n()
 
 const route = useRoute()
 const state = ref('confirm')

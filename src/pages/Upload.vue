@@ -11,14 +11,14 @@
       <div class="text-center mb-8">
         <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-brand-50 dark:bg-brand-500/10 border border-brand-200 dark:border-brand-500/20 text-brand-700 dark:text-brand-400 text-xs font-semibold mb-5">
           <span class="w-1.5 h-1.5 rounded-full bg-brand-500" />
-          Anonymous · No account needed
+          {{ t('upload.badge') }}
         </div>
         <h1 class="font-display text-3xl sm:text-4xl font-extrabold mb-3 tracking-tight">
-          Drop a file. <span class="text-gradient">Get a link.</span>
+          {{ t('upload.heading') }} <span class="text-gradient">{{ t('upload.headingHighlight') }}</span>
         </h1>
         <p class="text-sm text-zinc-500 dark:text-zinc-400">
-          Up to {{ planLimitLabel }} per file ·
-          <a href="/pricing" class="text-brand-500 hover:underline font-medium">Upgrade</a> for more
+          {{ t('upload.subtext', { limit: planLimitLabel }) }}
+          <a href="/pricing" class="text-brand-500 hover:underline font-medium">{{ t('upload.upgrade') }}</a> {{ t('upload.upgradeFor') }}
         </p>
       </div>
 
@@ -46,10 +46,10 @@
             </svg>
           </div>
           <div class="flex-1">
-            <p class="text-sm font-semibold text-zinc-900 dark:text-white">5 GB free + download analytics</p>
-            <p class="text-xs text-zinc-500 mt-0.5">No credit card. See who downloads, where from, and more.</p>
+            <p class="text-sm font-semibold text-zinc-900 dark:text-white">{{ t('upload.upsellTitle') }}</p>
+            <p class="text-xs text-zinc-500 mt-0.5">{{ t('upload.upsellSub') }}</p>
           </div>
-          <a href="/register" class="btn-primary text-xs py-2 px-3 shrink-0">Free signup</a>
+          <a href="/register" class="btn-primary text-xs py-2 px-3 shrink-0">{{ t('upload.freeSignup') }}</a>
         </div>
       </div>
 
@@ -63,6 +63,9 @@ import UploadWidget from '../components/upload/UploadWidget.vue'
 import { formatSize } from '../composables/useUpload.js'
 import { getMe, setUserState } from '../api/index.js'
 import { useHead } from '@vueuse/head'
+import { useI18n } from 'vue-i18n'
+
+const { t } = useI18n()
 
 useHead({
   title: 'Upload & Share Files Free — No Signup | Filesterr',
@@ -108,5 +111,10 @@ onMounted(async () => {
 
 const planLimitLabel = computed(() => formatSize(PLAN_LIMITS[userPlan.value] ?? PLAN_LIMITS.anonymous))
 
-const perks = ['Delete link included', 'Any file type', 'No account needed', 'Direct link sharing']
+const perks = computed(() => [
+  t('upload.perk1'),
+  t('upload.perk2'),
+  t('upload.perk3'),
+  t('upload.perk4'),
+])
 </script>

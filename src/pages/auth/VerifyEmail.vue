@@ -20,7 +20,7 @@
             <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"/>
             <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"/>
           </svg>
-          <p class="text-sm text-zinc-500 dark:text-zinc-400">Verifying your email…</p>
+          <p class="text-sm text-zinc-500 dark:text-zinc-400">{{ t('auth.verify.verifying') }}</p>
         </div>
 
         <!-- Success -->
@@ -31,8 +31,8 @@
             </svg>
           </div>
           <div>
-            <h1 class="font-display text-2xl font-extrabold text-zinc-900 dark:text-white mb-2">Email verified!</h1>
-            <p class="text-sm text-zinc-500 dark:text-zinc-400">Your account is now active. Redirecting you…</p>
+            <h1 class="font-display text-2xl font-extrabold text-zinc-900 dark:text-white mb-2">{{ t('auth.verify.successTitle') }}</h1>
+            <p class="text-sm text-zinc-500 dark:text-zinc-400">{{ t('auth.verify.successBody') }}</p>
           </div>
         </div>
 
@@ -44,7 +44,7 @@
             </svg>
           </div>
           <div>
-            <h1 class="font-display text-2xl font-extrabold text-zinc-900 dark:text-white mb-2">Link expired</h1>
+            <h1 class="font-display text-2xl font-extrabold text-zinc-900 dark:text-white mb-2">{{ t('auth.verify.errorTitle') }}</h1>
             <p class="text-sm text-zinc-500 dark:text-zinc-400 mb-6">{{ error }}</p>
             <a href="/login" class="btn-primary text-sm">Back to Sign In</a>
           </div>
@@ -60,6 +60,9 @@
 import { ref, onMounted } from 'vue'
 import { verifyEmail } from '../../api/index.js'
 import { useHead } from '@vueuse/head'
+import { useI18n } from 'vue-i18n'
+
+const { t } = useI18n()
 
 useHead({ title: 'Verify Email — Filesterr' })
 

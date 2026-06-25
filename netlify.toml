@@ -17,7 +17,7 @@
 [functions]
   node_bundler = "esbuild"
   # Include the Vite-built SSR bundle and the HTML template
-  included_files = ["dist/server/**", "dist/client/index.html"]
+  included_files = ["dist/server/**", "dist/client/index.html", "dist/client/sitemap.xml", "dist/client/robots.txt", "dist/client/logo.png", "dist/client/favicon.ico", "dist/client/favicon.svg", "dist/client/linksterr.ico"]
 
 # ── Proxy: /api/* → Django backend ───────────────────────────────────────────
 # DJANGO_API_URL örn: https://filesterr-api.railway.app

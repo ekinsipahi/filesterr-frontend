@@ -3,14 +3,25 @@ import { resolve } from 'path'
 
 const LOCALES = ['tr', 'de', 'fr', 'es', 'ar']
 
-// esbuild compiles ESM → CJS for Lambda, so import.meta.url is undefined.
-// Use LAMBDA_TASK_ROOT (set by AWS/Netlify) or fall back to __dirname (CJS global).
-// The function lands at /var/task/netlify/functions/ssr.js, so ../../ = /var/task/
 /* global __dirname */
 const SITE_ROOT = process.env.LAMBDA_TASK_ROOT
   || (typeof __dirname !== 'undefined' ? resolve(__dirname, '../..') : process.cwd())
 
 const DIST_CLIENT = resolve(SITE_ROOT, 'dist/client')
+
+// Static text files served directly (bypass SSR rendering)
+const TEXT_FILES = {
+  '/sitemap.xml': 'application/xml; charset=utf-8',
+  '/robots.txt':  'text/plain; charset=utf-8',
+}
+
+// Static binary files served base64-encoded
+const BINARY_FILES = {
+  '/logo.png':      'image/png',
+  '/favicon.ico':   'image/x-icon',
+  '/favicon.svg':   'image/svg+xml',
+  '/linksterr.ico': 'image/x-icon',
+}
 
 let _template = null
 let _render   = null
@@ -23,7 +34,38 @@ async function boot() {
 }
 
 export const handler = async (event) => {
-  const url    = event.path || '/'
+  const url = (event.path || '/').split('?')[0]
+
+  // ── Serve static text files directly ────────────────────────────────────────
+  if (TEXT_FILES[url]) {
+    try {
+      const body = readFileSync(resolve(DIST_CLIENT, url.slice(1)), 'utf-8')
+      return {
+        statusCode: 200,
+        headers: { 'Content-Type': TEXT_FILES[url], 'Cache-Control': 'public, max-age=3600' },
+        body,
+      }
+    } catch {
+      return { statusCode: 404, body: 'Not Found' }
+    }
+  }
+
+  // ── Serve static binary files (base64) ──────────────────────────────────────
+  if (BINARY_FILES[url]) {
+    try {
+      const body = readFileSync(resolve(DIST_CLIENT, url.slice(1)))
+      return {
+        statusCode: 200,
+        headers: { 'Content-Type': BINARY_FILES[url], 'Cache-Control': 'public, max-age=86400' },
+        body: body.toString('base64'),
+        isBase64Encoded: true,
+      }
+    } catch {
+      return { statusCode: 404, body: 'Not Found' }
+    }
+  }
+
+  // ── SSR for all page routes ──────────────────────────────────────────────────
   const parts  = url.split('/')
   const locale = LOCALES.includes(parts[1]) ? parts[1] : 'en'
 

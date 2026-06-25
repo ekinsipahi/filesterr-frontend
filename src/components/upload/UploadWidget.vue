@@ -218,27 +218,52 @@
         </button>
       </div>
 
-      <!-- Share link -->
+      <!-- Share link + QR -->
       <div class="p-4 space-y-3">
-        <div>
-          <p class="text-[10px] font-semibold text-zinc-400 uppercase tracking-wide mb-1.5">Download link</p>
-          <div class="flex items-center gap-2 p-2.5 rounded-lg bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700">
-            <svg class="w-3.5 h-3.5 text-zinc-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/>
-            </svg>
-            <span class="text-xs font-mono text-zinc-600 dark:text-zinc-400 truncate flex-1 min-w-0">
-              {{ origin }}{{ result.shareUrl }}
-            </span>
-            <button @click="copy(origin + result.shareUrl)"
-              class="shrink-0 text-xs px-2.5 py-1 rounded-md font-medium transition-colors"
-              :class="copied ? 'bg-brand-500 text-white' : 'bg-brand-100 dark:bg-brand-900/40 text-brand-700 dark:text-brand-300 hover:bg-brand-200 dark:hover:bg-brand-900/60'">
-              {{ copied ? '✓ Copied' : 'Copy' }}
-            </button>
+        <div class="flex gap-3">
+          <!-- QR code -->
+          <div class="shrink-0 w-20 h-20 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-white p-1 overflow-hidden">
+            <img
+              :src="`https://api.qrserver.com/v1/create-qr-code/?size=144x144&margin=0&data=${encodeURIComponent(origin + result.shareUrl)}`"
+              alt="QR code"
+              class="w-full h-full object-contain"
+              loading="lazy"
+            />
+          </div>
+
+          <!-- Link + actions -->
+          <div class="flex-1 min-w-0 space-y-2">
+            <p class="text-[10px] font-semibold text-zinc-400 uppercase tracking-wide">Download link</p>
+            <div class="flex items-center gap-2 p-2 rounded-lg bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700">
+              <span class="text-[11px] font-mono text-zinc-500 dark:text-zinc-400 truncate flex-1 min-w-0">
+                {{ origin }}{{ result.shareUrl }}
+              </span>
+            </div>
+            <div class="flex items-center gap-2">
+              <button @click="copy(origin + result.shareUrl)"
+                class="flex-1 text-xs px-3 py-1.5 rounded-lg font-semibold transition-colors flex items-center justify-center gap-1.5"
+                :class="copied ? 'bg-brand-500 text-white' : 'bg-brand-100 dark:bg-brand-900/40 text-brand-700 dark:text-brand-300 hover:bg-brand-200'">
+                <svg v-if="!copied" class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+                </svg>
+                <svg v-else class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/>
+                </svg>
+                {{ copied ? 'Copied!' : 'Copy link' }}
+              </button>
+              <a :href="origin + result.shareUrl" target="_blank" rel="noopener"
+                class="text-xs px-3 py-1.5 rounded-lg font-semibold bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-300 hover:bg-zinc-200 dark:hover:bg-zinc-700 transition-colors flex items-center gap-1.5">
+                <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+                </svg>
+                Open
+              </a>
+            </div>
           </div>
         </div>
 
         <!-- Delete link -->
-        <div class="flex items-center justify-between">
+        <div class="flex items-center justify-between pt-1 border-t border-zinc-100 dark:border-zinc-800">
           <p class="text-xs text-zinc-400">Need to remove this file?</p>
           <a :href="result.deleteUrl"
             class="text-xs text-red-500 hover:text-red-400 font-medium flex items-center gap-1 transition-colors">
@@ -270,8 +295,29 @@
       </div>
     </div>
 
+    <!-- ── CAPACITY LIMITED (upsell) ── -->
+    <div v-if="stage === 'error' && errorCode === 'capacity_limited'"
+         class="mt-3 p-5 rounded-xl bg-gradient-to-br from-brand-50 to-indigo-50 dark:from-brand-900/20 dark:to-indigo-900/20 border border-brand-200 dark:border-brand-700">
+      <p class="text-sm font-semibold text-zinc-800 dark:text-zinc-100 mb-1">
+        Free uploads are currently at capacity.
+      </p>
+      <p class="text-xs text-zinc-500 dark:text-zinc-400 mb-4">
+        Demand is high right now. Premium members upload instantly, without limits.
+      </p>
+      <div class="flex gap-2 flex-wrap">
+        <a href="/pricing"
+           class="px-4 py-2 rounded-lg bg-brand-500 hover:bg-brand-600 text-white text-sm font-medium transition-colors">
+          Get Premium — from $4.99/mo
+        </a>
+        <button @click="reset"
+                class="px-4 py-2 rounded-lg border border-zinc-300 dark:border-zinc-600 text-zinc-600 dark:text-zinc-300 text-sm hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors">
+          Try later
+        </button>
+      </div>
+    </div>
+
     <!-- ── ERROR ── -->
-    <div v-if="stage === 'error' && error" class="mt-3 p-4 rounded-xl bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 flex items-start gap-3">
+    <div v-else-if="stage === 'error' && error" class="mt-3 p-4 rounded-xl bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 flex items-start gap-3">
       <svg class="w-4 h-4 text-red-500 mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01M5.07 19H19a2 2 0 001.75-2.75L13.75 4a2 2 0 00-3.5 0L3.25 16.25A2 2 0 005.07 19z"/>
       </svg>
@@ -293,7 +339,7 @@ const TURNSTILE_SITE_KEY = import.meta.env.VITE_TURNSTILE_SITE_KEY || '1x0000000
 
 const {
   cachedFile, fileHash, hashProgress, uploadProgress,
-  isHashing, isUploading, result, error, stage,
+  isHashing, isUploading, result, error, errorCode, stage,
   readableSize, sizeLimit,
   acceptFile, upload, reset: rawReset,
 } = useUpload()

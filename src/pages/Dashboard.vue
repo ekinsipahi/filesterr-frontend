@@ -906,7 +906,7 @@ const isDraggingOverSection = ref(false)
 const dashUploadState = ref({ active: false, name: '', progress: 0, current: 0, total: 0 })
 
 const upgradePlans   = PLANS.filter(p => ['premium', 'pro', 'promax'].includes(p.slug))
-const canUseFolders  = computed(() => ['premium', 'pro', 'promax'].includes(user.value?.plan))
+const canUseFolders  = computed(() => !!user.value && user.value.plan !== 'anonymous')
 const isProAnalytics = computed(() => ['pro', 'promax'].includes(user.value?.plan))
 
 const currentFolderPath = computed(() => {

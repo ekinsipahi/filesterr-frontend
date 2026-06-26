@@ -90,6 +90,11 @@ async function injectTag(cfg) {
       scriptEl.dataset.zone = cfg.zone_id
     })
   }
+  else if (tag_type === 'hilltop_script') {
+    loadScript(cfg.src, (scriptEl) => {
+      scriptEl.referrerPolicy = 'no-referrer-when-downgrade'
+    })
+  }
 }
 
 function loadScript(src, mutate) {

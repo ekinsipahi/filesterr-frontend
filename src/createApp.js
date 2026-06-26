@@ -49,6 +49,7 @@ export function createApp(ssrLocale) {
           { path: 'cookies',  name: 'cookies',  component: () => import('./pages/Cookies.vue') },
           { path: 'gdpr',     name: 'gdpr',     component: () => import('./pages/Gdpr.vue') },
           { path: 'careers',  name: 'careers',  component: () => import('./pages/Careers.vue') },
+          { path: 'refunds',  name: 'refunds',  component: () => import('./pages/Refunds.vue') },
           { path: 'blog',     name: 'blog',     component: () => import('./pages/Blog.vue') },
           { path: 'status',   name: 'status',   component: () => import('./pages/Status.vue') },
           { path: 'docs',     name: 'docs',     component: () => import('./pages/Docs.vue') },

@@ -1,4 +1,9 @@
 <template>
+  <!-- Ad bait: targeted by adblockers — hidden = adblock active -->
+  <div id="__ad_bait__" class="ad-banner ads adsbox doubleclick ad-placement"
+       style="position:absolute;left:-9999px;width:1px;height:1px;pointer-events:none"
+       aria-hidden="true" />
+
   <div class="min-h-screen flex items-center justify-center px-6 py-20">
     <div class="w-full max-w-lg space-y-4">
 
@@ -114,8 +119,18 @@
             <p v-if="passwordError" class="text-xs text-red-500 mt-2">{{ passwordError }}</p>
           </div>
 
+          <!-- ── Adblock check spinner (shown while detection runs) ────────── -->
+          <div v-if="adblockChecking && showBannerAd"
+            class="mb-6 flex items-center gap-2 text-xs text-zinc-400 px-1">
+            <svg class="w-3.5 h-3.5 animate-spin shrink-0" fill="none" viewBox="0 0 24 24">
+              <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"/>
+              <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"/>
+            </svg>
+            Checking ad compatibility…
+          </div>
+
           <!-- ── Ad countdown (anonymous / free users only) ─────────────────── -->
-          <div v-if="showAdTimer && !adTimerDone"
+          <div v-if="showAdTimer && !adTimerDone && !adblockBlocking && !adblockChecking"
             class="mb-6 rounded-xl border border-zinc-200 dark:border-zinc-700 overflow-hidden">
 
             <!-- Timer bar -->
@@ -142,6 +157,35 @@
               <a href="/pricing" class="text-xs font-semibold text-brand-600 dark:text-brand-400 hover:underline">
                 Get Premium →
               </a>
+            </div>
+          </div>
+
+          <!-- Adblock wall (blocks download for non-premium users) -->
+          <div v-if="adblockBlocking"
+            class="mb-5 rounded-xl border border-amber-200 dark:border-amber-800 overflow-hidden">
+            <div class="p-4 bg-amber-50 dark:bg-amber-900/20 flex items-start gap-3">
+              <svg class="w-4 h-4 text-amber-500 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"/>
+              </svg>
+              <div class="flex-1 min-w-0">
+                <p class="text-xs font-bold text-amber-700 dark:text-amber-400">Ad blocker detected — download paused</p>
+                <p class="text-xs text-amber-600 dark:text-amber-300 mt-0.5">
+                  Ads support this free service. Please whitelist <strong>filesterr.com</strong> and click below to continue,
+                  or <a href="/pricing" class="underline font-semibold">upgrade to Premium</a> to remove all ads.
+                </p>
+              </div>
+            </div>
+            <div class="border-t border-amber-200 dark:border-amber-800 px-4 py-3 bg-amber-50/60 dark:bg-amber-900/10 flex items-center justify-between gap-3">
+              <p class="text-[11px] text-amber-600 dark:text-amber-400">After whitelisting, reload this page or click →</p>
+              <button @click="retryAfterAdblock" :disabled="adblockRetrying"
+                class="shrink-0 px-4 py-1.5 rounded-lg text-xs font-semibold bg-amber-500 hover:bg-amber-600 text-white transition-colors disabled:opacity-60">
+                <svg v-if="adblockRetrying" class="w-3.5 h-3.5 animate-spin inline mr-1" fill="none" viewBox="0 0 24 24">
+                  <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"/>
+                  <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"/>
+                </svg>
+                {{ adblockRetrying ? 'Checking…' : 'I disabled it — continue' }}
+              </button>
             </div>
           </div>
 
@@ -226,17 +270,111 @@ const downloading   = ref(false)
 const downloadError = ref(null)
 const downloadStarted = ref(false)
 
-const password        = ref('')
+const password         = ref('')
 const passwordUnlocked = ref(false)
-const passwordError   = ref('')
+const passwordError    = ref('')
 const checkingPassword = ref(false)
+const adblockDetected  = ref(false)
+const adblockRetrying  = ref(false)
+const adblockChecking  = ref(false)  // true while first detection is running
+
+// Blocks the timer and download button for non-premium users when adblock is on
+const adblockBlocking = computed(() => adblockDetected.value && showBannerAd.value)
 
 let timer = null
 
+function startTimer() {
+  if (timer !== null || adTimerDone.value) return
+  if (adblockDetected.value) return   // don't start while adblock is active
+  timer = setInterval(() => {
+    adCountdown.value--
+    if (adCountdown.value <= 0) {
+      stopTimer()
+      adTimerDone.value = true
+    }
+  }, 1000)
+}
+
+function stopTimer() {
+  if (timer !== null) {
+    clearInterval(timer)
+    timer = null
+  }
+}
+
+function onVisibilityChange() {
+  if (adTimerDone.value || adDuration.value === 0) return
+  if (document.hidden) {
+    stopTimer()
+  } else {
+    startTimer()  // startTimer already guards against adblock
+  }
+}
+
+async function detectAdblock() {
+  // Wait for adblocker to act on DOM (cosmetic filters need a tick)
+  await new Promise(r => setTimeout(r, 300))
+
+  // Method 1: bait div — CSS-based blockers (uBlock cosmetic, AdGuard)
+  const bait = document.getElementById('__ad_bait__')
+  if (bait) {
+    const s = window.getComputedStyle(bait)
+    if (
+      bait.offsetHeight === 0 ||
+      bait.offsetWidth  === 0 ||
+      s.display         === 'none' ||
+      s.visibility      === 'hidden' ||
+      s.opacity         === '0'
+    ) {
+      adblockDetected.value = true
+      return
+    }
+  }
+
+  // Method 2: inject a real <script> element — triggers $script-type filter rules
+  // fetch() uses type=fetch which bypasses most $script rules in EasyList/uBlock
+  window.__adScriptOk = 0
+  const blocked = await new Promise(resolve => {
+    const timeout = setTimeout(() => resolve(true), 1500)
+    const el = document.createElement('script')
+    el.onload = () => {
+      clearTimeout(timeout)
+      // Give the script 50 ms to execute window.__adScriptOk = 1
+      setTimeout(() => { resolve(!window.__adScriptOk); el.remove() }, 50)
+    }
+    el.onerror = () => {
+      clearTimeout(timeout)
+      resolve(true)
+      el.remove()
+    }
+    el.src = '/ads/prebid.js?_=' + Date.now()
+    document.head.appendChild(el)
+  })
+
+  adblockDetected.value = blocked
+}
+
+async function retryAfterAdblock() {
+  adblockRetrying.value = true
+  adblockDetected.value = false   // reset so timer section doesn't flicker
+  await detectAdblock()
+  adblockRetrying.value = false
+  if (!adblockDetected.value && adDuration.value > 0 && !adTimerDone.value) {
+    startTimer()
+  }
+}
+
 // ── User / plan detection ─────────────────────────────────────────────────────
-const userPlan = typeof window !== 'undefined'
-  ? (window.__USER__?.plan ?? localStorage.getItem('cached_user') ? (() => { try { return JSON.parse(localStorage.getItem('cached_user'))?.plan } catch { return '' } })() : '')
-  : ''
+function detectUserPlan() {
+  if (typeof window === 'undefined') return ''
+  if (window.__USER__?.plan) return window.__USER__.plan
+  try {
+    const cached = localStorage.getItem('cached_user')
+    if (cached) return JSON.parse(cached)?.plan || ''
+  } catch {}
+  return ''
+}
+const userPlan = detectUserPlan()
 const isPremium  = ['premium', 'pro', 'promax'].includes(userPlan)
 const isFree     = userPlan === 'free'
 const isMobile   = typeof window !== 'undefined' && /android|iphone|ipod/i.test(navigator.userAgent)
@@ -266,6 +404,8 @@ const needsPassword = computed(() => file.value?.isPasswordProtected && !passwor
 
 const downloadBtnDisabled = computed(() => {
   if (needsPassword.value) return true
+  if (adblockChecking.value) return true
+  if (adblockBlocking.value) return true
   if (showAdTimer.value && !adTimerDone.value) return true
   if (downloading.value) return true
   return false
@@ -274,12 +414,15 @@ const downloadBtnDisabled = computed(() => {
 const downloadBtnLabel = computed(() => {
   if (downloading.value) return t('download.btnStarting')
   if (needsPassword.value) return t('download.btnEnterPassword')
+  if (adblockChecking.value) return 'Checking…'
+  if (adblockBlocking.value) return 'Disable adblocker to download'
   if (showAdTimer.value && !adTimerDone.value) return `Wait ${adCountdown.value}s…`
   return t('download.btnDownload')
 })
 
 // ── Lifecycle ─────────────────────────────────────────────────────────────────
 onMounted(async () => {
+  // ── 1. Fetch file info ────────────────────────────────────────────────────
   try {
     const res = await fetch(`/api/v1/files/public/${route.params.id}/`)
     if (!res.ok) {
@@ -299,30 +442,32 @@ onMounted(async () => {
       isOneTime:           !!data.is_one_time,
     }
 
-    // Start ad timer after file loads
     const dur = timerForPlan(userPlan)
     adDuration.value  = dur
     adCountdown.value = dur
 
-    if (dur > 0) {
-      timer = setInterval(() => {
-        adCountdown.value--
-        if (adCountdown.value <= 0) {
-          clearInterval(timer)
-          adTimerDone.value = true
-        }
-      }, 1000)
-    } else {
-      adTimerDone.value = true
-    }
+    if (dur === 0) adTimerDone.value = true
+    else document.addEventListener('visibilitychange', onVisibilityChange)
   } catch (e) {
     error.value = e.message
   } finally {
+    // Show content immediately — don't hold skeleton while detecting adblock
     loading.value = false
+  }
+
+  // ── 2. Adblock detection (runs after page is visible) ────────────────────
+  if (file.value && adDuration.value > 0) {
+    adblockChecking.value = true
+    await detectAdblock()
+    adblockChecking.value = false
+    startTimer()  // guards itself: won't start if adblockDetected
   }
 })
 
-onUnmounted(() => { if (timer) clearInterval(timer) })
+onUnmounted(() => {
+  stopTimer()
+  document.removeEventListener('visibilitychange', onVisibilityChange)
+})
 
 // ── Actions ───────────────────────────────────────────────────────────────────
 function unlockPassword() {

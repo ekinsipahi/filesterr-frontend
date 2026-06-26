@@ -588,6 +588,9 @@ async function uploadItem(item) {
   const token = typeof localStorage !== 'undefined' ? localStorage.getItem('access_token') ?? '' : ''
   const fd = new FormData()
   fd.append('file', item.file)
+  if (isOneTime.value)                        fd.append('is_one_time', 'true')
+  if (expiresIn.value)                        fd.append('expires_in', String(expiresIn.value))
+  if (usePassword.value && uploadPassword.value) fd.append('password', uploadPassword.value)
 
   return new Promise((resolve) => {
     const xhr = new XMLHttpRequest()

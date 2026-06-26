@@ -6,7 +6,9 @@
 # ─────────────────────────────────────────────────────────────────────────────
 
 [build]
-  command = "npm run build"
+  # DJANGO_API_URL ortam değişkeni olarak Netlify'da ayarlanmalı.
+  # Örnek: https://filesterr-api.onrender.com
+  command = "npm run build && node scripts/gen-redirects.mjs"
   publish = "dist/client"
   functions = "netlify/functions"
 
@@ -20,37 +22,14 @@
   included_files = ["dist/server/**", "dist/client/index.html", "dist/client/sitemap.xml", "dist/client/robots.txt", "dist/client/logo.png", "dist/client/favicon.ico", "dist/client/favicon.svg", "dist/client/linksterr.ico"]
 
 # ── Proxy: /api/* → Django backend ───────────────────────────────────────────
-# DJANGO_API_URL örn: https://filesterr-api.railway.app
-[[redirects]]
-  from   = "/api/*"
-  to     = "{{DJANGO_API_URL}}/api/:splat"
-  status = 200
-  force  = true
+# Gerçek redirect'ler scripts/gen-redirects.mjs tarafından dist/client/_redirects
+# dosyasına yazılır (build zamanında). DJANGO_API_URL env var'ından okunur.
+# Netlify toml [[redirects]] env var substitution'ı desteklemez.
 
-[[redirects]]
-  from   = "/media/*"
-  to     = "{{DJANGO_API_URL}}/media/:splat"
-  status = 200
-  force  = true
-
-[[redirects]]
-  from   = "/admin/*"
-  to     = "{{DJANGO_API_URL}}/admin/:splat"
-  status = 200
-  force  = true
-
-# ── Static assets — served directly from CDN (no function needed) ─────────────
-[[redirects]]
-  from   = "/assets/*"
-  to     = "/assets/:splat"
-  status = 200
-
-# ── Everything else → SSR function ───────────────────────────────────────────
-[[redirects]]
-  from   = "/*"
-  to     = "/.netlify/functions/ssr"
-  status = 200
-  force  = true
+# ── Redirect'ler ─────────────────────────────────────────────────────────────
+# Tüm redirect kuralları scripts/gen-redirects.mjs tarafından build zamanında
+# dist/client/_redirects dosyasına yazılır.
+# _redirects, netlify.toml redirect bloklarından önce uygulanır.
 
 # ── Security headers ──────────────────────────────────────────────────────────
 [[headers]]

@@ -832,7 +832,7 @@
       :y="ctxMenu.y"
       :is-selected="selectedIds.has(ctxMenu.file.id)"
       :can-use-folders="canUseFolders"
-      :can-set-password="canUseFolders"
+      :can-set-password="canSetPassword"
       @close="ctxMenu = null"
       @copy-link="f => copyLink(f)"
       @move="f => { moveTarget = f }"
@@ -908,6 +908,7 @@ const dashUploadState = ref({ active: false, name: '', progress: 0, current: 0, 
 
 const upgradePlans   = PLANS.filter(p => ['premium', 'pro', 'promax'].includes(p.slug))
 const canUseFolders  = computed(() => !!user.value && user.value.plan !== 'anonymous')
+const canSetPassword = computed(() => ['premium', 'pro', 'promax'].includes(user.value?.plan))
 const isProAnalytics = computed(() => ['pro', 'promax'].includes(user.value?.plan))
 
 const currentFolderPath = computed(() => {
@@ -1281,7 +1282,12 @@ async function savePw(remove = false) {
       const idx = files.value.findIndex(f => f.id === updated.id)
       if (idx !== -1) files.value[idx] = updated
       pwModal.value = null
+    } else {
+      const d = await res.json().catch(() => ({}))
+      alert(d?.error?.message || d?.detail || 'Failed to update password.')
     }
+  } catch {
+    alert('Network error — please try again.')
   } finally {
     pwSaving.value = false
   }
@@ -1295,15 +1301,22 @@ function openContextMenu(file, event) {
 
 async function toggleOneTime(file) {
   const token = localStorage.getItem('access_token') ?? ''
-  const res = await fetch(`/api/v1/files/${file.id}/settings/`, {
-    method: 'PATCH',
-    headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
-    body: JSON.stringify({ is_one_time: !file.is_one_time }),
-  })
-  if (res.ok) {
-    const updated = await res.json()
-    const idx = files.value.findIndex(f => f.id === updated.id)
-    if (idx !== -1) files.value[idx] = updated
+  try {
+    const res = await fetch(`/api/v1/files/${file.id}/settings/`, {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+      body: JSON.stringify({ is_one_time: !file.is_one_time }),
+    })
+    if (res.ok) {
+      const updated = await res.json()
+      const idx = files.value.findIndex(f => f.id === updated.id)
+      if (idx !== -1) files.value[idx] = updated
+    } else {
+      const d = await res.json().catch(() => ({}))
+      alert(d?.error?.message || d?.detail || 'Failed to update one-time setting.')
+    }
+  } catch {
+    alert('Network error — please try again.')
   }
 }
 

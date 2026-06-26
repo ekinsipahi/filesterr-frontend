@@ -154,52 +154,70 @@
               </button>
             </div>
 
-            <!-- Polar.sh — coming soon -->
-            <div class="card p-6 opacity-60 relative select-none">
-              <div class="absolute inset-0 rounded-2xl backdrop-blur-[1px]" />
-
+            <!-- Paddle — card / wallets / local payment methods -->
+            <div class="card p-6 relative overflow-hidden">
               <div class="flex items-start justify-between gap-4 mb-5">
                 <div class="flex items-center gap-3">
-                  <div class="w-11 h-11 rounded-xl bg-zinc-100 dark:bg-zinc-800 flex items-center justify-center shrink-0">
-                    <svg class="w-6 h-6 text-zinc-400" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <div class="w-11 h-11 rounded-xl bg-blue-50 dark:bg-blue-900/30 flex items-center justify-center shrink-0">
+                    <svg class="w-6 h-6 text-blue-500" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/>
                     </svg>
                   </div>
                   <div>
-                    <h3 class="font-bold text-zinc-900 dark:text-white flex items-center gap-2">
-                      Subscribe with Polar.sh
-                    </h3>
-                    <p class="text-xs text-zinc-400 mt-0.5">Card, Apple Pay, Google Pay — recurring billing</p>
+                    <h3 class="font-bold text-zinc-900 dark:text-white">Card & Digital Wallets</h3>
+                    <p class="text-xs text-zinc-400 mt-0.5">18 payment methods · powered by Paddle</p>
                   </div>
                 </div>
-                <span class="shrink-0 inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-zinc-100 dark:bg-zinc-800 text-zinc-500 text-xs font-semibold">
-                  Coming soon
+                <span class="shrink-0 inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-green-50 dark:bg-green-900/30 text-green-600 dark:text-green-400 text-xs font-semibold">
+                  <span class="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
+                  Available
                 </span>
               </div>
 
-              <div class="bg-zinc-50 dark:bg-zinc-800 rounded-xl p-4 mb-5 text-sm text-zinc-400 space-y-2">
+              <!-- Payment method grid -->
+              <div class="flex flex-wrap gap-1.5 mb-5">
+                <span v-for="pm in paddlePaymentMethods" :key="pm.label"
+                  class="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 text-[11px] font-medium text-zinc-600 dark:text-zinc-300">
+                  <span>{{ pm.icon }}</span>{{ pm.label }}
+                </span>
+              </div>
+
+              <div class="bg-zinc-50 dark:bg-zinc-800 rounded-xl p-4 mb-5 text-sm text-zinc-500 dark:text-zinc-400 space-y-2">
                 <div class="flex items-center gap-2">
-                  <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/>
-                  </svg>
-                  Credit / debit card
-                </div>
-                <div class="flex items-center gap-2">
-                  <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
-                  </svg>
-                  Cancel anytime from dashboard
-                </div>
-                <div class="flex items-center gap-2">
-                  <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg class="w-4 h-4 text-blue-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
                   </svg>
-                  Managed billing via Polar.sh
+                  Secure checkout · PCI-DSS compliant
+                </div>
+                <div class="flex items-center gap-2">
+                  <svg class="w-4 h-4 text-blue-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
+                  </svg>
+                  Recurring subscription · cancel anytime
+                </div>
+                <div class="flex items-center gap-2">
+                  <svg class="w-4 h-4 text-blue-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                  </svg>
+                  Plan activates instantly after payment
                 </div>
               </div>
 
-              <button disabled class="w-full flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-zinc-100 dark:bg-zinc-800 text-zinc-400 font-semibold text-sm cursor-not-allowed">
-                Coming Soon
+              <p v-if="paddleError" class="mb-3 text-sm text-red-500 dark:text-red-400 text-center">{{ paddleError }}</p>
+
+              <button
+                @click="openPaddleCheckout"
+                :disabled="paddleLoading || !paddleReady"
+                class="w-full flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-blue-500 hover:bg-blue-600 text-white font-semibold text-sm transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
+              >
+                <svg v-if="paddleLoading" class="w-4 h-4 animate-spin" fill="none" viewBox="0 0 24 24">
+                  <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"/>
+                  <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"/>
+                </svg>
+                <svg v-else class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/>
+                </svg>
+                {{ !paddleReady ? 'Loading…' : 'Pay Now' }}
               </button>
             </div>
           </div>
@@ -316,8 +334,25 @@
 
 <script setup>
 import { ref, computed, onMounted } from 'vue'
+import { initializePaddle } from '@paddle/paddle-js'
 import { PLANS } from '../data/plans.js'
 import { useHead } from '@vueuse/head'
+
+// ── Paddle price IDs ──────────────────────────────────────────────────────────
+const PADDLE_PRICES = {
+  premium: {
+    monthly: import.meta.env.VITE_PADDLE_PRICE_PREMIUM_MONTHLY || 'pri_01kw2s4f6r6ar87093m9rzq5ra',
+    annual:  import.meta.env.VITE_PADDLE_PRICE_PREMIUM_ANNUAL  || 'pri_01kw2s7jd35qjxwqvtaecrbksk',
+  },
+  pro: {
+    monthly: import.meta.env.VITE_PADDLE_PRICE_PRO_MONTHLY || 'pri_01kw2s5dqxccse4v5q822j6p69',
+    annual:  import.meta.env.VITE_PADDLE_PRICE_PRO_ANNUAL  || 'pri_01kw2s8e205ybm4ewtnebh4cnz',
+  },
+  promax: {
+    monthly: import.meta.env.VITE_PADDLE_PRICE_PROMAX_MONTHLY || 'pri_01kw2s68m7e6bzaa7kdshj42h7',
+    annual:  import.meta.env.VITE_PADDLE_PRICE_PROMAX_ANNUAL  || 'pri_01kw2s91srsdbf5gb7994ackwn',
+  },
+}
 
 useHead({
   title: 'Checkout — Filesterr',
@@ -331,6 +366,7 @@ onMounted(() => {
   const params = new URLSearchParams(window.location.search)
   plan.value = params.get('plan')
   if (params.get('billing') === 'annual') billingMode.value = 'annual'
+  initPaddle()
 })
 
 const planData = computed(() =>
@@ -364,8 +400,74 @@ const coins = [
   { symbol: 'USDC', emoji: '$' },
 ]
 
+const paddlePaymentMethods = [
+  { label: 'Credit / Debit Card', icon: '💳' },
+  { label: 'Apple Pay',           icon: '' },
+  { label: 'Google Pay',          icon: '🔵' },
+  { label: 'PayPal',              icon: '🅿' },
+  { label: 'Alipay',              icon: '🟦' },
+  { label: 'WeChat Pay',          icon: '🟢' },
+  { label: 'Pix',                 icon: '⚡' },
+  { label: 'Bank Transfer',       icon: '🏦' },
+  { label: 'iDEAL / Wero',        icon: '🇳🇱' },
+  { label: 'Bancontact',          icon: '🇧🇪' },
+  { label: 'BLIK',                icon: '🇵🇱' },
+  { label: 'MB WAY',              icon: '🇵🇹' },
+  { label: 'UPI',                 icon: '🇮🇳' },
+  { label: 'KakaoPay',            icon: '🟡' },
+  { label: 'Samsung Pay',         icon: '🔷' },
+  { label: 'Naver Pay',           icon: '🟩' },
+  { label: 'Payco',               icon: '🔴' },
+  { label: 'Korean Cards',        icon: '🇰🇷' },
+]
+
 const cryptoLoading = ref(false)
 const cryptoError   = ref('')
+
+// ── Paddle ────────────────────────────────────────────────────────────────────
+const paddleReady   = ref(false)
+const paddleLoading = ref(false)
+const paddleError   = ref('')
+let   paddle        = null
+
+async function initPaddle() {
+  try {
+    paddle = await initializePaddle({
+      environment: 'production',
+      token:       import.meta.env.VITE_PADDLE_TOKEN || '',
+    })
+    paddleReady.value = true
+  } catch (e) {
+    console.error('Paddle init failed', e)
+  }
+}
+
+function openPaddleCheckout() {
+  if (!paddle || !planData.value) return
+  const priceId = PADDLE_PRICES[plan.value]?.[billingMode.value]
+  if (!priceId) {
+    paddleError.value = 'Payment configuration error. Please try again later.'
+    return
+  }
+  paddleError.value   = ''
+  paddleLoading.value = true
+
+  const cachedUser = (() => { try { return JSON.parse(localStorage.getItem('cached_user') || '{}') } catch { return {} } })()
+
+  paddle.Checkout.open({
+    items: [{ priceId, quantity: 1 }],
+    customer: cachedUser.email ? { email: cachedUser.email } : undefined,
+    customData: {
+      user_id: cachedUser.id   || null,
+      plan:    plan.value,
+      billing: billingMode.value,
+    },
+    settings: {
+      successUrl: `${window.location.origin}/dashboard?payment=success`,
+    },
+  })
+  paddleLoading.value = false
+}
 
 async function startCryptoPayment() {
   if (!planData.value) return

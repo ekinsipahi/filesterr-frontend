@@ -54,6 +54,27 @@
       </div>
 
     </div>
+
+    <!-- SEO section — below the fold, informational -->
+    <div class="max-w-xl mx-auto px-6 pb-16 mt-2">
+      <div class="border-t border-zinc-100 dark:border-zinc-800/60 pt-10">
+        <h2 class="text-lg font-display font-bold text-zinc-800 dark:text-zinc-200 mb-4">
+          {{ t('upload.seoH2') }}
+        </h2>
+        <div class="space-y-3 text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed">
+          <p>{{ t('upload.seoP1') }}</p>
+          <p>{{ t('upload.seoP2') }}</p>
+          <p>{{ t('upload.seoP3') }}</p>
+        </div>
+        <div class="flex flex-wrap gap-3 mt-5">
+          <a href="/share-files" class="text-xs text-brand-500 hover:underline">Share files online →</a>
+          <a href="/secure-file-sharing" class="text-xs text-brand-500 hover:underline">Secure file sharing →</a>
+          <a href="/file-sharing-no-login" class="text-xs text-brand-500 hover:underline">File sharing no login →</a>
+          <a href="/large-file-sharing" class="text-xs text-brand-500 hover:underline">Large file sharing →</a>
+        </div>
+      </div>
+    </div>
+
   </div>
 </template>
 

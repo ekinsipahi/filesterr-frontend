@@ -50,6 +50,17 @@ export function createApp(ssrLocale) {
           { path: 'gdpr',     name: 'gdpr',     component: () => import('./pages/Gdpr.vue') },
           { path: 'careers',  name: 'careers',  component: () => import('./pages/Careers.vue') },
           { path: 'refunds',  name: 'refunds',  component: () => import('./pages/Refunds.vue') },
+
+          // ── SEO landing pages ──
+          { path: 'share-files',             name: 'share-files',             component: () => import('./pages/seo/ShareFiles.vue') },
+          { path: 'best-file-sharing-sites', name: 'best-file-sharing-sites', component: () => import('./pages/seo/BestFileSharingSites.vue') },
+          { path: 'file-sharing-app',        name: 'file-sharing-app',        component: () => import('./pages/seo/FileSharingApp.vue') },
+          { path: 'cross-device-transfer',   name: 'cross-device-transfer',   component: () => import('./pages/seo/CrossDeviceTransfer.vue') },
+          { path: 'secure-file-sharing',     name: 'secure-file-sharing',     component: () => import('./pages/seo/SecureFileSharing.vue') },
+          { path: 'file-sharing-no-login',   name: 'file-sharing-no-login',   component: () => import('./pages/seo/FileShareNoLogin.vue') },
+          { path: 'free-file-sharing',       name: 'free-file-sharing',       component: () => import('./pages/seo/FreeFileSharing.vue') },
+          { path: 'large-file-sharing',      name: 'large-file-sharing',      component: () => import('./pages/seo/LargeFileSharing.vue') },
+          { path: 'temporary-file-sharing',  name: 'temporary-file-sharing',  component: () => import('./pages/seo/TemporaryFileSharing.vue') },
           { path: 'blog',     name: 'blog',     component: () => import('./pages/Blog.vue') },
           { path: 'status',   name: 'status',   component: () => import('./pages/Status.vue') },
           { path: 'docs',     name: 'docs',     component: () => import('./pages/Docs.vue') },

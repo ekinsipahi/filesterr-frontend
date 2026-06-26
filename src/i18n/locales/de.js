@@ -389,6 +389,10 @@ export default {
     upsellTitle: '5 GB kostenlos + Download-Analysen',
     upsellSub: 'Keine Kreditkarte. Sehen Sie, wer herunterlädt, woher und mehr.',
     freeSignup: 'Kostenlos registrieren',
+    seoH2: 'Warum Millionen Filesterr zum Teilen von Dateien wählen',
+    seoP1: 'Keine Anmeldung erforderlich. Teilen Sie Dateien online in Sekunden — einfach Datei ablegen und sofort einen Link erhalten. Keine Registrierungsbarriere, keine Wartezeit, kein Aufwand. Filesterr ist der schnellste Weg, Dateien online zu teilen.',
+    seoP2: 'Funktioniert nahtlos zwischen Geräten. Ihre Datei ist auf dem Handy, Ihr Freund braucht sie am Computer. Einmal hochladen, Link teilen — er lädt es auf jedem Gerät herunter: Android, iPhone, Mac, PC. Keine App, kein Kabel, kein Bluetooth-Ärger.',
+    seoP3: 'Sicheres Teilen mit AES-256-Verschlüsselung und optionalen anonymen Uploads. Ablaufdaten festlegen, Dateien werden automatisch gelöscht. Das ist kostenloses Teilen, das Ihre Privatsphäre wirklich schützt.',
   },
   deleteFile: {
     confirmTitle: 'Diese Datei löschen?',

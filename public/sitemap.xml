@@ -1,43 +1,373 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+
+  <!-- ── Home ── -->
   <url>
     <loc>https://filesterr.com/</loc>
+    <xhtml:link rel="alternate" hreflang="en"        href="https://filesterr.com/"/>
+    <xhtml:link rel="alternate" hreflang="tr"        href="https://filesterr.com/tr/"/>
+    <xhtml:link rel="alternate" hreflang="de"        href="https://filesterr.com/de/"/>
+    <xhtml:link rel="alternate" hreflang="fr"        href="https://filesterr.com/fr/"/>
+    <xhtml:link rel="alternate" hreflang="es"        href="https://filesterr.com/es/"/>
+    <xhtml:link rel="alternate" hreflang="ar"        href="https://filesterr.com/ar/"/>
+    <xhtml:link rel="alternate" hreflang="zh"        href="https://filesterr.com/zh/"/>
+    <xhtml:link rel="alternate" hreflang="pt"        href="https://filesterr.com/pt/"/>
+    <xhtml:link rel="alternate" hreflang="ja"        href="https://filesterr.com/ja/"/>
+    <xhtml:link rel="alternate" hreflang="ru"        href="https://filesterr.com/ru/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://filesterr.com/"/>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
+
+  <!-- ── Upload ── -->
   <url>
     <loc>https://filesterr.com/upload</loc>
+    <xhtml:link rel="alternate" hreflang="en"        href="https://filesterr.com/upload"/>
+    <xhtml:link rel="alternate" hreflang="tr"        href="https://filesterr.com/tr/upload"/>
+    <xhtml:link rel="alternate" hreflang="de"        href="https://filesterr.com/de/upload"/>
+    <xhtml:link rel="alternate" hreflang="fr"        href="https://filesterr.com/fr/upload"/>
+    <xhtml:link rel="alternate" hreflang="es"        href="https://filesterr.com/es/upload"/>
+    <xhtml:link rel="alternate" hreflang="ar"        href="https://filesterr.com/ar/upload"/>
+    <xhtml:link rel="alternate" hreflang="zh"        href="https://filesterr.com/zh/upload"/>
+    <xhtml:link rel="alternate" hreflang="pt"        href="https://filesterr.com/pt/upload"/>
+    <xhtml:link rel="alternate" hreflang="ja"        href="https://filesterr.com/ja/upload"/>
+    <xhtml:link rel="alternate" hreflang="ru"        href="https://filesterr.com/ru/upload"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://filesterr.com/upload"/>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
+
+  <!-- ── Pricing ── -->
   <url>
     <loc>https://filesterr.com/pricing</loc>
+    <xhtml:link rel="alternate" hreflang="en"        href="https://filesterr.com/pricing"/>
+    <xhtml:link rel="alternate" hreflang="tr"        href="https://filesterr.com/tr/pricing"/>
+    <xhtml:link rel="alternate" hreflang="de"        href="https://filesterr.com/de/pricing"/>
+    <xhtml:link rel="alternate" hreflang="fr"        href="https://filesterr.com/fr/pricing"/>
+    <xhtml:link rel="alternate" hreflang="es"        href="https://filesterr.com/es/pricing"/>
+    <xhtml:link rel="alternate" hreflang="ar"        href="https://filesterr.com/ar/pricing"/>
+    <xhtml:link rel="alternate" hreflang="zh"        href="https://filesterr.com/zh/pricing"/>
+    <xhtml:link rel="alternate" hreflang="pt"        href="https://filesterr.com/pt/pricing"/>
+    <xhtml:link rel="alternate" hreflang="ja"        href="https://filesterr.com/ja/pricing"/>
+    <xhtml:link rel="alternate" hreflang="ru"        href="https://filesterr.com/ru/pricing"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://filesterr.com/pricing"/>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
+
+  <!-- ── Features ── -->
   <url>
     <loc>https://filesterr.com/features</loc>
+    <xhtml:link rel="alternate" hreflang="en"        href="https://filesterr.com/features"/>
+    <xhtml:link rel="alternate" hreflang="tr"        href="https://filesterr.com/tr/features"/>
+    <xhtml:link rel="alternate" hreflang="de"        href="https://filesterr.com/de/features"/>
+    <xhtml:link rel="alternate" hreflang="fr"        href="https://filesterr.com/fr/features"/>
+    <xhtml:link rel="alternate" hreflang="es"        href="https://filesterr.com/es/features"/>
+    <xhtml:link rel="alternate" hreflang="ar"        href="https://filesterr.com/ar/features"/>
+    <xhtml:link rel="alternate" hreflang="zh"        href="https://filesterr.com/zh/features"/>
+    <xhtml:link rel="alternate" hreflang="pt"        href="https://filesterr.com/pt/features"/>
+    <xhtml:link rel="alternate" hreflang="ja"        href="https://filesterr.com/ja/features"/>
+    <xhtml:link rel="alternate" hreflang="ru"        href="https://filesterr.com/ru/features"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://filesterr.com/features"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- ── Analytics ── -->
+  <url>
+    <loc>https://filesterr.com/analytics</loc>
+    <xhtml:link rel="alternate" hreflang="en"        href="https://filesterr.com/analytics"/>
+    <xhtml:link rel="alternate" hreflang="tr"        href="https://filesterr.com/tr/analytics"/>
+    <xhtml:link rel="alternate" hreflang="de"        href="https://filesterr.com/de/analytics"/>
+    <xhtml:link rel="alternate" hreflang="fr"        href="https://filesterr.com/fr/analytics"/>
+    <xhtml:link rel="alternate" hreflang="es"        href="https://filesterr.com/es/analytics"/>
+    <xhtml:link rel="alternate" hreflang="ar"        href="https://filesterr.com/ar/analytics"/>
+    <xhtml:link rel="alternate" hreflang="zh"        href="https://filesterr.com/zh/analytics"/>
+    <xhtml:link rel="alternate" hreflang="pt"        href="https://filesterr.com/pt/analytics"/>
+    <xhtml:link rel="alternate" hreflang="ja"        href="https://filesterr.com/ja/analytics"/>
+    <xhtml:link rel="alternate" hreflang="ru"        href="https://filesterr.com/ru/analytics"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://filesterr.com/analytics"/>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
+
+  <!-- ── About ── -->
   <url>
-    <loc>https://filesterr.com/analytics</loc>
+    <loc>https://filesterr.com/about</loc>
+    <xhtml:link rel="alternate" hreflang="en"        href="https://filesterr.com/about"/>
+    <xhtml:link rel="alternate" hreflang="tr"        href="https://filesterr.com/tr/about"/>
+    <xhtml:link rel="alternate" hreflang="de"        href="https://filesterr.com/de/about"/>
+    <xhtml:link rel="alternate" hreflang="fr"        href="https://filesterr.com/fr/about"/>
+    <xhtml:link rel="alternate" hreflang="es"        href="https://filesterr.com/es/about"/>
+    <xhtml:link rel="alternate" hreflang="ar"        href="https://filesterr.com/ar/about"/>
+    <xhtml:link rel="alternate" hreflang="zh"        href="https://filesterr.com/zh/about"/>
+    <xhtml:link rel="alternate" hreflang="pt"        href="https://filesterr.com/pt/about"/>
+    <xhtml:link rel="alternate" hreflang="ja"        href="https://filesterr.com/ja/about"/>
+    <xhtml:link rel="alternate" hreflang="ru"        href="https://filesterr.com/ru/about"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://filesterr.com/about"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+
+  <!-- ── Docs & Blog ── -->
+  <url>
+    <loc>https://filesterr.com/docs</loc>
+    <xhtml:link rel="alternate" hreflang="en"        href="https://filesterr.com/docs"/>
+    <xhtml:link rel="alternate" hreflang="tr"        href="https://filesterr.com/tr/docs"/>
+    <xhtml:link rel="alternate" hreflang="de"        href="https://filesterr.com/de/docs"/>
+    <xhtml:link rel="alternate" hreflang="fr"        href="https://filesterr.com/fr/docs"/>
+    <xhtml:link rel="alternate" hreflang="es"        href="https://filesterr.com/es/docs"/>
+    <xhtml:link rel="alternate" hreflang="ar"        href="https://filesterr.com/ar/docs"/>
+    <xhtml:link rel="alternate" hreflang="zh"        href="https://filesterr.com/zh/docs"/>
+    <xhtml:link rel="alternate" hreflang="pt"        href="https://filesterr.com/pt/docs"/>
+    <xhtml:link rel="alternate" hreflang="ja"        href="https://filesterr.com/ja/docs"/>
+    <xhtml:link rel="alternate" hreflang="ru"        href="https://filesterr.com/ru/docs"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://filesterr.com/docs"/>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://filesterr.com/about</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
+    <loc>https://filesterr.com/blog</loc>
+    <xhtml:link rel="alternate" hreflang="en"        href="https://filesterr.com/blog"/>
+    <xhtml:link rel="alternate" hreflang="tr"        href="https://filesterr.com/tr/blog"/>
+    <xhtml:link rel="alternate" hreflang="de"        href="https://filesterr.com/de/blog"/>
+    <xhtml:link rel="alternate" hreflang="fr"        href="https://filesterr.com/fr/blog"/>
+    <xhtml:link rel="alternate" hreflang="es"        href="https://filesterr.com/es/blog"/>
+    <xhtml:link rel="alternate" hreflang="ar"        href="https://filesterr.com/ar/blog"/>
+    <xhtml:link rel="alternate" hreflang="zh"        href="https://filesterr.com/zh/blog"/>
+    <xhtml:link rel="alternate" hreflang="pt"        href="https://filesterr.com/pt/blog"/>
+    <xhtml:link rel="alternate" hreflang="ja"        href="https://filesterr.com/ja/blog"/>
+    <xhtml:link rel="alternate" hreflang="ru"        href="https://filesterr.com/ru/blog"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://filesterr.com/blog"/>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://filesterr.com/status</loc>
+    <xhtml:link rel="alternate" hreflang="en"        href="https://filesterr.com/status"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://filesterr.com/status"/>
+    <changefreq>daily</changefreq>
+    <priority>0.4</priority>
+  </url>
+  <url>
+    <loc>https://filesterr.com/careers</loc>
+    <xhtml:link rel="alternate" hreflang="en"        href="https://filesterr.com/careers"/>
+    <xhtml:link rel="alternate" hreflang="tr"        href="https://filesterr.com/tr/careers"/>
+    <xhtml:link rel="alternate" hreflang="de"        href="https://filesterr.com/de/careers"/>
+    <xhtml:link rel="alternate" hreflang="fr"        href="https://filesterr.com/fr/careers"/>
+    <xhtml:link rel="alternate" hreflang="es"        href="https://filesterr.com/es/careers"/>
+    <xhtml:link rel="alternate" hreflang="ar"        href="https://filesterr.com/ar/careers"/>
+    <xhtml:link rel="alternate" hreflang="zh"        href="https://filesterr.com/zh/careers"/>
+    <xhtml:link rel="alternate" hreflang="pt"        href="https://filesterr.com/pt/careers"/>
+    <xhtml:link rel="alternate" hreflang="ja"        href="https://filesterr.com/ja/careers"/>
+    <xhtml:link rel="alternate" hreflang="ru"        href="https://filesterr.com/ru/careers"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://filesterr.com/careers"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+  </url>
+
+  <!-- ── Legal ── -->
+  <url>
     <loc>https://filesterr.com/terms</loc>
+    <xhtml:link rel="alternate" hreflang="en"        href="https://filesterr.com/terms"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://filesterr.com/terms"/>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
   <url>
     <loc>https://filesterr.com/privacy</loc>
+    <xhtml:link rel="alternate" hreflang="en"        href="https://filesterr.com/privacy"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://filesterr.com/privacy"/>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
+  <url>
+    <loc>https://filesterr.com/cookies</loc>
+    <xhtml:link rel="alternate" hreflang="en"        href="https://filesterr.com/cookies"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://filesterr.com/cookies"/>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://filesterr.com/gdpr</loc>
+    <xhtml:link rel="alternate" hreflang="en"        href="https://filesterr.com/gdpr"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://filesterr.com/gdpr"/>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://filesterr.com/refunds</loc>
+    <xhtml:link rel="alternate" hreflang="en"        href="https://filesterr.com/refunds"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://filesterr.com/refunds"/>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+
+  <!-- ══════════════════════════════════════════════════════════════════ -->
+  <!-- ── SEO Landing Pages (9 pages × 10 locales = 90 URLs) ── -->
+  <!-- ══════════════════════════════════════════════════════════════════ -->
+
+  <!-- share-files -->
+  <url>
+    <loc>https://filesterr.com/share-files</loc>
+    <xhtml:link rel="alternate" hreflang="en"        href="https://filesterr.com/share-files"/>
+    <xhtml:link rel="alternate" hreflang="tr"        href="https://filesterr.com/tr/share-files"/>
+    <xhtml:link rel="alternate" hreflang="de"        href="https://filesterr.com/de/share-files"/>
+    <xhtml:link rel="alternate" hreflang="fr"        href="https://filesterr.com/fr/share-files"/>
+    <xhtml:link rel="alternate" hreflang="es"        href="https://filesterr.com/es/share-files"/>
+    <xhtml:link rel="alternate" hreflang="ar"        href="https://filesterr.com/ar/share-files"/>
+    <xhtml:link rel="alternate" hreflang="zh"        href="https://filesterr.com/zh/share-files"/>
+    <xhtml:link rel="alternate" hreflang="pt"        href="https://filesterr.com/pt/share-files"/>
+    <xhtml:link rel="alternate" hreflang="ja"        href="https://filesterr.com/ja/share-files"/>
+    <xhtml:link rel="alternate" hreflang="ru"        href="https://filesterr.com/ru/share-files"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://filesterr.com/share-files"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- best-file-sharing-sites -->
+  <url>
+    <loc>https://filesterr.com/best-file-sharing-sites</loc>
+    <xhtml:link rel="alternate" hreflang="en"        href="https://filesterr.com/best-file-sharing-sites"/>
+    <xhtml:link rel="alternate" hreflang="tr"        href="https://filesterr.com/tr/best-file-sharing-sites"/>
+    <xhtml:link rel="alternate" hreflang="de"        href="https://filesterr.com/de/best-file-sharing-sites"/>
+    <xhtml:link rel="alternate" hreflang="fr"        href="https://filesterr.com/fr/best-file-sharing-sites"/>
+    <xhtml:link rel="alternate" hreflang="es"        href="https://filesterr.com/es/best-file-sharing-sites"/>
+    <xhtml:link rel="alternate" hreflang="ar"        href="https://filesterr.com/ar/best-file-sharing-sites"/>
+    <xhtml:link rel="alternate" hreflang="zh"        href="https://filesterr.com/zh/best-file-sharing-sites"/>
+    <xhtml:link rel="alternate" hreflang="pt"        href="https://filesterr.com/pt/best-file-sharing-sites"/>
+    <xhtml:link rel="alternate" hreflang="ja"        href="https://filesterr.com/ja/best-file-sharing-sites"/>
+    <xhtml:link rel="alternate" hreflang="ru"        href="https://filesterr.com/ru/best-file-sharing-sites"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://filesterr.com/best-file-sharing-sites"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- file-sharing-app -->
+  <url>
+    <loc>https://filesterr.com/file-sharing-app</loc>
+    <xhtml:link rel="alternate" hreflang="en"        href="https://filesterr.com/file-sharing-app"/>
+    <xhtml:link rel="alternate" hreflang="tr"        href="https://filesterr.com/tr/file-sharing-app"/>
+    <xhtml:link rel="alternate" hreflang="de"        href="https://filesterr.com/de/file-sharing-app"/>
+    <xhtml:link rel="alternate" hreflang="fr"        href="https://filesterr.com/fr/file-sharing-app"/>
+    <xhtml:link rel="alternate" hreflang="es"        href="https://filesterr.com/es/file-sharing-app"/>
+    <xhtml:link rel="alternate" hreflang="ar"        href="https://filesterr.com/ar/file-sharing-app"/>
+    <xhtml:link rel="alternate" hreflang="zh"        href="https://filesterr.com/zh/file-sharing-app"/>
+    <xhtml:link rel="alternate" hreflang="pt"        href="https://filesterr.com/pt/file-sharing-app"/>
+    <xhtml:link rel="alternate" hreflang="ja"        href="https://filesterr.com/ja/file-sharing-app"/>
+    <xhtml:link rel="alternate" hreflang="ru"        href="https://filesterr.com/ru/file-sharing-app"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://filesterr.com/file-sharing-app"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- cross-device-transfer -->
+  <url>
+    <loc>https://filesterr.com/cross-device-transfer</loc>
+    <xhtml:link rel="alternate" hreflang="en"        href="https://filesterr.com/cross-device-transfer"/>
+    <xhtml:link rel="alternate" hreflang="tr"        href="https://filesterr.com/tr/cross-device-transfer"/>
+    <xhtml:link rel="alternate" hreflang="de"        href="https://filesterr.com/de/cross-device-transfer"/>
+    <xhtml:link rel="alternate" hreflang="fr"        href="https://filesterr.com/fr/cross-device-transfer"/>
+    <xhtml:link rel="alternate" hreflang="es"        href="https://filesterr.com/es/cross-device-transfer"/>
+    <xhtml:link rel="alternate" hreflang="ar"        href="https://filesterr.com/ar/cross-device-transfer"/>
+    <xhtml:link rel="alternate" hreflang="zh"        href="https://filesterr.com/zh/cross-device-transfer"/>
+    <xhtml:link rel="alternate" hreflang="pt"        href="https://filesterr.com/pt/cross-device-transfer"/>
+    <xhtml:link rel="alternate" hreflang="ja"        href="https://filesterr.com/ja/cross-device-transfer"/>
+    <xhtml:link rel="alternate" hreflang="ru"        href="https://filesterr.com/ru/cross-device-transfer"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://filesterr.com/cross-device-transfer"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- secure-file-sharing -->
+  <url>
+    <loc>https://filesterr.com/secure-file-sharing</loc>
+    <xhtml:link rel="alternate" hreflang="en"        href="https://filesterr.com/secure-file-sharing"/>
+    <xhtml:link rel="alternate" hreflang="tr"        href="https://filesterr.com/tr/secure-file-sharing"/>
+    <xhtml:link rel="alternate" hreflang="de"        href="https://filesterr.com/de/secure-file-sharing"/>
+    <xhtml:link rel="alternate" hreflang="fr"        href="https://filesterr.com/fr/secure-file-sharing"/>
+    <xhtml:link rel="alternate" hreflang="es"        href="https://filesterr.com/es/secure-file-sharing"/>
+    <xhtml:link rel="alternate" hreflang="ar"        href="https://filesterr.com/ar/secure-file-sharing"/>
+    <xhtml:link rel="alternate" hreflang="zh"        href="https://filesterr.com/zh/secure-file-sharing"/>
+    <xhtml:link rel="alternate" hreflang="pt"        href="https://filesterr.com/pt/secure-file-sharing"/>
+    <xhtml:link rel="alternate" hreflang="ja"        href="https://filesterr.com/ja/secure-file-sharing"/>
+    <xhtml:link rel="alternate" hreflang="ru"        href="https://filesterr.com/ru/secure-file-sharing"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://filesterr.com/secure-file-sharing"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- file-sharing-no-login -->
+  <url>
+    <loc>https://filesterr.com/file-sharing-no-login</loc>
+    <xhtml:link rel="alternate" hreflang="en"        href="https://filesterr.com/file-sharing-no-login"/>
+    <xhtml:link rel="alternate" hreflang="tr"        href="https://filesterr.com/tr/file-sharing-no-login"/>
+    <xhtml:link rel="alternate" hreflang="de"        href="https://filesterr.com/de/file-sharing-no-login"/>
+    <xhtml:link rel="alternate" hreflang="fr"        href="https://filesterr.com/fr/file-sharing-no-login"/>
+    <xhtml:link rel="alternate" hreflang="es"        href="https://filesterr.com/es/file-sharing-no-login"/>
+    <xhtml:link rel="alternate" hreflang="ar"        href="https://filesterr.com/ar/file-sharing-no-login"/>
+    <xhtml:link rel="alternate" hreflang="zh"        href="https://filesterr.com/zh/file-sharing-no-login"/>
+    <xhtml:link rel="alternate" hreflang="pt"        href="https://filesterr.com/pt/file-sharing-no-login"/>
+    <xhtml:link rel="alternate" hreflang="ja"        href="https://filesterr.com/ja/file-sharing-no-login"/>
+    <xhtml:link rel="alternate" hreflang="ru"        href="https://filesterr.com/ru/file-sharing-no-login"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://filesterr.com/file-sharing-no-login"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- free-file-sharing -->
+  <url>
+    <loc>https://filesterr.com/free-file-sharing</loc>
+    <xhtml:link rel="alternate" hreflang="en"        href="https://filesterr.com/free-file-sharing"/>
+    <xhtml:link rel="alternate" hreflang="tr"        href="https://filesterr.com/tr/free-file-sharing"/>
+    <xhtml:link rel="alternate" hreflang="de"        href="https://filesterr.com/de/free-file-sharing"/>
+    <xhtml:link rel="alternate" hreflang="fr"        href="https://filesterr.com/fr/free-file-sharing"/>
+    <xhtml:link rel="alternate" hreflang="es"        href="https://filesterr.com/es/free-file-sharing"/>
+    <xhtml:link rel="alternate" hreflang="ar"        href="https://filesterr.com/ar/free-file-sharing"/>
+    <xhtml:link rel="alternate" hreflang="zh"        href="https://filesterr.com/zh/free-file-sharing"/>
+    <xhtml:link rel="alternate" hreflang="pt"        href="https://filesterr.com/pt/free-file-sharing"/>
+    <xhtml:link rel="alternate" hreflang="ja"        href="https://filesterr.com/ja/free-file-sharing"/>
+    <xhtml:link rel="alternate" hreflang="ru"        href="https://filesterr.com/ru/free-file-sharing"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://filesterr.com/free-file-sharing"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- large-file-sharing -->
+  <url>
+    <loc>https://filesterr.com/large-file-sharing</loc>
+    <xhtml:link rel="alternate" hreflang="en"        href="https://filesterr.com/large-file-sharing"/>
+    <xhtml:link rel="alternate" hreflang="tr"        href="https://filesterr.com/tr/large-file-sharing"/>
+    <xhtml:link rel="alternate" hreflang="de"        href="https://filesterr.com/de/large-file-sharing"/>
+    <xhtml:link rel="alternate" hreflang="fr"        href="https://filesterr.com/fr/large-file-sharing"/>
+    <xhtml:link rel="alternate" hreflang="es"        href="https://filesterr.com/es/large-file-sharing"/>
+    <xhtml:link rel="alternate" hreflang="ar"        href="https://filesterr.com/ar/large-file-sharing"/>
+    <xhtml:link rel="alternate" hreflang="zh"        href="https://filesterr.com/zh/large-file-sharing"/>
+    <xhtml:link rel="alternate" hreflang="pt"        href="https://filesterr.com/pt/large-file-sharing"/>
+    <xhtml:link rel="alternate" hreflang="ja"        href="https://filesterr.com/ja/large-file-sharing"/>
+    <xhtml:link rel="alternate" hreflang="ru"        href="https://filesterr.com/ru/large-file-sharing"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://filesterr.com/large-file-sharing"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- temporary-file-sharing -->
+  <url>
+    <loc>https://filesterr.com/temporary-file-sharing</loc>
+    <xhtml:link rel="alternate" hreflang="en"        href="https://filesterr.com/temporary-file-sharing"/>
+    <xhtml:link rel="alternate" hreflang="tr"        href="https://filesterr.com/tr/temporary-file-sharing"/>
+    <xhtml:link rel="alternate" hreflang="de"        href="https://filesterr.com/de/temporary-file-sharing"/>
+    <xhtml:link rel="alternate" hreflang="fr"        href="https://filesterr.com/fr/temporary-file-sharing"/>
+    <xhtml:link rel="alternate" hreflang="es"        href="https://filesterr.com/es/temporary-file-sharing"/>
+    <xhtml:link rel="alternate" hreflang="ar"        href="https://filesterr.com/ar/temporary-file-sharing"/>
+    <xhtml:link rel="alternate" hreflang="zh"        href="https://filesterr.com/zh/temporary-file-sharing"/>
+    <xhtml:link rel="alternate" hreflang="pt"        href="https://filesterr.com/pt/temporary-file-sharing"/>
+    <xhtml:link rel="alternate" hreflang="ja"        href="https://filesterr.com/ja/temporary-file-sharing"/>
+    <xhtml:link rel="alternate" hreflang="ru"        href="https://filesterr.com/ru/temporary-file-sharing"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://filesterr.com/temporary-file-sharing"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
 </urlset>

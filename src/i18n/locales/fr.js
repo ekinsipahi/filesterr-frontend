@@ -389,6 +389,10 @@ export default {
     upsellTitle: '5 Go gratuits + analyses de téléchargement',
     upsellSub: 'Pas de carte bancaire. Voyez qui télécharge, d\'où et plus encore.',
     freeSignup: 'Inscription gratuite',
+    seoH2: 'Pourquoi des millions de personnes choisissent Filesterr pour partager des fichiers',
+    seoP1: 'Sans inscription. Partagez des fichiers en ligne en quelques secondes — déposez simplement votre fichier et obtenez un lien instantanément. Pas de barrière d\'inscription, pas d\'attente, sans tracas. Filesterr est la façon la plus rapide de partager des fichiers en ligne.',
+    seoP2: 'Fonctionne parfaitement entre les appareils. Votre fichier est sur votre téléphone, votre ami en a besoin sur son ordinateur. Uploadez une fois, partagez le lien — il télécharge sur n\'importe quel appareil : Android, iPhone, Mac, PC. Sans application, sans câble, sans les tracas du Bluetooth.',
+    seoP3: 'Partage sécurisé protégé par un chiffrement AES-256 avec option de téléchargements anonymes. Définissez des dates d\'expiration et les fichiers se suppriment automatiquement. C\'est le partage gratuit qui se soucie vraiment de votre vie privée.',
   },
   deleteFile: {
     confirmTitle: 'Supprimer ce fichier ?',

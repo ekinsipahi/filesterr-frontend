@@ -389,6 +389,10 @@ export default {
     upsellTitle: '5 GB ücretsiz + indirme analitiği',
     upsellSub: 'Kredi kartı yok. Kimin indirdiğini, nereden indirdiğini ve daha fazlasını görün.',
     freeSignup: 'Ücretsiz kayıt ol',
+    seoH2: 'Neden milyonlarca kişi Filesterr\'ı dosya paylaşmak için seçiyor',
+    seoP1: 'Kayıt gerekmez. Dosyaları çevrimiçi saniyeler içinde paylaşın — sadece dosyanızı bırakın ve anında bir bağlantı alın. Kayıt engeli yok, bekleme yok, zahmetsiz. Filesterr, internetteki en hızlı çevrimiçi dosya paylaşım yöntemidir.',
+    seoP2: 'Cihazlar arasında sorunsuz çalışır. Telefonunuzda bir dosya var ve arkadaşınızın bilgisayarında gerekiyor. Bir kez yükleyin, bağlantıyı paylaşın; herhangi bir cihazda indirebilir — Android, iPhone, Mac, PC. Uygulama yok, kablo yok, Bluetooth derdi yok.',
+    seoP3: 'AES-256 şifrelemesiyle korunan, anonim yükleme seçeneği sunan güvenli dosya paylaşımı. Son kullanma tarihi belirleyin, dosyalar otomatik olarak silinsin. Gizliliğinizi gerçekten önemseyen ücretsiz dosya paylaşımı.',
   },
   deleteFile: {
     confirmTitle: 'Bu dosyayı silmek istiyor musunuz?',

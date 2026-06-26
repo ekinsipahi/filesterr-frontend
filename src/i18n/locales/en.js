@@ -389,6 +389,10 @@ export default {
     upsellTitle: '5 GB free + download analytics',
     upsellSub: 'No credit card. See who downloads, where from, and more.',
     freeSignup: 'Free signup',
+    seoH2: 'Why millions choose Filesterr to share files',
+    seoP1: 'No signup required. Filesterr is a file sharing site no login needed — just drop your files to share and get a link instantly. No registration wall, no waiting, no hassle. It\'s the fastest way to share online files without creating an account, and one of the few free file sharing sites no registration that doesn\'t punish you for staying anonymous.',
+    seoP2: 'Works seamlessly across every device. Your file is on your phone, your friend needs it on their PC. Upload once, share the link — they download on any device: Android, iPhone, Mac, Windows. No app to install, no cable, no Bluetooth headache. A quick file share in under 3 seconds, every time.',
+    seoP3: 'Share file without login and stay private. Filesterr uses AES-256 encryption, optional anonymous uploads, and auto-expiry dates. This is share online files the way it should work — a genuine online file sharing platform without login that actually cares about your privacy.',
   },
   deleteFile: {
     confirmTitle: 'Delete this file?',

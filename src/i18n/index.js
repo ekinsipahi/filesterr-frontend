@@ -5,17 +5,23 @@ import de from './locales/de.js'
 import fr from './locales/fr.js'
 import es from './locales/es.js'
 import ar from './locales/ar.js'
+import zh from './locales/zh.js'
+import pt from './locales/pt.js'
+import ja from './locales/ja.js'
+import ru from './locales/ru.js'
 
-export const SUPPORTED_LOCALES = ['en', 'tr', 'de', 'fr', 'es', 'ar']
+export const SUPPORTED_LOCALES = ['en', 'tr', 'de', 'fr', 'es', 'ar', 'zh', 'pt', 'ja', 'ru']
 
 export const LOCALE_NAMES = {
   en: 'English', tr: 'Türkçe', de: 'Deutsch',
   fr: 'Français', es: 'Español', ar: 'العربية',
+  zh: '中文', pt: 'Português', ja: '日本語', ru: 'Русский',
 }
 
 export const LOCALE_FLAGS = {
   en: '🇺🇸', tr: '🇹🇷', de: '🇩🇪',
   fr: '🇫🇷', es: '🇪🇸', ar: '🇸🇦',
+  zh: '🇨🇳', pt: '🇧🇷', ja: '🇯🇵', ru: '🇷🇺',
 }
 
 export const RTL_LOCALES = ['ar']
@@ -53,6 +59,6 @@ export function createAppI18n(ssrLocale) {
     legacy: false,
     locale,
     fallbackLocale: 'en',
-    messages: { en, tr, de, fr, es, ar },
+    messages: { en, tr, de, fr, es, ar, zh, pt, ja, ru },
   })
 }

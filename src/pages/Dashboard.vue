@@ -27,13 +27,14 @@
           </div>
           <button
             @click="handleResendVerification"
-            :disabled="resendLoading || resendSent"
+            :disabled="resendDisabled"
             class="shrink-0 text-xs font-semibold px-3 py-1.5 rounded-lg transition-colors"
-            :class="resendSent
+            :class="(resendSent || resendCooldownMin > 0)
               ? 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400 cursor-default'
               : 'bg-amber-200 hover:bg-amber-300 text-amber-900 dark:bg-amber-800/50 dark:hover:bg-amber-700/60 dark:text-amber-200 disabled:opacity-60'"
           >
             <span v-if="resendLoading">...</span>
+            <span v-else-if="resendCooldownMin > 0">{{ resendCooldownMin }}m</span>
             <span v-else-if="resendSent">{{ t('dashboard.verifyResent') }}</span>
             <span v-else>{{ t('dashboard.verifyResend') }}</span>
           </button>
@@ -872,17 +873,37 @@ const loading      = ref(true)
 const filesLoading = ref(true)
 const files        = ref([])
 
-const resendLoading = ref(false)
-const resendSent    = ref(false)
+const RESEND_COOLDOWN_MS = 15 * 60 * 1000
+const LS_KEY = 'verify_resend_until'
+
+const resendLoading     = ref(false)
+const resendSent        = ref(false)
+const resendCooldownEnd = ref(0)
+
+function loadResendCooldown() {
+  const stored = localStorage.getItem(LS_KEY)
+  if (stored) resendCooldownEnd.value = parseInt(stored, 10)
+}
+
+const resendCooldownMin = computed(() => {
+  const remaining = resendCooldownEnd.value - Date.now()
+  return remaining > 0 ? Math.ceil(remaining / 60000) : 0
+})
+
+const resendDisabled = computed(() =>
+  resendLoading.value || resendSent.value || resendCooldownMin.value > 0
+)
 
 async function handleResendVerification() {
-  if (resendLoading.value || resendSent.value) return
+  if (resendDisabled.value) return
   resendLoading.value = true
   try {
     await resendVerification()
+    const until = Date.now() + RESEND_COOLDOWN_MS
+    resendCooldownEnd.value = until
+    localStorage.setItem(LS_KEY, until.toString())
     resendSent.value = true
   } catch {
-    // silently fail — email might still be sent
     resendSent.value = true
   } finally {
     resendLoading.value = false
@@ -1454,6 +1475,7 @@ async function loadFiles() {
 
 onMounted(async () => {
   isMounted.value = true
+  loadResendCooldown()
   window.addEventListener('dragenter', _onWindowDragEnter)
   window.addEventListener('dragleave', _onWindowDragLeave)
   window.addEventListener('dragover',  _onWindowDragOver)

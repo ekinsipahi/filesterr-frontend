@@ -90,7 +90,21 @@
                     : 'text-zinc-400'">
                 {{ planExpiryDays !== null && planExpiryDays <= 0 ? 'Expired' : `Expires ${formatDate(user.plan_expires_at)}` }}
               </p>
-              <a v-if="user.plan_expires_at && !['free','anonymous'].includes(user.plan)"
+              <!-- Paddle subscription: manage portal -->
+              <button
+                v-if="!['free','anonymous'].includes(user.plan) && user.payment_method === 'stripe'"
+                @click="openSubscriptionPortal"
+                :disabled="portalLoading"
+                class="text-xs text-blue-500 hover:underline mt-1 inline-flex items-center gap-1 disabled:opacity-60"
+              >
+                <svg v-if="portalLoading" class="w-3 h-3 animate-spin" fill="none" viewBox="0 0 24 24">
+                  <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"/>
+                  <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"/>
+                </svg>
+                {{ portalLoading ? 'Opening…' : 'Manage subscription →' }}
+              </button>
+              <!-- Crypto / renew -->
+              <a v-else-if="user.plan_expires_at && !['free','anonymous'].includes(user.plan)"
                 :href="`/checkout?plan=${user.plan}`"
                 class="text-xs text-brand-500 hover:underline mt-0.5 inline-block">Renew →</a>
               <a v-else-if="user.plan !== 'promax'" href="/pricing"
@@ -860,7 +874,7 @@
 
 <script setup>
 import { ref, computed, watch, onMounted, onUnmounted } from 'vue'
-import { getMe, resendVerification } from '../api/index.js'
+import { getMe, resendVerification, getPaddlePortalUrl } from '../api/index.js'
 import { PLANS } from '../data/plans.js'
 import { useI18n } from 'vue-i18n'
 import FileContextMenu from '../components/dashboard/FileContextMenu.vue'
@@ -879,6 +893,20 @@ const LS_KEY = 'verify_resend_until'
 const resendLoading     = ref(false)
 const resendSent        = ref(false)
 const resendCooldownEnd = ref(0)
+
+const portalLoading = ref(false)
+async function openSubscriptionPortal() {
+  if (portalLoading.value) return
+  portalLoading.value = true
+  try {
+    const url = await getPaddlePortalUrl()
+    window.open(url, '_blank', 'noopener')
+  } catch {
+    // silently ignore — Paddle portal unavailable
+  } finally {
+    portalLoading.value = false
+  }
+}
 
 function loadResendCooldown() {
   const stored = localStorage.getItem(LS_KEY)

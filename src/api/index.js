@@ -197,6 +197,13 @@ export async function resetPassword(token, password) {
   return data
 }
 
+export async function getPaddlePortalUrl() {
+  const res = await request('/api/v1/payments/paddle/portal/')
+  const data = await res.json().catch(() => ({}))
+  if (!res.ok) throw new Error(data.error ?? 'Could not open subscription portal.')
+  return data.url
+}
+
 export async function startOAuth(provider) {
   const res = await request(`/api/v1/auth/${provider}/redirect/`)
   const data = await res.json().catch(() => ({}))

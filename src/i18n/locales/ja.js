@@ -411,6 +411,8 @@ export default {
   dashboard: {
     verifyBanner: 'メールアドレスを確認してください',
     verifyBannerSub: '{email}の受信トレイを確認し、確認リンクをクリックしてフルアクセスをアンロック。',
+    verifyResend: '再送信',
+    verifyResent: '送信済み ✓',
     welcomeBack: 'おかえりなさい{name}',
     manageFiles: 'ファイルとストレージを管理。',
     analyticsBtn: '分析',

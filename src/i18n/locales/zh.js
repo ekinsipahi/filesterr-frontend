@@ -411,6 +411,8 @@ export default {
   dashboard: {
     verifyBanner: '验证您的电子邮件地址',
     verifyBannerSub: '检查您在 {email} 的收件箱，点击验证链接以解锁完整访问。',
+    verifyResend: '重新发送',
+    verifyResent: '已发送 ✓',
     welcomeBack: '欢迎回来{name}',
     manageFiles: '管理您的文件和存储。',
     analyticsBtn: '分析',

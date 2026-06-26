@@ -411,6 +411,8 @@ export default {
   dashboard: {
     verifyBanner: 'Подтвердите адрес электронной почты',
     verifyBannerSub: 'Проверьте почту {email} и нажмите на ссылку подтверждения для полного доступа.',
+    verifyResend: 'Отправить снова',
+    verifyResent: 'Отправлено ✓',
     welcomeBack: 'С возвращением{name}',
     manageFiles: 'Управляйте файлами и хранилищем.',
     analyticsBtn: 'Аналитика',

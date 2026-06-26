@@ -151,6 +151,11 @@ export async function login(email, password) {
   return { ...data, user }
 }
 
+export async function resendVerification() {
+  const res = await request('/api/v1/auth/resend-verification/', { method: 'POST' })
+  if (!res.ok) throw new Error('Failed to resend verification email.')
+}
+
 export async function verifyEmail(token) {
   const res = await request(`/api/v1/auth/verify-email/?token=${encodeURIComponent(token)}`)
   const data = await res.json().catch(() => ({}))

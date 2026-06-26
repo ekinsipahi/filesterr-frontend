@@ -411,6 +411,8 @@ export default {
   dashboard: {
     verifyBanner: 'E-posta adresinizi doğrulayın',
     verifyBannerSub: '{email} adresindeki gelen kutunuzu kontrol edin ve tam erişimin kilidini açmak için doğrulama bağlantısına tıklayın.',
+    verifyResend: 'Tekrar gönder',
+    verifyResent: 'Gönderildi ✓',
     welcomeBack: 'Tekrar hoş geldiniz{name}',
     manageFiles: 'Dosyalarınızı ve depolama alanınızı yönetin.',
     analyticsBtn: 'Analitik',

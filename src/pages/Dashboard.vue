@@ -17,7 +17,7 @@
           <svg class="w-5 h-5 text-amber-500 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
           </svg>
-          <div class="flex-1">
+          <div class="flex-1 min-w-0">
             <p class="text-sm font-semibold text-amber-800 dark:text-amber-300">{{ t('dashboard.verifyBanner') }}</p>
             <p class="text-xs text-amber-600 dark:text-amber-400 mt-0.5">
               <i18n-t keypath="dashboard.verifyBannerSub" tag="span">
@@ -25,6 +25,18 @@
               </i18n-t>
             </p>
           </div>
+          <button
+            @click="handleResendVerification"
+            :disabled="resendLoading || resendSent"
+            class="shrink-0 text-xs font-semibold px-3 py-1.5 rounded-lg transition-colors"
+            :class="resendSent
+              ? 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400 cursor-default'
+              : 'bg-amber-200 hover:bg-amber-300 text-amber-900 dark:bg-amber-800/50 dark:hover:bg-amber-700/60 dark:text-amber-200 disabled:opacity-60'"
+          >
+            <span v-if="resendLoading">...</span>
+            <span v-else-if="resendSent">{{ t('dashboard.verifyResent') }}</span>
+            <span v-else>{{ t('dashboard.verifyResend') }}</span>
+          </button>
         </div>
 
         <!-- Welcome + Upload button -->
@@ -847,7 +859,7 @@
 
 <script setup>
 import { ref, computed, watch, onMounted, onUnmounted } from 'vue'
-import { getMe } from '../api/index.js'
+import { getMe, resendVerification } from '../api/index.js'
 import { PLANS } from '../data/plans.js'
 import { useI18n } from 'vue-i18n'
 import FileContextMenu from '../components/dashboard/FileContextMenu.vue'
@@ -859,6 +871,23 @@ const user         = ref(null)
 const loading      = ref(true)
 const filesLoading = ref(true)
 const files        = ref([])
+
+const resendLoading = ref(false)
+const resendSent    = ref(false)
+
+async function handleResendVerification() {
+  if (resendLoading.value || resendSent.value) return
+  resendLoading.value = true
+  try {
+    await resendVerification()
+    resendSent.value = true
+  } catch {
+    // silently fail — email might still be sent
+    resendSent.value = true
+  } finally {
+    resendLoading.value = false
+  }
+}
 const folders      = ref([])
 const currentFolderId = ref(null)
 const search       = ref('')

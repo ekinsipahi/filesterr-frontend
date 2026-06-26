@@ -411,6 +411,8 @@ export default {
   dashboard: {
     verifyBanner: 'Vérifiez votre adresse e-mail',
     verifyBannerSub: 'Consultez votre boîte de réception à {email} et cliquez sur le lien de vérification pour débloquer l\'accès complet.',
+    verifyResend: 'Renvoyer',
+    verifyResent: 'Envoyé ✓',
     welcomeBack: 'Bon retour{name}',
     manageFiles: 'Gérez vos fichiers et votre stockage.',
     analyticsBtn: 'Analyses',

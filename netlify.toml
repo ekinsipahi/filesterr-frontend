@@ -8,7 +8,7 @@
 [build]
   # DJANGO_API_URL ortam değişkeni olarak Netlify'da ayarlanmalı.
   # Örnek: https://filesterr-api.onrender.com
-  command = "npm run build && node scripts/gen-redirects.mjs"
+  command = "node scripts/gen-sitemap.mjs && npm run build && node scripts/gen-redirects.mjs"
   publish = "dist/client"
   functions = "netlify/functions"
 

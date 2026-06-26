@@ -41,7 +41,6 @@
             <div class="min-w-0 flex-1">
               <h1 class="font-display text-xl font-bold truncate">{{ file.name }}</h1>
               <p class="text-sm text-zinc-400 mt-1">{{ formatSize(file.size) }} · {{ friendlyMime(file.mimeType) }}</p>
-              <!-- Premium badges -->
               <div class="flex items-center gap-2 mt-2 flex-wrap">
                 <span v-if="file.isPasswordProtected"
                   class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 text-amber-700 dark:text-amber-400 text-[10px] font-bold">
@@ -115,23 +114,35 @@
             <p v-if="passwordError" class="text-xs text-red-500 mt-2">{{ passwordError }}</p>
           </div>
 
-          <!-- Ad countdown gate -->
-          <div v-if="showAd && !adDone && (passwordUnlocked || !file.isPasswordProtected)" class="mb-6 p-5 rounded-xl bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700">
-            <div class="flex items-center justify-between text-xs text-zinc-500 mb-3">
-              <span>{{ t('download.adCountdown', { n: adCountdown }) }}</span>
-              <span class="text-brand-500 font-medium">{{ Math.round(((file.adDuration - adCountdown) / file.adDuration) * 100) }}%</span>
+          <!-- ── Ad countdown (anonymous / free users only) ─────────────────── -->
+          <div v-if="showAdTimer && !adTimerDone"
+            class="mb-6 rounded-xl border border-zinc-200 dark:border-zinc-700 overflow-hidden">
+
+            <!-- Timer bar -->
+            <div class="px-5 pt-4 pb-3">
+              <div class="flex items-center justify-between text-xs text-zinc-500 mb-2">
+                <span>Your download starts in <span class="font-bold text-zinc-700 dark:text-zinc-300 tabular-nums">{{ adCountdown }}s</span></span>
+                <span class="text-brand-500 font-medium">{{ timerPct }}% complete</span>
+              </div>
+              <div class="h-1.5 bg-zinc-100 dark:bg-zinc-800 rounded-full overflow-hidden">
+                <div class="h-full bg-brand-500 rounded-full transition-all duration-1000"
+                  :style="`width:${timerPct}%`" />
+              </div>
             </div>
-            <div class="h-1.5 bg-zinc-200 dark:bg-zinc-700 rounded-full overflow-hidden">
-              <div class="h-full bg-brand-500 rounded-full transition-all duration-1000"
-                :style="`width:${((file.adDuration - adCountdown) / file.adDuration) * 100}%`" />
+
+            <!-- In-page push ad zone -->
+            <div class="border-t border-zinc-100 dark:border-zinc-800 px-5 py-4 bg-zinc-50 dark:bg-zinc-800/40">
+              <p class="text-[10px] text-zinc-400 uppercase tracking-wider mb-2 font-medium">Advertisement</p>
+              <AdZone zone="inpage_push" container-class="min-h-[60px]" />
             </div>
-            <div class="mt-4 h-20 rounded-lg bg-zinc-100 dark:bg-zinc-700 flex items-center justify-center text-xs text-zinc-400 border border-dashed border-zinc-300 dark:border-zinc-600">
-              {{ t('download.advertisement') }}
+
+            <!-- Skip upsell -->
+            <div class="border-t border-zinc-100 dark:border-zinc-800 px-5 py-3 flex items-center justify-between">
+              <p class="text-xs text-zinc-400">Skip all ads and timers</p>
+              <a href="/pricing" class="text-xs font-semibold text-brand-600 dark:text-brand-400 hover:underline">
+                Get Premium →
+              </a>
             </div>
-            <p class="text-center text-xs text-zinc-400 mt-3">
-              {{ t('download.skipAds') }}
-              <a href="/register?plan=premium" class="text-brand-500 font-medium hover:underline">{{ t('download.getPremium') }}</a>
-            </p>
           </div>
 
           <!-- Download button -->
@@ -144,14 +155,13 @@
             <svg v-if="!downloading" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
             </svg>
-            <svg v-else class="w-5 h-5 animate-spin-slow" fill="none" viewBox="0 0 24 24">
+            <svg v-else class="w-5 h-5 animate-spin" fill="none" viewBox="0 0 24 24">
               <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"/>
               <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"/>
             </svg>
             {{ downloadBtnLabel }}
           </button>
 
-          <!-- Download error -->
           <div v-if="downloadError" class="mt-4 p-3 rounded-xl bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800">
             <p class="text-xs text-red-600 dark:text-red-400">{{ downloadError }}</p>
           </div>
@@ -168,7 +178,15 @@
             <p class="text-sm font-semibold">{{ t('download.upsellTitle') }}</p>
             <p class="text-xs text-zinc-500 mt-0.5">{{ t('download.upsellSub') }}</p>
           </div>
-          <a href="/register?plan=premium" class="btn-primary text-xs shrink-0">{{ t('download.goPremium') }}</a>
+          <a href="/pricing" class="btn-primary text-xs shrink-0">{{ t('download.goPremium') }}</a>
+        </div>
+
+        <!-- Popunder (fires invisibly on page load for non-premium users) -->
+        <AdZone v-if="showBannerAd" zone="popunder" class="hidden" />
+
+        <!-- Bottom banner ad (all non-premium users) -->
+        <div v-if="showBannerAd" class="flex justify-center">
+          <AdZone :zone="isMobile ? 'banner_mobile' : 'banner_728x90'" />
         </div>
       </template>
 
@@ -181,40 +199,64 @@ import { ref, computed, onMounted, onUnmounted } from 'vue'
 import { useRoute } from 'vue-router'
 import { useHead } from '@vueuse/head'
 import { useI18n } from 'vue-i18n'
+import AdZone from '../components/ads/AdZone.vue'
 
 const { t } = useI18n()
 const route = useRoute()
-const file = ref(null)
+const file  = ref(null)
 
 useHead(computed(() => ({
   title: file.value ? `${file.value.name} — Download on Filesterr` : 'Download File — Filesterr',
   meta: [
-    { name: 'description',        content: file.value ? `Download "${file.value.name}" on Filesterr — fast, secure file sharing. No account needed.` : 'Secure file download powered by Filesterr.' },
+    { name: 'description',        content: file.value ? `Download "${file.value.name}" on Filesterr — fast, secure file sharing.` : 'Secure file download powered by Filesterr.' },
     { name: 'robots',             content: 'noindex, follow' },
     { property: 'og:title',       content: file.value ? `${file.value.name} — Filesterr` : 'File Download — Filesterr' },
     { property: 'og:description', content: 'Secure file sharing powered by Filesterr.' },
     { property: 'og:image',       content: 'https://filesterr.com/logo.png' },
   ],
 })))
-const loading = ref(true)
-const error = ref(null)
-const adCountdown = ref(0)
-const adDone = ref(false)
-const downloading = ref(false)
+
+// ── State ─────────────────────────────────────────────────────────────────────
+const loading       = ref(true)
+const error         = ref(null)
+const adCountdown   = ref(0)
+const adTimerDone   = ref(false)
+const adDuration    = ref(0)
+const downloading   = ref(false)
 const downloadError = ref(null)
 const downloadStarted = ref(false)
 
-// Password state
-const password = ref('')
+const password        = ref('')
 const passwordUnlocked = ref(false)
-const passwordError = ref('')
+const passwordError   = ref('')
 const checkingPassword = ref(false)
 
 let timer = null
 
-const userIsPro = typeof window !== 'undefined' && window.__USER__?.isPro
+// ── User / plan detection ─────────────────────────────────────────────────────
+const userPlan = typeof window !== 'undefined'
+  ? (window.__USER__?.plan ?? localStorage.getItem('cached_user') ? (() => { try { return JSON.parse(localStorage.getItem('cached_user'))?.plan } catch { return '' } })() : '')
+  : ''
+const isPremium  = ['premium', 'pro', 'promax'].includes(userPlan)
+const isFree     = userPlan === 'free'
+const isMobile   = typeof window !== 'undefined' && /android|iphone|ipod/i.test(navigator.userAgent)
 
-const showAd = computed(() => file.value?.requiresAd && !userIsPro)
+// Timer durations by plan
+function timerForPlan(plan) {
+  if (['premium', 'pro', 'promax'].includes(plan)) return 0   // skip
+  if (plan === 'free') return 20
+  return 30  // anonymous
+}
+
+// ── Computed ──────────────────────────────────────────────────────────────────
+const showAdTimer = computed(() => adDuration.value > 0)
+const showBannerAd = computed(() => !isPremium)
+
+const timerPct = computed(() => {
+  if (adDuration.value === 0) return 100
+  return Math.round(((adDuration.value - adCountdown.value) / adDuration.value) * 100)
+})
+
 const isExpiringSoon = computed(() => {
   if (!file.value?.expiresAt) return false
   return new Date(file.value.expiresAt) - Date.now() < 3 * 24 * 60 * 60 * 1000
@@ -224,7 +266,7 @@ const needsPassword = computed(() => file.value?.isPasswordProtected && !passwor
 
 const downloadBtnDisabled = computed(() => {
   if (needsPassword.value) return true
-  if (showAd.value && !adDone.value) return true
+  if (showAdTimer.value && !adTimerDone.value) return true
   if (downloading.value) return true
   return false
 })
@@ -232,9 +274,11 @@ const downloadBtnDisabled = computed(() => {
 const downloadBtnLabel = computed(() => {
   if (downloading.value) return t('download.btnStarting')
   if (needsPassword.value) return t('download.btnEnterPassword')
+  if (showAdTimer.value && !adTimerDone.value) return `Wait ${adCountdown.value}s…`
   return t('download.btnDownload')
 })
 
+// ── Lifecycle ─────────────────────────────────────────────────────────────────
 onMounted(async () => {
   try {
     const res = await fetch(`/api/v1/files/public/${route.params.id}/`)
@@ -244,17 +288,32 @@ onMounted(async () => {
     }
     const data = await res.json()
     file.value = {
-      name:               data.original_name,
-      size:               data.size,
-      mimeType:           data.mime_type,
-      downloadsCount:     data.download_count,
-      uploadedAt:         data.created_at,
-      expiresAt:          data.expires_at,
-      requiresAd:         !userIsPro,
-      adDuration:         10,
-      shareToken:         data.share_token,
+      name:                data.original_name,
+      size:                data.size,
+      mimeType:            data.mime_type,
+      downloadsCount:      data.download_count,
+      uploadedAt:          data.created_at,
+      expiresAt:           data.expires_at,
+      shareToken:          data.share_token,
       isPasswordProtected: !!data.is_password_protected,
       isOneTime:           !!data.is_one_time,
+    }
+
+    // Start ad timer after file loads
+    const dur = timerForPlan(userPlan)
+    adDuration.value  = dur
+    adCountdown.value = dur
+
+    if (dur > 0) {
+      timer = setInterval(() => {
+        adCountdown.value--
+        if (adCountdown.value <= 0) {
+          clearInterval(timer)
+          adTimerDone.value = true
+        }
+      }, 1000)
+    } else {
+      adTimerDone.value = true
     }
   } catch (e) {
     error.value = e.message
@@ -265,34 +324,20 @@ onMounted(async () => {
 
 onUnmounted(() => { if (timer) clearInterval(timer) })
 
+// ── Actions ───────────────────────────────────────────────────────────────────
 function unlockPassword() {
   if (!password.value) return
-  passwordError.value = ''
-  // Optimistically unlock — wrong password surfaces on actual download
+  passwordError.value   = ''
   passwordUnlocked.value = true
 }
 
 async function handleDownload() {
   if (!file.value || downloadBtnDisabled.value) return
-
-  if (showAd.value && !adDone.value) {
-    adCountdown.value = file.value.adDuration || 10
-    timer = setInterval(() => {
-      adCountdown.value--
-      if (adCountdown.value <= 0) {
-        clearInterval(timer)
-        adDone.value = true
-        triggerDownload()
-      }
-    }, 1000)
-    return
-  }
-
-  triggerDownload()
+  await triggerDownload()
 }
 
 async function triggerDownload() {
-  downloading.value = true
+  downloading.value  = true
   downloadError.value = null
   try {
     fetch('/api/v1/analytics/event/', {
@@ -301,19 +346,16 @@ async function triggerDownload() {
       body: JSON.stringify({ share_token: file.value.shareToken, event_type: 'download' }),
     }).catch(() => {})
 
-    const passwordParam = file.value.isPasswordProtected ? `?password=${encodeURIComponent(password.value)}` : ''
+    const passwordParam = file.value.isPasswordProtected
+      ? `?password=${encodeURIComponent(password.value)}`
+      : ''
     const apiUrl = `/api/v1/files/public/${route.params.id}/download/${passwordParam}`
+    const res    = await fetch(apiUrl)
 
-    const res = await fetch(apiUrl)
-
-    if (res.status === 401 || res.status === 403) {
+    if (res.status === 403) {
       const d = await res.json().catch(() => ({}))
-      if (res.status === 403) {
-        passwordUnlocked.value = false
-        passwordError.value = t('download.passwordError')
-      } else {
-        downloadError.value = d.detail || d.error?.message || 'Access denied.'
-      }
+      passwordUnlocked.value = false
+      passwordError.value    = t('download.passwordError')
       return
     }
     if (!res.ok) {
@@ -322,26 +364,18 @@ async function triggerDownload() {
     }
 
     const contentType = res.headers.get('content-type') || ''
-
     if (contentType.includes('application/json')) {
-      // Production (R2): backend returned a short-lived signed URL
       const { url } = await res.json()
       const a = document.createElement('a')
-      a.href = url
-      a.rel = 'noopener'
-      document.body.appendChild(a)
-      a.click()
-      document.body.removeChild(a)
+      a.href = url; a.rel = 'noopener'
+      document.body.appendChild(a); a.click(); document.body.removeChild(a)
     } else {
-      // Dev (FileSystemStorage): backend streamed the file directly
-      const blob = await res.blob()
+      const blob      = await res.blob()
       const objectUrl = URL.createObjectURL(blob)
-      const a = document.createElement('a')
-      a.href = objectUrl
+      const a         = document.createElement('a')
+      a.href     = objectUrl
       a.download = file.value.name
-      document.body.appendChild(a)
-      a.click()
-      document.body.removeChild(a)
+      document.body.appendChild(a); a.click(); document.body.removeChild(a)
       URL.revokeObjectURL(objectUrl)
     }
     downloadStarted.value = true
@@ -352,10 +386,11 @@ async function triggerDownload() {
   }
 }
 
+// ── Helpers ───────────────────────────────────────────────────────────────────
 function formatSize(b) {
   if (!b) return '—'
   if (b >= 1073741824) return `${(b / 1073741824).toFixed(1)} GB`
-  if (b >= 1048576) return `${(b / 1048576).toFixed(1)} MB`
+  if (b >= 1048576)    return `${(b / 1048576).toFixed(1)} MB`
   return `${(b / 1024).toFixed(0)} KB`
 }
 
@@ -375,8 +410,6 @@ function friendlyMime(mime) {
     'application/vnd.openxmlformats-officedocument.wordprocessingml.document': 'Word Document',
     'application/vnd.ms-excel': 'Excel Spreadsheet',
     'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet': 'Excel Spreadsheet',
-    'application/vnd.ms-powerpoint': 'PowerPoint',
-    'application/vnd.openxmlformats-officedocument.presentationml.presentation': 'PowerPoint',
     'text/plain': 'Text File',
     'text/csv': 'CSV File',
   }
@@ -384,59 +417,22 @@ function friendlyMime(mime) {
   if (mime.startsWith('image/')) return mime.replace('image/', '').toUpperCase() + ' Image'
   if (mime.startsWith('video/')) return mime.replace('video/', '').toUpperCase() + ' Video'
   if (mime.startsWith('audio/')) return mime.replace('audio/', '').toUpperCase() + ' Audio'
-  if (mime.startsWith('text/')) return 'Text File'
   return mime.split('/')[1]?.toUpperCase() || 'File'
 }
 
 function fileType(mime) {
   if (!mime) return defaults()
-  if (mime.startsWith('image/')) return {
-    bg: 'bg-gradient-to-br from-emerald-500 to-teal-400',
-    icon: 'text-white',
-    path: 'M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z',
-  }
-  if (mime.startsWith('video/')) return {
-    bg: 'bg-gradient-to-br from-blue-500 to-indigo-400',
-    icon: 'text-white',
-    path: 'M15 10l4.553-2.276A1 1 0 0121 8.382v7.236a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z',
-  }
-  if (mime.startsWith('audio/')) return {
-    bg: 'bg-gradient-to-br from-purple-500 to-violet-400',
-    icon: 'text-white',
-    path: 'M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3',
-  }
-  if (mime === 'application/pdf') return {
-    bg: 'bg-gradient-to-br from-red-500 to-rose-400',
-    icon: 'text-white',
-    path: 'M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z',
-  }
-  if (mime.includes('zip') || mime.includes('rar') || mime.includes('tar') || mime.includes('7z')) return {
-    bg: 'bg-gradient-to-br from-amber-500 to-orange-400',
-    icon: 'text-white',
-    path: 'M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4',
-  }
-  if (mime.includes('spreadsheet') || mime.includes('excel') || mime === 'text/csv') return {
-    bg: 'bg-gradient-to-br from-green-500 to-emerald-400',
-    icon: 'text-white',
-    path: 'M3 10h18M3 14h18M10 3v18M6 3h12a2 2 0 012 2v14a2 2 0 01-2 2H6a2 2 0 01-2-2V5a2 2 0 012-2z',
-  }
-  if (mime.includes('word') || mime.includes('document')) return {
-    bg: 'bg-gradient-to-br from-blue-600 to-blue-400',
-    icon: 'text-white',
-    path: 'M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z',
-  }
-  if (mime.startsWith('text/') || mime.includes('json') || mime.includes('xml')) return {
-    bg: 'bg-gradient-to-br from-zinc-500 to-zinc-400',
-    icon: 'text-white',
-    path: 'M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4',
-  }
+  if (mime.startsWith('image/')) return { bg: 'bg-gradient-to-br from-emerald-500 to-teal-400', icon: 'text-white', path: 'M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z' }
+  if (mime.startsWith('video/')) return { bg: 'bg-gradient-to-br from-blue-500 to-indigo-400', icon: 'text-white', path: 'M15 10l4.553-2.276A1 1 0 0121 8.382v7.236a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z' }
+  if (mime.startsWith('audio/')) return { bg: 'bg-gradient-to-br from-purple-500 to-violet-400', icon: 'text-white', path: 'M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3' }
+  if (mime === 'application/pdf') return { bg: 'bg-gradient-to-br from-red-500 to-rose-400', icon: 'text-white', path: 'M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z' }
+  if (mime.includes('zip') || mime.includes('rar') || mime.includes('tar') || mime.includes('7z')) return { bg: 'bg-gradient-to-br from-amber-500 to-orange-400', icon: 'text-white', path: 'M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4' }
+  if (mime.includes('spreadsheet') || mime.includes('excel') || mime === 'text/csv') return { bg: 'bg-gradient-to-br from-green-500 to-emerald-400', icon: 'text-white', path: 'M3 10h18M3 14h18M10 3v18M6 3h12a2 2 0 012 2v14a2 2 0 01-2 2H6a2 2 0 01-2-2V5a2 2 0 012-2z' }
+  if (mime.includes('word') || mime.includes('document')) return { bg: 'bg-gradient-to-br from-blue-600 to-blue-400', icon: 'text-white', path: 'M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z' }
+  if (mime.startsWith('text/') || mime.includes('json') || mime.includes('xml')) return { bg: 'bg-gradient-to-br from-zinc-500 to-zinc-400', icon: 'text-white', path: 'M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4' }
   return defaults()
 }
 function defaults() {
-  return {
-    bg: 'bg-gradient-to-br from-brand-600 to-brand-400 shadow-glow',
-    icon: 'text-white',
-    path: 'M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z',
-  }
+  return { bg: 'bg-gradient-to-br from-brand-600 to-brand-400 shadow-glow', icon: 'text-white', path: 'M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z' }
 }
 </script>

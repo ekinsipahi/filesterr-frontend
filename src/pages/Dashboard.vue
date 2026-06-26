@@ -837,6 +837,7 @@
       @copy-link="f => copyLink(f)"
       @move="f => { moveTarget = f }"
       @set-password="f => openPwModal(f)"
+      @set-one-time="f => toggleOneTime(f)"
       @toggle-select="f => toggleSelect(f.id)"
       @delete="f => confirmDelete(f)"
     />
@@ -1290,6 +1291,20 @@ async function savePw(remove = false) {
 
 function openContextMenu(file, event) {
   ctxMenu.value = { file, x: event.clientX, y: event.clientY }
+}
+
+async function toggleOneTime(file) {
+  const token = localStorage.getItem('access_token') ?? ''
+  const res = await fetch(`/api/v1/files/${file.id}/settings/`, {
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+    body: JSON.stringify({ is_one_time: !file.is_one_time }),
+  })
+  if (res.ok) {
+    const updated = await res.json()
+    const idx = files.value.findIndex(f => f.id === updated.id)
+    if (idx !== -1) files.value[idx] = updated
+  }
 }
 
 // ── Dashboard upload (DnD + file input) ───────────────────────────────────

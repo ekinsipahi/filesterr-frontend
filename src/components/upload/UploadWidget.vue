@@ -119,6 +119,25 @@
           </div>
         </div>
 
+        <!-- One-time option (queue, before upload) -->
+        <div v-if="isPremiumUser && !queueStarted && pendingItems.length" class="px-4 py-2.5 border-t border-zinc-100 dark:border-zinc-800">
+          <label class="flex items-center gap-2.5 cursor-pointer">
+            <div class="relative w-4 h-4 shrink-0">
+              <input type="checkbox" v-model="isOneTime" class="peer sr-only" />
+              <div class="w-4 h-4 rounded border border-zinc-300 dark:border-zinc-600 peer-checked:bg-brand-500 peer-checked:border-brand-500 transition-colors flex items-center justify-center">
+                <svg v-if="isOneTime" class="w-2.5 h-2.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/>
+                </svg>
+              </div>
+            </div>
+            <svg class="w-3.5 h-3.5 text-red-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+            <span class="text-xs font-medium text-zinc-700 dark:text-zinc-300">One-time download</span>
+            <span class="text-[10px] text-zinc-400 ml-1">deleted after first download</span>
+          </label>
+        </div>
+
         <!-- Queue footer -->
         <div class="px-4 py-3 border-t border-zinc-100 dark:border-zinc-800 flex items-center justify-between gap-3">
           <span class="text-xs text-zinc-400">

@@ -52,6 +52,15 @@
           <span v-if="file.is_password_protected" class="ml-auto w-2 h-2 rounded-full bg-amber-400 shrink-0" />
         </button>
 
+        <!-- Create / Remove one-time link -->
+        <button class="ctx-item" @click="act('set-one-time')">
+          <svg class="ctx-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+          </svg>
+          {{ file.is_one_time ? 'Remove One-Time' : 'Create One-Time Link' }}
+          <span v-if="file.is_one_time" class="ml-auto w-2 h-2 rounded-full bg-blue-400 shrink-0" />
+        </button>
+
         <!-- Select / Deselect -->
         <button class="ctx-item" @click="act('toggle-select')">
           <svg class="ctx-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -89,7 +98,7 @@ const props = defineProps({
   canSetPassword: { type: Boolean, default: false },
 })
 
-const emit = defineEmits(['close', 'copy-link', 'move', 'set-password', 'toggle-select', 'delete'])
+const emit = defineEmits(['close', 'copy-link', 'move', 'set-password', 'set-one-time', 'toggle-select', 'delete'])
 
 const menuEl = ref(null)
 

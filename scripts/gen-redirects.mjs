@@ -23,10 +23,11 @@ if (!apiUrl) {
 const clean = apiUrl.replace(/\/$/, '')
 
 const lines = [
-  // Django API proxy — force=true (splat proxy)
-  `/api/*    ${clean}/api/:splat    200!`,
-  `/media/*  ${clean}/media/:splat  200!`,
-  `/admin/*  ${clean}/admin/:splat  200!`,
+  // Django API + static proxy — force=true (splat proxy)
+  `/api/*     ${clean}/api/:splat     200!`,
+  `/media/*   ${clean}/media/:splat   200!`,
+  `/admin/*   ${clean}/admin/:splat   200!`,
+  `/static/*  ${clean}/static/:splat  200!`,
 
   // Static assets — serve directly from CDN
   `/assets/* /assets/:splat 200`,

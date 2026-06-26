@@ -42,8 +42,8 @@
 const plans = [
   { name:'Anonymous', price:null, featured:false },
   { name:'Free',      price:null, featured:false },
-  { name:'Premium',   price:'3.89', featured:false },
-  { name:'Pro',       price:'8.00', featured:true },
+  { name:'Premium',   price:'3.99', featured:false },
+  { name:'Pro',       price:'7.99', featured:true },
 ]
 const rows = [
   { label:'Download count',         values:[true,  true,  true,  true]  },

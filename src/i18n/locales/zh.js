@@ -148,10 +148,10 @@ export default {
   pricing: {
     meta: {
       title: 'Filesterr 价格 — 带真实分析的文件共享',
-      description: '比较 Filesterr 计划。永久免费，或从 $3.89/月解锁下载分析、访客指纹识别和机器人检测。',
+      description: '比较 Filesterr 计划。永久免费，或从 $3.99/月解锁下载分析、访客指纹识别和机器人检测。',
       keywords: '文件共享价格, 下载分析, 云存储计划, 文件主机比较',
       ogTitle: 'Filesterr 价格 — 免费开始，升级到 Pro',
-      ogDescription: '永久免费计划。高级计划包含分析、访客指纹识别和零广告下载，从 $3.89/月起。',
+      ogDescription: '永久免费计划。高级计划包含分析、访客指纹识别和零广告下载，从 $3.99/月起。',
     },
     hero: {
       badge: '★ 4.8/5 — 50万+ 文件共享者信任',

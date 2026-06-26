@@ -148,10 +148,10 @@ export default {
   pricing: {
     meta: {
       title: 'Precios de Filesterr — Compartir archivos con análisis reales',
-      description: 'Compara los planes de Filesterr. Gratis para siempre o desbloquea análisis de descargas, identificación de visitantes y detección de bots desde $3,89/mes.',
+      description: 'Compara los planes de Filesterr. Gratis para siempre o desbloquea análisis de descargas, identificación de visitantes y detección de bots desde $3.99/mes.',
       keywords: 'precios de compartir archivos, análisis de descargas, planes de almacenamiento en la nube, comparación de hosting de archivos',
       ogTitle: 'Precios de Filesterr — Empieza gratis, pásate a Pro',
-      ogDescription: 'Plan gratuito para siempre. Planes premium con análisis, fingerprinting de visitantes y descargas sin anuncios desde $3,89/mes.',
+      ogDescription: 'Plan gratuito para siempre. Planes premium con análisis, fingerprinting de visitantes y descargas sin anuncios desde $3.99/mes.',
     },
     hero: {
       badge: '★ 4,8/5 — Más de 500.000 usuarios confían en Filesterr',

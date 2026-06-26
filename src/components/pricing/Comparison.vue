@@ -74,8 +74,8 @@ const { t } = useI18n()
 const columns = [
   { slug: 'anon',    name: 'Anonymous', price: 'Free',    featured: false },
   { slug: 'free',    name: 'Free',      price: 'Free',    featured: false },
-  { slug: 'premium', name: 'Premium',   price: '$3.89/mo', featured: true },
-  { slug: 'pro',     name: 'Pro',       price: '$8.00/mo', featured: false },
+  { slug: 'premium', name: 'Premium',   price: '$3.99/mo', featured: true },
+  { slug: 'pro',     name: 'Pro',       price: '$7.99/mo', featured: false },
 ]
 
 // Neuromarketing: most impactful rows first — keep eyes on value diff

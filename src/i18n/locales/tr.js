@@ -148,10 +148,10 @@ export default {
   pricing: {
     meta: {
       title: 'Filesterr Fiyatlandırma — Gerçek Analizli Dosya Paylaşımı',
-      description: 'Filesterr planlarını karşılaştırın. Ücretsiz sonsuza dek ya da aylık $3.89\'dan indirme analitiği ve ziyaretçi tespitini açın.',
+      description: 'Filesterr planlarını karşılaştırın. Ücretsiz sonsuza dek ya da aylık $3.99\'dan indirme analitiği ve ziyaretçi tespitini açın.',
       keywords: 'dosya paylaşım fiyatlandırma, indirme analitiği, bulut depolama planları, dosya barındırıcı karşılaştırma',
       ogTitle: 'Filesterr Fiyatlandırma — Ücretsiz Başla, Pro\'ya Geç',
-      ogDescription: 'Sonsuza dek ücretsiz plan. $3.89/ay\'dan başlayan analitik, ziyaretçi tespiti ve reklamsız indirme.',
+      ogDescription: 'Sonsuza dek ücretsiz plan. $3.99/ay\'dan başlayan analitik, ziyaretçi tespiti ve reklamsız indirme.',
     },
     hero: {
       badge: '★ 4,8/5 — 500.000\'den fazla kullanıcı Filesterr\'a güveniyor',

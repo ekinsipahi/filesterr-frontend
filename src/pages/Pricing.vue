@@ -57,11 +57,11 @@ if (!import.meta.env.SSR) {
         },
         {
           '@type': 'ListItem', position: 2,
-          item: { '@type': 'Offer', name: 'Premium', price: '3.89', priceCurrency: 'USD', description: 'Larger uploads, password protection, custom expiry.' },
+          item: { '@type': 'Offer', name: 'Premium', price: '3.99', priceCurrency: 'USD', description: 'Larger uploads, password protection, custom expiry.' },
         },
         {
           '@type': 'ListItem', position: 3,
-          item: { '@type': 'Offer', name: 'Pro', price: '8.00', priceCurrency: 'USD', description: 'Full analytics, visitor detection, IP flagging, team features.' },
+          item: { '@type': 'Offer', name: 'Pro', price: '7.99', priceCurrency: 'USD', description: 'Full analytics, visitor detection, IP flagging, team features.' },
         },
       ],
     },

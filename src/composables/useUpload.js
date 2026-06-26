@@ -73,10 +73,11 @@ export function useUpload() {
 
   // ── Step 1: Accept file ─────────────────────────────────────────────────
   async function acceptFile(file) {
-    error.value  = null
-    result.value = null
-    fileHash.value = null
-    stage.value  = 'checking'
+    error.value     = null
+    errorCode.value = null
+    result.value    = null
+    fileHash.value  = null
+    stage.value     = 'checking'
 
     if (file.size === 0) {
       error.value = 'File is empty.'
@@ -86,11 +87,9 @@ export function useUpload() {
 
     if (file.size > sizeLimit.value) {
       const planName = plan.value === 'anonymous' ? 'anonymous users' : `your ${plan.value} plan`
-      error.value = `File exceeds the ${formatSize(sizeLimit.value)} limit for ${planName}.`
-      if (plan.value === 'anonymous' || plan.value === 'free') {
-        error.value += ' Upgrade for larger uploads.'
-      }
-      stage.value = 'error'
+      error.value     = `File exceeds the ${formatSize(sizeLimit.value)} limit for ${planName}.`
+      errorCode.value = 'file_too_large'
+      stage.value     = 'error'
       return false
     }
 

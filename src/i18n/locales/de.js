@@ -148,10 +148,10 @@ export default {
   pricing: {
     meta: {
       title: 'Filesterr Preise — Dateifreigabe mit echten Analysen',
-      description: 'Filesterr-Pläne vergleichen. Kostenlos für immer oder Download-Analysen, Besucher-Fingerprinting und Bot-Erkennung ab 3,89 $/Monat.',
+      description: 'Filesterr-Pläne vergleichen. Kostenlos für immer oder Download-Analysen, Besucher-Fingerprinting und Bot-Erkennung ab 3.99 $/Monat.',
       keywords: 'Dateifreigabe Preise, Download-Analysen, Cloud-Speicher Pläne, Datei-Host Vergleich',
       ogTitle: 'Filesterr Preise — Kostenlos starten, auf Pro upgraden',
-      ogDescription: 'Kostenloser Plan für immer. Premium-Pläne mit Analysen, Besucher-Fingerprinting und werbefreien Downloads ab 3,89 $/Monat.',
+      ogDescription: 'Kostenloser Plan für immer. Premium-Pläne mit Analysen, Besucher-Fingerprinting und werbefreien Downloads ab 3.99 $/Monat.',
     },
     hero: {
       badge: '★ 4,8/5 — Über 500.000 Nutzer vertrauen Filesterr',

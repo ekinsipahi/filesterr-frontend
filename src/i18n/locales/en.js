@@ -148,10 +148,10 @@ export default {
   pricing: {
     meta: {
       title: 'Filesterr Pricing — File Sharing With Real Analytics',
-      description: 'Compare Filesterr plans. Free forever, or unlock download analytics, visitor fingerprinting, and bot detection from $3.89/mo.',
+      description: 'Compare Filesterr plans. Free forever, or unlock download analytics, visitor fingerprinting, and bot detection from $3.99/mo.',
       keywords: 'file sharing pricing, download analytics, cloud storage plans, file host comparison',
       ogTitle: 'Filesterr Pricing — Start Free, Scale to Pro',
-      ogDescription: 'Free forever plan. Premium plans with analytics, visitor fingerprinting, and zero-ad downloads from $3.89/mo.',
+      ogDescription: 'Free forever plan. Premium plans with analytics, visitor fingerprinting, and zero-ad downloads from $3.99/mo.',
     },
     hero: {
       badge: '★ 4.8/5 — Trusted by 500,000+ file sharers',

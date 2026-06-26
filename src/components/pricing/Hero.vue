@@ -42,7 +42,7 @@
         <span class="font-display text-3xl font-black text-zinc-900 dark:text-white">{{ t('pricing.hero.freeLabel') }}</span>
         <span class="w-px h-6 bg-zinc-200 dark:bg-zinc-700" />
         <span class="text-zinc-500 dark:text-zinc-400 text-sm">{{ t('pricing.hero.paidFrom') }}</span>
-        <span class="font-display text-3xl font-black text-brand-500">$3.89<span class="text-base font-normal text-zinc-400">/mo</span></span>
+        <span class="font-display text-3xl font-black text-brand-500">$3.99<span class="text-base font-normal text-zinc-400">/mo</span></span>
       </div>
     </div>
   </section>

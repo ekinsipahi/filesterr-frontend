@@ -448,6 +448,62 @@
         </div>
       </div>
 
+      <!-- ── STORAGE FULL UPSELL ── -->
+      <div v-else-if="stage === 'error' && errorCode === 'storage_full'"
+        class="mt-3 p-5 rounded-xl bg-gradient-to-br from-orange-50 to-amber-50 dark:from-orange-900/20 dark:to-amber-900/20 border border-orange-200 dark:border-orange-700">
+        <div class="flex items-start gap-3 mb-4">
+          <svg class="w-5 h-5 text-orange-500 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/>
+          </svg>
+          <div>
+            <p class="text-sm font-semibold text-zinc-800 dark:text-zinc-100 mb-1">
+              {{ isLoggedIn ? 'Your storage is full' : 'Anonymous storage limit reached' }}
+            </p>
+            <p class="text-xs text-zinc-500 dark:text-zinc-400">
+              {{ isPremiumUser
+                  ? 'Upgrade to Pro for 500 GB or ProMax for 2 TB of storage.'
+                  : isLoggedIn
+                    ? 'Free accounts include 5 GB. Upgrade to Premium for 100 GB.'
+                    : 'Anonymous uploads share a 512 MB pool. Sign up free for 5 GB, or get Premium for 100 GB.'
+              }}
+            </p>
+          </div>
+        </div>
+        <div class="flex gap-2 flex-wrap">
+          <a href="/pricing" class="px-4 py-2 rounded-lg bg-brand-500 hover:bg-brand-600 text-white text-sm font-medium transition-colors">
+            {{ isPremiumUser ? 'Upgrade plan' : 'Get Premium — from $4.99/mo' }}
+          </a>
+          <a v-if="!isLoggedIn" href="/register" class="px-4 py-2 rounded-lg border border-zinc-300 dark:border-zinc-600 text-zinc-700 dark:text-zinc-300 text-sm font-medium hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors">
+            Sign up free — 5 GB
+          </a>
+          <a v-else href="/dashboard" class="px-4 py-2 rounded-lg border border-zinc-300 dark:border-zinc-600 text-zinc-700 dark:text-zinc-300 text-sm font-medium hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors">
+            Manage files
+          </a>
+        </div>
+      </div>
+
+      <!-- ── FILE TOO LARGE UPSELL ── -->
+      <div v-else-if="stage === 'error' && errorCode === 'file_too_large'"
+        class="mt-3 p-5 rounded-xl bg-gradient-to-br from-violet-50 to-purple-50 dark:from-violet-900/20 dark:to-purple-900/20 border border-violet-200 dark:border-violet-700">
+        <p class="text-sm font-semibold text-zinc-800 dark:text-zinc-100 mb-1">File too large for your current plan</p>
+        <p class="text-xs text-zinc-500 dark:text-zinc-400 mb-4">
+          {{ isPremiumUser
+              ? 'Pro supports up to 20 GB per file. ProMax supports up to 50 GB.'
+              : isLoggedIn
+                ? 'Free accounts support up to 1 GB per file. Premium supports up to 5 GB.'
+                : 'Anonymous uploads are limited to 200 MB. Sign up free for 1 GB, or get Premium for 5 GB per file.'
+          }}
+        </p>
+        <div class="flex gap-2 flex-wrap">
+          <a href="/pricing" class="px-4 py-2 rounded-lg bg-brand-500 hover:bg-brand-600 text-white text-sm font-medium transition-colors">
+            {{ isPremiumUser ? 'Upgrade plan' : 'Get Premium — from $4.99/mo' }}
+          </a>
+          <a v-if="!isLoggedIn" href="/register" class="px-4 py-2 rounded-lg border border-zinc-300 dark:border-zinc-600 text-zinc-700 dark:text-zinc-300 text-sm font-medium hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors">
+            Sign up free — 1 GB/file
+          </a>
+        </div>
+      </div>
+
       <!-- ── ERROR ── -->
       <div v-else-if="stage === 'error' && error" class="mt-3 p-4 rounded-xl bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 flex items-start gap-3">
         <svg class="w-4 h-4 text-red-500 mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">

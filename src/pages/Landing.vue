@@ -51,8 +51,8 @@ if (!import.meta.env.SSR) {
     offers: [
       { '@type': 'Offer', name: 'Anonymous', price: '0',    priceCurrency: 'USD' },
       { '@type': 'Offer', name: 'Free',      price: '0',    priceCurrency: 'USD' },
-      { '@type': 'Offer', name: 'Premium',   price: '3.89', priceCurrency: 'USD' },
-      { '@type': 'Offer', name: 'Pro',       price: '8.00', priceCurrency: 'USD' },
+      { '@type': 'Offer', name: 'Premium',   price: '3.99', priceCurrency: 'USD' },
+      { '@type': 'Offer', name: 'Pro',       price: '7.99', priceCurrency: 'USD' },
     ],
     aggregateRating: {
       '@type': 'AggregateRating',

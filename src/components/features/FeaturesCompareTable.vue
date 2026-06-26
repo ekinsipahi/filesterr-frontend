@@ -62,8 +62,8 @@
 <script setup>
 const tableColumns = [
   { label: 'Free',    price: 'Forever free', featured: false },
-  { label: 'Premium', price: '$3.89/mo',     featured: true  },
-  { label: 'Pro',     price: '$8.00/mo',     featured: false },
+  { label: 'Premium', price: '$3.99/mo',     featured: true  },
+  { label: 'Pro',     price: '$7.99/mo',     featured: false },
 ]
 const tableRows = [
   { label: 'Storage',               values: ['10 GB',  '150 GB', '890 GB'] },

@@ -92,7 +92,7 @@
               </p>
               <!-- Paddle subscription: manage portal -->
               <button
-                v-if="!['free','anonymous'].includes(user.plan) && user.payment_method === 'stripe'"
+                v-if="user.has_paddle_subscription"
                 @click="openSubscriptionPortal"
                 :disabled="portalLoading"
                 class="text-xs text-blue-500 hover:underline mt-1 inline-flex items-center gap-1 disabled:opacity-60"

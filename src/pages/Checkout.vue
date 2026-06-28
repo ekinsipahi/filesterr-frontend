@@ -337,6 +337,9 @@ import { ref, computed, onMounted } from 'vue'
 import { initializePaddle } from '@paddle/paddle-js'
 import { PLANS } from '../data/plans.js'
 import { useHead } from '@vueuse/head'
+import { useI18n } from 'vue-i18n'
+
+const { t } = useI18n()
 
 // ── Paddle price IDs ──────────────────────────────────────────────────────────
 const PADDLE_PRICES = {
@@ -355,7 +358,7 @@ const PADDLE_PRICES = {
 }
 
 useHead({
-  title: 'Checkout — Filesterr',
+  title: computed(() => t('pageMeta.checkout.title')),
   meta: [{ name: 'robots', content: 'noindex' }],
 })
 

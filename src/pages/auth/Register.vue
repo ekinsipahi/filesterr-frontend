@@ -190,9 +190,9 @@ import { useI18n } from 'vue-i18n'
 const { t } = useI18n()
 
 useHead({
-  title: 'Create Free Account — Filesterr',
+  title: computed(() => t('pageMeta.register.title')),
   meta: [
-    { name: 'description', content: 'Create a free Filesterr account. Get 10GB storage, real-time download analytics, and visitor tracking. No credit card required.' },
+    { name: 'description', content: computed(() => t('pageMeta.register.description')) },
     { name: 'robots', content: 'index, follow' },
   ],
   link: [{ rel: 'canonical', href: 'https://filesterr.com/register' }],

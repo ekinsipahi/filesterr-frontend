@@ -89,16 +89,16 @@ import { useI18n } from 'vue-i18n'
 const { t } = useI18n()
 
 useHead({
-  title: 'Upload & Share Files Free — No Signup | Filesterr',
+  title: computed(() => t('pageMeta.upload.title')),
   meta: [
-    { name: 'description',        content: 'Upload any file and get a shareable link in seconds. 200MB free, no account needed. Password protection, expiry dates, and real-time download analytics.' },
+    { name: 'description',        content: computed(() => t('pageMeta.upload.description')) },
     { name: 'robots',             content: 'index, follow' },
-    { property: 'og:title',       content: 'Upload & Share Files Free — No Signup | Filesterr' },
-    { property: 'og:description', content: 'Upload any file. Share a link. See who downloads it. 200MB free — no account, no credit card.' },
+    { property: 'og:title',       content: computed(() => t('pageMeta.upload.ogTitle')) },
+    { property: 'og:description', content: computed(() => t('pageMeta.upload.ogDescription')) },
     { property: 'og:image',       content: 'https://filesterr.com/logo.png' },
     { name: 'twitter:card',       content: 'summary_large_image' },
-    { name: 'twitter:title',      content: 'Upload & Share Files Free — No Signup | Filesterr' },
-    { name: 'twitter:description', content: 'Upload any file. Share a link. See who downloads it. 200MB free.' },
+    { name: 'twitter:title',      content: computed(() => t('pageMeta.upload.ogTitle')) },
+    { name: 'twitter:description', content: computed(() => t('pageMeta.upload.ogDescription')) },
   ],
   link: [{ rel: 'canonical', href: 'https://filesterr.com/upload' }],
 })

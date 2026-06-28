@@ -84,10 +84,15 @@
 
 <script setup>
 import { useHead } from '@vueuse/head'
+import { useI18n } from 'vue-i18n'
+import { computed } from 'vue'
+
+const { t } = useI18n()
+
 useHead({
-  title: 'Terms of Service — Filesterr',
+  title: computed(() => t('pageMeta.terms.title')),
   meta: [
-    { name: 'description', content: 'Read the Filesterr Terms of Service — acceptable use, storage policies, payments, and more.' },
+    { name: 'description', content: computed(() => t('pageMeta.terms.description')) },
     { name: 'robots', content: 'index, follow' },
   ],
   link: [{ rel: 'canonical', href: 'https://filesterr.com/terms' }],

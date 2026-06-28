@@ -343,4 +343,118 @@ export default {
     col2_l3: 'GDPR',
     rights: '© {year} Filesterr. جميع الحقوق محفوظة.',
   },
+  pageMeta: {
+    landing: {
+      title: 'Filesterr — مشاركة الملفات المجانية مع تحليلات التنزيل',
+      description: 'شارك أي ملف في ثوانٍ. اعرف بالضبط من يقوم بتنزيله — الدولة، الجهاز، بوت أم شخص حقيقي. 200 ميغابايت مجاناً، بدون تسجيل.',
+      ogTitle: 'Filesterr — مشاركة الملفات المجانية مع تحليلات التنزيل',
+      ogDescription: 'ارفع أي ملف. شارك رابطاً. اعرف من يقوم بتنزيله — تحليلات فورية، كشف البوت والبروكسي. 200 ميغابايت مجاناً.',
+    },
+    upload: {
+      title: 'رفع ومشاركة الملفات مجاناً — بدون تسجيل | Filesterr',
+      description: 'ارفع أي ملف واحصل على رابط قابل للمشاركة في ثوانٍ. 200 ميغابايت مجاناً، لا حاجة لحساب. حماية بكلمة مرور، تواريخ انتهاء الصلاحية، وتحليلات التنزيل الفورية.',
+      ogTitle: 'رفع ومشاركة الملفات مجاناً — بدون تسجيل | Filesterr',
+      ogDescription: 'ارفع أي ملف. شارك رابطاً. اعرف من يقوم بتنزيله. 200 ميغابايت مجاناً — بدون حساب، بدون بطاقة ائتمان.',
+    },
+    download: {
+      title: 'تنزيل الملف — Filesterr',
+      titleWithFile: '{name} — تنزيل على Filesterr',
+      description: 'تنزيل آمن للملف مدعوم بواسطة Filesterr.',
+      descriptionWithFile: 'تنزيل "{name}" على Filesterr — مشاركة الملفات السريعة والآمنة.',
+      ogTitle: 'تنزيل الملف — Filesterr',
+      ogTitleWithFile: '{name} — Filesterr',
+      ogDescription: 'مشاركة الملفات الآمنة مدعومة بواسطة Filesterr.',
+    },
+    analyticsPage: {
+      title: 'تحليلات تنزيل الملفات وذكاء الزوار — Filesterr',
+      description: 'اعرف من يقوم بتنزيل ملفاتك، وأين هم، ومتى — في الوقت الفعلي. اكشف البوتات وشبكات VPN والزوار المتكررين.',
+      keywords: 'تحليلات تنزيل الملفات، تتبع الزوار، كشف البوت، كشف VPN، تحليلات مشاركة الملفات، إحصائيات التنزيل',
+      ogTitle: 'تحليلات تنزيل الملفات وذكاء الزوار — Filesterr',
+      ogDescription: 'اعرف من يقوم بتنزيل ملفاتك، وأين هم، ومتى — في الوقت الفعلي. اكشف البوتات وشبكات VPN والزوار المتكررين.',
+    },
+    features: {
+      title: 'المميزات — Filesterr',
+      description: 'اكتشف كل مميزات Filesterr: 10 جيجابايت تخزين مجاني، تحليلات التنزيل الفورية، بصمة الزائر، كشف البوت وVPN، والمزيد.',
+    },
+    about: {
+      title: 'عن Filesterr — مصنوع من قِبل منشئي Linksterr',
+      description: 'تم بناء Filesterr من قِبل فريق Linksterr — أداة اختصار الروابط التي يثق بها أكثر من 50,000 مستخدم. بنينا أداة مشاركة الملفات التي احتجناها دائماً.',
+      ogTitle: 'عن Filesterr — مصنوع من قِبل منشئي Linksterr',
+      ogDescription: 'منصة مشاركة الملفات المبنية من قِبل فريق Linksterr. تحليلات التنزيل وذكاء الزوار وهندسة تحترم الخصوصية.',
+    },
+    blog: {
+      title: 'المدونة — Filesterr',
+      description: 'تحديثات المنتج والنصائح والرؤى من فريق Filesterr.',
+    },
+    docs: {
+      title: 'توثيق API — Filesterr',
+      description: 'توثيق Filesterr REST API. ارفع الملفات وأدرها وتتبعها برمجياً. متاح في خطط Pro وPro Max.',
+    },
+    careers: {
+      title: 'وظائف — Filesterr',
+      description: 'انضم إلى فريق Filesterr. نبني أدوات تعطي رؤى حقيقية لملفاتك المشتركة.',
+    },
+    status: {
+      title: 'حالة النظام — Filesterr',
+      description: 'الحالة التشغيلية الفورية لجميع خدمات Filesterr.',
+    },
+    privacy: {
+      title: 'سياسة الخصوصية — Filesterr',
+      description: 'سياسة خصوصية Filesterr — كيف نجمع بياناتك ونستخدمها ونحميها.',
+    },
+    terms: {
+      title: 'شروط الخدمة — Filesterr',
+      description: 'اقرأ شروط خدمة Filesterr — الاستخدام المقبول، سياسات التخزين، المدفوعات، والمزيد.',
+    },
+    cookies: {
+      title: 'سياسة ملفات تعريف الارتباط — Filesterr',
+      description: 'كيف يستخدم Filesterr ملفات تعريف الارتباط وتقنيات التتبع المماثلة.',
+    },
+    gdpr: {
+      title: 'GDPR والخصوصية — Filesterr',
+      description: 'كيف يجمع Filesterr بياناتك الشخصية ويخزنها ويحميها وفق اللائحة العامة لحماية البيانات.',
+    },
+    refunds: {
+      title: 'سياسة الاسترداد — Filesterr',
+      description: 'سياسة استرداد وإلغاء Filesterr للخطط المدفوعة.',
+    },
+    notFound: {
+      title: '404 — الصفحة غير موجودة | Filesterr',
+    },
+    dashboard: {
+      title: 'لوحة التحكم — Filesterr',
+    },
+    dashboardAnalytics: {
+      title: 'تحليلات الزوار — Filesterr',
+    },
+    deleteFile: {
+      title: 'حذف الملف — Filesterr',
+    },
+    checkout: {
+      title: 'الدفع — Filesterr',
+    },
+    checkoutSuccess: {
+      title: 'تمت عملية الدفع بنجاح — Filesterr',
+    },
+    login: {
+      title: 'تسجيل الدخول — Filesterr',
+      description: 'سجّل الدخول إلى حساب Filesterr الخاص بك للوصول إلى ملفاتك وتحليلاتك وإعداداتك.',
+    },
+    register: {
+      title: 'إنشاء حساب مجاني — Filesterr',
+      description: 'أنشئ حساباً مجانياً في Filesterr. احصل على 10 جيجابايت تخزين، تحليلات التنزيل الفورية، وتتبع الزوار. لا حاجة لبطاقة ائتمان.',
+    },
+    forgot: {
+      title: 'إعادة تعيين كلمة المرور — Filesterr',
+    },
+    resetPassword: {
+      title: 'تعيين كلمة مرور جديدة — Filesterr',
+    },
+    verifyEmail: {
+      title: 'التحقق من البريد الإلكتروني — Filesterr',
+    },
+    oauthCallback: {
+      title: 'جارٍ تسجيل الدخول — Filesterr',
+    },
+  },
 }

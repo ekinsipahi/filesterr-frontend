@@ -145,17 +145,20 @@
 </template>
 
 <script setup>
-import { onMounted } from 'vue'
+import { onMounted, computed } from 'vue'
 import { useHead } from '@vueuse/head'
+import { useI18n } from 'vue-i18n'
+
+const { t } = useI18n()
 
 useHead({
-  title: 'About Filesterr — Built by the Creators of Linksterr',
+  title: computed(() => t('pageMeta.about.title')),
   meta: [
-    { name: 'description', content: 'Filesterr was built by the team behind Linksterr — a link shortener trusted by 50,000+ users. We built the file sharing tool we always needed: with real analytics, bot detection, and download intelligence.' },
-    { name: 'robots', content: 'index, follow' },
-    { property: 'og:title', content: 'About Filesterr — Built by the Creators of Linksterr' },
-    { property: 'og:description', content: 'The file sharing platform built by the Linksterr team. Download analytics, visitor intelligence, and privacy-first architecture.' },
-    { property: 'og:image', content: 'https://filesterr.com/logo.png' },
+    { name: 'description',        content: computed(() => t('pageMeta.about.description')) },
+    { name: 'robots',             content: 'index, follow' },
+    { property: 'og:title',       content: computed(() => t('pageMeta.about.ogTitle')) },
+    { property: 'og:description', content: computed(() => t('pageMeta.about.ogDescription')) },
+    { property: 'og:image',       content: 'https://filesterr.com/logo.png' },
   ],
   link: [{ rel: 'canonical', href: 'https://filesterr.com/about' }],
 })

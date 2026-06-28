@@ -74,11 +74,17 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { useRoute } from 'vue-router'
 import { useI18n } from 'vue-i18n'
+import { useHead } from '@vueuse/head'
 
 const { t } = useI18n()
+
+useHead({
+  title: computed(() => t('pageMeta.deleteFile.title')),
+  meta: [{ name: 'robots', content: 'noindex' }],
+})
 
 const route = useRoute()
 const state = ref('confirm')

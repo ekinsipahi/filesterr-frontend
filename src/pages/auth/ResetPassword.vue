@@ -82,7 +82,7 @@
 </template>
 
 <script setup>
-import { ref, reactive } from 'vue'
+import { ref, reactive, computed } from 'vue'
 import AuthLayout from '../../components/layout/AuthLayout.vue'
 import { resetPassword } from '../../api/index.js'
 import { useHead } from '@vueuse/head'
@@ -91,7 +91,7 @@ import { useI18n } from 'vue-i18n'
 const { t } = useI18n()
 
 useHead({
-  title: 'Set New Password — Filesterr',
+  title: computed(() => t('pageMeta.resetPassword.title')),
   meta: [{ name: 'robots', content: 'noindex' }],
 })
 

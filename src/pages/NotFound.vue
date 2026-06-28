@@ -51,8 +51,15 @@
 
 <script setup>
 import { useI18n } from 'vue-i18n'
+import { useHead } from '@vueuse/head'
+import { computed } from 'vue'
 
 const { t } = useI18n()
+
+useHead({
+  title: computed(() => t('pageMeta.notFound.title')),
+  meta: [{ name: 'robots', content: 'noindex' }],
+})
 
 const quickLinks = [
   { href: '/features',  label: 'Features' },

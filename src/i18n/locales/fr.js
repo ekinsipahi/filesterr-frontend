@@ -598,4 +598,118 @@ export default {
       errorTitle: 'Lien expiré',
     },
   },
+  pageMeta: {
+    landing: {
+      title: 'Filesterr — Partage de Fichiers Gratuit avec Analyses de Téléchargement',
+      description: 'Partagez n\'importe quel fichier en quelques secondes. Voyez exactement qui le télécharge — pays, appareil, bot ou vraie personne. 200 Mo gratuits, sans inscription.',
+      ogTitle: 'Filesterr — Partage de Fichiers Gratuit avec Analyses de Téléchargement',
+      ogDescription: 'Uploadez n\'importe quel fichier. Partagez un lien. Voyez qui le télécharge — analyses en temps réel, détection de bots et de proxies. 200 Mo gratuits.',
+    },
+    upload: {
+      title: 'Uploader et Partager des Fichiers Gratuitement — Sans Inscription | Filesterr',
+      description: 'Uploadez n\'importe quel fichier et obtenez un lien partageable en quelques secondes. 200 Mo gratuits, sans compte nécessaire. Protection par mot de passe, dates d\'expiration et analyses de téléchargement en temps réel.',
+      ogTitle: 'Uploader et Partager des Fichiers Gratuitement — Sans Inscription | Filesterr',
+      ogDescription: 'Uploadez n\'importe quel fichier. Partagez un lien. Voyez qui le télécharge. 200 Mo gratuits — sans compte, sans carte de crédit.',
+    },
+    download: {
+      title: 'Télécharger le Fichier — Filesterr',
+      titleWithFile: '{name} — Télécharger sur Filesterr',
+      description: 'Téléchargement de fichier sécurisé propulsé par Filesterr.',
+      descriptionWithFile: 'Téléchargez "{name}" sur Filesterr — partage de fichiers rapide et sécurisé.',
+      ogTitle: 'Téléchargement de Fichier — Filesterr',
+      ogTitleWithFile: '{name} — Filesterr',
+      ogDescription: 'Partage de fichiers sécurisé propulsé par Filesterr.',
+    },
+    analyticsPage: {
+      title: 'Analyses de Téléchargements et Intelligence des Visiteurs — Filesterr',
+      description: 'Voyez qui télécharge vos fichiers, où ils se trouvent et quand — en temps réel. Détectez les bots, les VPN et les visiteurs récurrents.',
+      keywords: 'analyses de téléchargement de fichiers, suivi des visiteurs, détection de bots, détection VPN, analyses de partage de fichiers, statistiques de téléchargement',
+      ogTitle: 'Analyses de Téléchargements et Intelligence des Visiteurs — Filesterr',
+      ogDescription: 'Voyez qui télécharge vos fichiers, où ils se trouvent et quand — en temps réel. Détectez les bots, les VPN et les visiteurs récurrents.',
+    },
+    features: {
+      title: 'Fonctionnalités — Filesterr',
+      description: 'Explorez toutes les fonctionnalités de Filesterr : 10 Go de stockage gratuit, analyses de téléchargement en temps réel, empreinte digitale des visiteurs, détection de bots et VPN, et plus encore.',
+    },
+    about: {
+      title: 'À Propos de Filesterr — Créé par les Fondateurs de Linksterr',
+      description: 'Filesterr a été créé par l\'équipe derrière Linksterr — un raccourcisseur de liens approuvé par plus de 50 000 utilisateurs. Nous avons construit l\'outil de partage de fichiers dont nous avions toujours besoin.',
+      ogTitle: 'À Propos de Filesterr — Créé par les Fondateurs de Linksterr',
+      ogDescription: 'La plateforme de partage de fichiers créée par l\'équipe Linksterr. Analyses de téléchargement, intelligence des visiteurs et architecture respectueuse de la vie privée.',
+    },
+    blog: {
+      title: 'Blog — Filesterr',
+      description: 'Mises à jour produit, conseils et analyses de l\'équipe Filesterr.',
+    },
+    docs: {
+      title: 'Documentation API — Filesterr',
+      description: 'Documentation Filesterr REST API. Uploadez, gérez et suivez des fichiers par programmation. Disponible sur les plans Pro et Pro Max.',
+    },
+    careers: {
+      title: 'Carrières — Filesterr',
+      description: 'Rejoignez l\'équipe Filesterr. Nous créons des outils qui donnent de vraies informations sur vos fichiers partagés.',
+    },
+    status: {
+      title: 'État du Système — Filesterr',
+      description: 'État opérationnel en temps réel de tous les services Filesterr.',
+    },
+    privacy: {
+      title: 'Politique de Confidentialité — Filesterr',
+      description: 'Politique de Confidentialité de Filesterr — comment nous collectons, utilisons et protégeons vos données.',
+    },
+    terms: {
+      title: 'Conditions d\'Utilisation — Filesterr',
+      description: 'Lisez les Conditions d\'Utilisation de Filesterr — utilisation acceptable, politiques de stockage, paiements et plus encore.',
+    },
+    cookies: {
+      title: 'Politique de Cookies — Filesterr',
+      description: 'Comment Filesterr utilise les cookies et les technologies de suivi similaires.',
+    },
+    gdpr: {
+      title: 'RGPD et Confidentialité — Filesterr',
+      description: 'Comment Filesterr collecte, stocke et protège vos données personnelles conformément au RGPD.',
+    },
+    refunds: {
+      title: 'Politique de Remboursement — Filesterr',
+      description: 'Politique de remboursement et d\'annulation de Filesterr pour les plans payants.',
+    },
+    notFound: {
+      title: '404 — Page Non Trouvée | Filesterr',
+    },
+    dashboard: {
+      title: 'Tableau de Bord — Filesterr',
+    },
+    dashboardAnalytics: {
+      title: 'Analyses des Visiteurs — Filesterr',
+    },
+    deleteFile: {
+      title: 'Supprimer le Fichier — Filesterr',
+    },
+    checkout: {
+      title: 'Paiement — Filesterr',
+    },
+    checkoutSuccess: {
+      title: 'Paiement Réussi — Filesterr',
+    },
+    login: {
+      title: 'Se Connecter — Filesterr',
+      description: 'Connectez-vous à votre compte Filesterr pour accéder à vos fichiers, analyses et paramètres.',
+    },
+    register: {
+      title: 'Créer un Compte Gratuit — Filesterr',
+      description: 'Créez un compte Filesterr gratuit. Obtenez 10 Go de stockage, des analyses de téléchargement en temps réel et le suivi des visiteurs. Aucune carte de crédit requise.',
+    },
+    forgot: {
+      title: 'Réinitialiser le Mot de Passe — Filesterr',
+    },
+    resetPassword: {
+      title: 'Définir un Nouveau Mot de Passe — Filesterr',
+    },
+    verifyEmail: {
+      title: 'Vérifier l\'E-mail — Filesterr',
+    },
+    oauthCallback: {
+      title: 'Connexion en cours — Filesterr',
+    },
+  },
 }

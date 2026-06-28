@@ -598,4 +598,118 @@ export default {
       errorTitle: 'Bağlantı süresi doldu',
     },
   },
+  pageMeta: {
+    landing: {
+      title: 'Filesterr — Ücretsiz Dosya Paylaşımı ve İndirme Analitiği',
+      description: 'Saniyeler içinde herhangi bir dosyayı paylaşın. Kim indirdiğini görün — ülke, cihaz, bot mu gerçek kişi mi. 200MB ücretsiz, kayıt gerekmez. 50GB, analitik ve daha fazlası için yükseltin.',
+      ogTitle: 'Filesterr — Ücretsiz Dosya Paylaşımı ve İndirme Analitiği',
+      ogDescription: 'Herhangi bir dosyayı yükleyin. Link paylaşın. Kim indirdiğini görün — gerçek zamanlı analitik, bot ve proxy tespiti. 200MB ücretsiz, hesap gerekmez.',
+    },
+    upload: {
+      title: 'Dosyaları Ücretsiz Yükle ve Paylaş — Kayıt Gerekmez | Filesterr',
+      description: 'Herhangi bir dosyayı yükleyin ve saniyeler içinde paylaşılabilir bir link alın. 200MB ücretsiz, hesap gerekmez. Şifre koruması, son kullanma tarihleri ve gerçek zamanlı indirme analitiği.',
+      ogTitle: 'Dosyaları Ücretsiz Yükle ve Paylaş — Kayıt Gerekmez | Filesterr',
+      ogDescription: 'Herhangi bir dosyayı yükleyin. Link paylaşın. Kim indirdiğini görün. 200MB ücretsiz — hesap yok, kredi kartı yok.',
+    },
+    download: {
+      title: 'Dosyayı İndir — Filesterr',
+      titleWithFile: '{name} — Filesterr\'da İndir',
+      description: 'Filesterr tarafından güçlendirilmiş güvenli dosya indirme.',
+      descriptionWithFile: '"{name}" dosyasını Filesterr\'da indirin — hızlı, güvenli dosya paylaşımı.',
+      ogTitle: 'Dosya İndirme — Filesterr',
+      ogTitleWithFile: '{name} — Filesterr',
+      ogDescription: 'Filesterr tarafından güçlendirilmiş güvenli dosya paylaşımı.',
+    },
+    analyticsPage: {
+      title: 'Dosya İndirme Analitiği ve Ziyaretçi Zekası — Filesterr',
+      description: 'Dosyalarınızı kimin, nerede ve ne zaman indirdiğini gerçek zamanlı olarak görün. Botları, VPN\'leri ve tekrar gelen ziyaretçileri tespit edin. Web\'deki en akıllı dosya analitiği.',
+      keywords: 'dosya indirme analitiği, ziyaretçi takibi, bot tespiti, VPN tespiti, dosya paylaşımı analitiği, indirme istatistikleri',
+      ogTitle: 'Dosya İndirme Analitiği ve Ziyaretçi Zekası — Filesterr',
+      ogDescription: 'Dosyalarınızı kimin, nerede ve ne zaman indirdiğini gerçek zamanlı olarak görün. Botları, VPN\'leri ve tekrar gelen ziyaretçileri tespit edin.',
+    },
+    features: {
+      title: 'Özellikler — Filesterr',
+      description: 'Her Filesterr özelliğini keşfedin: 10GB ücretsiz depolama, gerçek zamanlı indirme analitiği, ziyaretçi parmak izi, bot ve VPN tespiti ve daha fazlası.',
+    },
+    about: {
+      title: 'Filesterr Hakkında — Linksterr\'ın Yaratıcıları Tarafından Yapıldı',
+      description: 'Filesterr, 50.000\'den fazla kullanıcının güvendiği bir link kısaltıcı olan Linksterr\'ın ekibi tarafından geliştirildi. Her zaman ihtiyaç duyduğumuz dosya paylaşım aracını inşa ettik: gerçek analitik, bot tespiti ve indirme zekasıyla.',
+      ogTitle: 'Filesterr Hakkında — Linksterr\'ın Yaratıcıları Tarafından Yapıldı',
+      ogDescription: 'Linksterr ekibi tarafından oluşturulan dosya paylaşım platformu. İndirme analitiği, ziyaretçi zekası ve gizlilik odaklı mimari.',
+    },
+    blog: {
+      title: 'Blog — Filesterr',
+      description: 'Filesterr ekibinden ürün güncellemeleri, ipuçları ve içgörüler.',
+    },
+    docs: {
+      title: 'API Dokümantasyonu — Filesterr',
+      description: 'Filesterr REST API dokümantasyonu. Dosyaları programatik olarak yükleyin, yönetin ve takip edin. Pro ve Pro Max planlarda mevcuttur.',
+    },
+    careers: {
+      title: 'Kariyer — Filesterr',
+      description: 'Filesterr ekibine katılın. Paylaşılan dosyalarınıza gerçek içgörü sağlayan araçlar geliştiriyoruz.',
+    },
+    status: {
+      title: 'Sistem Durumu — Filesterr',
+      description: 'Tüm Filesterr hizmetlerinin gerçek zamanlı operasyonel durumu.',
+    },
+    privacy: {
+      title: 'Gizlilik Politikası — Filesterr',
+      description: 'Filesterr Gizlilik Politikası — verilerinizi nasıl topladığımız, kullandığımız ve koruduğumuz.',
+    },
+    terms: {
+      title: 'Hizmet Koşulları — Filesterr',
+      description: 'Filesterr Hizmet Koşullarını okuyun — kabul edilebilir kullanım, depolama politikaları, ödemeler ve daha fazlası.',
+    },
+    cookies: {
+      title: 'Çerez Politikası — Filesterr',
+      description: 'Filesterr\'ın çerezleri ve benzer izleme teknolojilerini nasıl kullandığı.',
+    },
+    gdpr: {
+      title: 'GDPR ve Gizlilik — Filesterr',
+      description: 'Filesterr\'ın GDPR kapsamında kişisel verilerinizi nasıl topladığı, depoladığı ve koruduğu.',
+    },
+    refunds: {
+      title: 'İade Politikası — Filesterr',
+      description: 'Ücretli planlar için Filesterr iade ve iptal politikası.',
+    },
+    notFound: {
+      title: '404 — Sayfa Bulunamadı | Filesterr',
+    },
+    dashboard: {
+      title: 'Kontrol Paneli — Filesterr',
+    },
+    dashboardAnalytics: {
+      title: 'Ziyaretçi Analitiği — Filesterr',
+    },
+    deleteFile: {
+      title: 'Dosyayı Sil — Filesterr',
+    },
+    checkout: {
+      title: 'Ödeme — Filesterr',
+    },
+    checkoutSuccess: {
+      title: 'Ödeme Başarılı — Filesterr',
+    },
+    login: {
+      title: 'Giriş Yap — Filesterr',
+      description: 'Dosyalarınıza, analitiğinize ve ayarlarınıza erişmek için Filesterr hesabınıza giriş yapın.',
+    },
+    register: {
+      title: 'Ücretsiz Hesap Oluştur — Filesterr',
+      description: 'Ücretsiz bir Filesterr hesabı oluşturun. 10GB depolama, gerçek zamanlı indirme analitiği ve ziyaretçi takibi alın. Kredi kartı gerekmez.',
+    },
+    forgot: {
+      title: 'Şifreyi Sıfırla — Filesterr',
+    },
+    resetPassword: {
+      title: 'Yeni Şifre Belirle — Filesterr',
+    },
+    verifyEmail: {
+      title: 'E-postayı Doğrula — Filesterr',
+    },
+    oauthCallback: {
+      title: 'Giriş yapılıyor — Filesterr',
+    },
+  },
 }

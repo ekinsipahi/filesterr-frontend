@@ -46,9 +46,14 @@
 
 <script setup>
 import { useHead } from '@vueuse/head'
+import { useI18n } from 'vue-i18n'
+import { computed } from 'vue'
+
+const { t } = useI18n()
+
 useHead({
-  title: 'GDPR & Privacy — Filesterr',
-  meta: [{ name: 'description', content: 'How Filesterr collects, stores, and protects your personal data under GDPR.' }],
+  title: computed(() => t('pageMeta.gdpr.title')),
+  meta: [{ name: 'description', content: computed(() => t('pageMeta.gdpr.description')) }],
 })
 
 const sections = [

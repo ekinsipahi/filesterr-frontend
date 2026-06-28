@@ -38,9 +38,14 @@
 
 <script setup>
 import { useHead } from '@vueuse/head'
+import { useI18n } from 'vue-i18n'
+import { computed } from 'vue'
+
+const { t } = useI18n()
+
 useHead({
-  title: 'Cookie Policy — Filesterr',
-  meta: [{ name: 'description', content: 'How Filesterr uses cookies and similar tracking technologies.' }],
+  title: computed(() => t('pageMeta.cookies.title')),
+  meta: [{ name: 'description', content: computed(() => t('pageMeta.cookies.description')) }],
 })
 
 const sections = [

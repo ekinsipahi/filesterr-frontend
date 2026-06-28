@@ -22,19 +22,20 @@ import LandingTrust       from '../components/landing/Trust.vue'
 import LandingFinalCta    from '../components/landing/FinalCta.vue'
 import { useI18n } from 'vue-i18n'
 import { useHead } from '@vueuse/head'
+import { computed } from 'vue'
 
 const { t } = useI18n()
 
 useHead({
-  title: 'Filesterr — Free File Sharing with Download Analytics',
+  title: computed(() => t('pageMeta.landing.title')),
   meta: [
-    { name: 'description',        content: 'Share any file in seconds. See exactly who downloads it — country, device, bot or real person. 200MB free, no signup. Upgrade for 50GB, analytics & more.' },
-    { property: 'og:title',       content: 'Filesterr — Free File Sharing with Download Analytics' },
-    { property: 'og:description', content: 'Upload any file. Share a link. See who downloads it — real-time analytics, bot & proxy detection. 200MB free, no account.' },
+    { name: 'description',        content: computed(() => t('pageMeta.landing.description')) },
+    { property: 'og:title',       content: computed(() => t('pageMeta.landing.ogTitle')) },
+    { property: 'og:description', content: computed(() => t('pageMeta.landing.ogDescription')) },
     { property: 'og:image',       content: 'https://filesterr.com/logo.png' },
     { name: 'twitter:card',       content: 'summary_large_image' },
-    { name: 'twitter:title',      content: 'Filesterr — Free File Sharing with Download Analytics' },
-    { name: 'twitter:description', content: 'Upload any file. Share a link. See who downloads it — real-time analytics, bot & proxy detection. 200MB free.' },
+    { name: 'twitter:title',      content: computed(() => t('pageMeta.landing.ogTitle')) },
+    { name: 'twitter:description', content: computed(() => t('pageMeta.landing.ogDescription')) },
   ],
   link: [{ rel: 'canonical', href: 'https://filesterr.com' }],
 })

@@ -598,4 +598,118 @@ export default {
       errorTitle: 'リンクの期限切れ',
     },
   },
+  pageMeta: {
+    landing: {
+      title: 'Filesterr — ダウンロード分析付き無料ファイル共有',
+      description: '数秒で任意のファイルを共有。誰がダウンロードしたかを正確に確認 — 国、デバイス、ボットか実際の人物か。200MB無料、サインアップ不要。',
+      ogTitle: 'Filesterr — ダウンロード分析付き無料ファイル共有',
+      ogDescription: '任意のファイルをアップロード。リンクを共有。誰がダウンロードしたかを確認 — リアルタイム分析、ボット・プロキシ検出。200MB無料、アカウント不要。',
+    },
+    upload: {
+      title: 'ファイルを無料でアップロード・共有 — サインアップ不要 | Filesterr',
+      description: '任意のファイルをアップロードして数秒で共有リンクを取得。200MB無料、アカウント不要。パスワード保護、有効期限、リアルタイムダウンロード分析。',
+      ogTitle: 'ファイルを無料でアップロード・共有 — サインアップ不要 | Filesterr',
+      ogDescription: '任意のファイルをアップロード。リンクを共有。誰がダウンロードしたかを確認。200MB無料 — アカウント不要、クレジットカード不要。',
+    },
+    download: {
+      title: 'ファイルをダウンロード — Filesterr',
+      titleWithFile: '{name} — Filesterrでダウンロード',
+      description: 'Filesterrによる安全なファイルダウンロード。',
+      descriptionWithFile: 'Filesterrで「{name}」をダウンロード — 高速・安全なファイル共有。',
+      ogTitle: 'ファイルダウンロード — Filesterr',
+      ogTitleWithFile: '{name} — Filesterr',
+      ogDescription: 'Filesterrによる安全なファイル共有。',
+    },
+    analyticsPage: {
+      title: 'ファイルダウンロード分析と訪問者インテリジェンス — Filesterr',
+      description: '誰がいつどこでファイルをダウンロードしたかをリアルタイムで確認。ボット、VPN、リピーター訪問者を検出。',
+      keywords: 'ファイルダウンロード分析, 訪問者追跡, ボット検出, VPN検出, ファイル共有分析, ダウンロード統計',
+      ogTitle: 'ファイルダウンロード分析と訪問者インテリジェンス — Filesterr',
+      ogDescription: '誰がいつどこでファイルをダウンロードしたかをリアルタイムで確認。ボット、VPN、リピーター訪問者を検出。',
+    },
+    features: {
+      title: '機能 — Filesterr',
+      description: 'Filesterrのすべての機能を探索：10GB無料ストレージ、リアルタイムダウンロード分析、訪問者フィンガープリント、ボット・VPN検出など。',
+    },
+    about: {
+      title: 'Filesterrについて — Linksterrの制作者が作成',
+      description: 'FilesterrはLinksterrのチームが開発しました — 50,000人以上のユーザーに信頼されているリンク短縮サービス。私たちが常に必要としていたファイル共有ツールを作りました。',
+      ogTitle: 'Filesterrについて — Linksterrの制作者が作成',
+      ogDescription: 'Linksterrチームが作成したファイル共有プラットフォーム。ダウンロード分析、訪問者インテリジェンス、プライバシー優先アーキテクチャ。',
+    },
+    blog: {
+      title: 'ブログ — Filesterr',
+      description: 'Filesterrチームからの製品アップデート、ヒント、インサイト。',
+    },
+    docs: {
+      title: 'APIドキュメント — Filesterr',
+      description: 'Filesterr REST APIドキュメント。プログラムでファイルのアップロード、管理、追跡が可能。ProおよびPro Maxプランで利用可能。',
+    },
+    careers: {
+      title: 'キャリア — Filesterr',
+      description: 'Filesterrチームに参加しましょう。共有ファイルに真のインサイトを提供するツールを開発しています。',
+    },
+    status: {
+      title: 'システム状態 — Filesterr',
+      description: 'すべてのFilesterrサービスのリアルタイム稼働状態。',
+    },
+    privacy: {
+      title: 'プライバシーポリシー — Filesterr',
+      description: 'Filesterrプライバシーポリシー — データの収集、使用、保護方法。',
+    },
+    terms: {
+      title: '利用規約 — Filesterr',
+      description: 'Filesterrの利用規約を読む — 許容される使用、ストレージポリシー、支払いなど。',
+    },
+    cookies: {
+      title: 'Cookieポリシー — Filesterr',
+      description: 'FilesterrがCookieおよび類似のトラッキング技術を使用する方法。',
+    },
+    gdpr: {
+      title: 'GDPRとプライバシー — Filesterr',
+      description: 'FilesterrがGDPRに基づいて個人データをどのように収集、保存、保護するか。',
+    },
+    refunds: {
+      title: '返金ポリシー — Filesterr',
+      description: '有料プランのFilesterr返金・キャンセルポリシー。',
+    },
+    notFound: {
+      title: '404 — ページが見つかりません | Filesterr',
+    },
+    dashboard: {
+      title: 'ダッシュボード — Filesterr',
+    },
+    dashboardAnalytics: {
+      title: '訪問者分析 — Filesterr',
+    },
+    deleteFile: {
+      title: 'ファイルを削除 — Filesterr',
+    },
+    checkout: {
+      title: 'チェックアウト — Filesterr',
+    },
+    checkoutSuccess: {
+      title: '支払い完了 — Filesterr',
+    },
+    login: {
+      title: 'サインイン — Filesterr',
+      description: 'Filesterrアカウントにサインインして、ファイル、分析、設定にアクセスしてください。',
+    },
+    register: {
+      title: '無料アカウントを作成 — Filesterr',
+      description: '無料のFilesterrアカウントを作成。10GBストレージ、リアルタイムダウンロード分析、訪問者追跡を取得。クレジットカード不要。',
+    },
+    forgot: {
+      title: 'パスワードをリセット — Filesterr',
+    },
+    resetPassword: {
+      title: '新しいパスワードを設定 — Filesterr',
+    },
+    verifyEmail: {
+      title: 'メールを確認 — Filesterr',
+    },
+    oauthCallback: {
+      title: 'サインイン中 — Filesterr',
+    },
+  },
 }

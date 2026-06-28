@@ -103,10 +103,15 @@
 
 <script setup>
 import { useHead } from '@vueuse/head'
+import { useI18n } from 'vue-i18n'
+import { computed } from 'vue'
+
+const { t } = useI18n()
+
 useHead({
-  title: 'Privacy Policy — Filesterr',
+  title: computed(() => t('pageMeta.privacy.title')),
   meta: [
-    { name: 'description', content: 'Filesterr Privacy Policy — how we collect, use, and protect your data.' },
+    { name: 'description', content: computed(() => t('pageMeta.privacy.description')) },
     { name: 'robots', content: 'index, follow' },
   ],
   link: [{ rel: 'canonical', href: 'https://filesterr.com/privacy' }],

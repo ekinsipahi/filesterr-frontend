@@ -598,4 +598,118 @@ export default {
       errorTitle: '链接已过期',
     },
   },
+  pageMeta: {
+    landing: {
+      title: 'Filesterr — 免费文件共享与下载分析',
+      description: '几秒内共享任何文件。准确查看谁在下载 — 国家、设备、机器人还是真实用户。200MB免费，无需注册。升级获得50GB、分析等更多功能。',
+      ogTitle: 'Filesterr — 免费文件共享与下载分析',
+      ogDescription: '上传任何文件。分享链接。查看谁在下载 — 实时分析，机器人和代理检测。200MB免费，无需账户。',
+    },
+    upload: {
+      title: '免费上传和共享文件 — 无需注册 | Filesterr',
+      description: '上传任何文件，几秒内获得可分享的链接。200MB免费，无需账户。密码保护、过期日期和实时下载分析。',
+      ogTitle: '免费上传和共享文件 — 无需注册 | Filesterr',
+      ogDescription: '上传任何文件。分享链接。查看谁在下载。200MB免费 — 无需账户，无需信用卡。',
+    },
+    download: {
+      title: '下载文件 — Filesterr',
+      titleWithFile: '{name} — 在Filesterr下载',
+      description: '由Filesterr提供的安全文件下载。',
+      descriptionWithFile: '在Filesterr上下载"{name}" — 快速、安全的文件共享。',
+      ogTitle: '文件下载 — Filesterr',
+      ogTitleWithFile: '{name} — Filesterr',
+      ogDescription: '由Filesterr提供的安全文件共享。',
+    },
+    analyticsPage: {
+      title: '文件下载分析与访客智能 — Filesterr',
+      description: '实时查看谁在下载您的文件、他们在哪里以及何时下载。检测机器人、VPN和回访用户。',
+      keywords: '文件下载分析, 访客跟踪, 机器人检测, VPN检测, 文件共享分析, 下载统计',
+      ogTitle: '文件下载分析与访客智能 — Filesterr',
+      ogDescription: '实时查看谁在下载您的文件、他们在哪里以及何时下载。检测机器人、VPN和回访用户。',
+    },
+    features: {
+      title: '功能 — Filesterr',
+      description: '探索Filesterr的所有功能：10GB免费存储、实时下载分析、访客指纹识别、机器人和VPN检测等。',
+    },
+    about: {
+      title: '关于Filesterr — 由Linksterr创始人打造',
+      description: 'Filesterr由Linksterr团队开发 — 一个拥有超过50,000名用户信赖的链接缩短器。我们打造了一直以来需要的文件共享工具：具备真实分析、机器人检测和下载智能。',
+      ogTitle: '关于Filesterr — 由Linksterr创始人打造',
+      ogDescription: '由Linksterr团队打造的文件共享平台。下载分析、访客智能和隐私优先的架构。',
+    },
+    blog: {
+      title: '博客 — Filesterr',
+      description: 'Filesterr团队的产品更新、技巧和见解。',
+    },
+    docs: {
+      title: 'API文档 — Filesterr',
+      description: 'Filesterr REST API文档。以编程方式上传、管理和跟踪文件。适用于Pro和Pro Max计划。',
+    },
+    careers: {
+      title: '职业机会 — Filesterr',
+      description: '加入Filesterr团队。我们打造为您的共享文件提供真实洞察的工具。',
+    },
+    status: {
+      title: '系统状态 — Filesterr',
+      description: '所有Filesterr服务的实时运营状态。',
+    },
+    privacy: {
+      title: '隐私政策 — Filesterr',
+      description: 'Filesterr隐私政策 — 我们如何收集、使用和保护您的数据。',
+    },
+    terms: {
+      title: '服务条款 — Filesterr',
+      description: '阅读Filesterr服务条款 — 可接受使用、存储政策、付款等。',
+    },
+    cookies: {
+      title: 'Cookie政策 — Filesterr',
+      description: 'Filesterr如何使用Cookie和类似的跟踪技术。',
+    },
+    gdpr: {
+      title: 'GDPR与隐私 — Filesterr',
+      description: 'Filesterr如何根据GDPR收集、存储和保护您的个人数据。',
+    },
+    refunds: {
+      title: '退款政策 — Filesterr',
+      description: 'Filesterr付费计划的退款和取消政策。',
+    },
+    notFound: {
+      title: '404 — 页面未找到 | Filesterr',
+    },
+    dashboard: {
+      title: '仪表板 — Filesterr',
+    },
+    dashboardAnalytics: {
+      title: '访客分析 — Filesterr',
+    },
+    deleteFile: {
+      title: '删除文件 — Filesterr',
+    },
+    checkout: {
+      title: '结账 — Filesterr',
+    },
+    checkoutSuccess: {
+      title: '支付成功 — Filesterr',
+    },
+    login: {
+      title: '登录 — Filesterr',
+      description: '登录您的Filesterr账户以访问您的文件、分析和设置。',
+    },
+    register: {
+      title: '创建免费账户 — Filesterr',
+      description: '创建免费的Filesterr账户。获得10GB存储空间、实时下载分析和访客跟踪。无需信用卡。',
+    },
+    forgot: {
+      title: '重置密码 — Filesterr',
+    },
+    resetPassword: {
+      title: '设置新密码 — Filesterr',
+    },
+    verifyEmail: {
+      title: '验证邮箱 — Filesterr',
+    },
+    oauthCallback: {
+      title: '正在登录 — Filesterr',
+    },
+  },
 }

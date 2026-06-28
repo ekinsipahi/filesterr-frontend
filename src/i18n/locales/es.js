@@ -343,4 +343,118 @@ export default {
     col2_l3: 'RGPD',
     rights: '© {year} Filesterr. Todos los derechos reservados.',
   },
+  pageMeta: {
+    landing: {
+      title: 'Filesterr — Compartir Archivos Gratis con Análisis de Descargas',
+      description: 'Comparte cualquier archivo en segundos. Ve exactamente quién lo descarga — país, dispositivo, bot o persona real. 200 MB gratis, sin registro. Mejora para 50 GB, análisis y más.',
+      ogTitle: 'Filesterr — Compartir Archivos Gratis con Análisis de Descargas',
+      ogDescription: 'Sube cualquier archivo. Comparte un enlace. Ve quién lo descarga — análisis en tiempo real, detección de bots y proxies. 200 MB gratis, sin cuenta.',
+    },
+    upload: {
+      title: 'Subir y Compartir Archivos Gratis — Sin Registro | Filesterr',
+      description: 'Sube cualquier archivo y obtén un enlace compartible en segundos. 200 MB gratis, sin cuenta necesaria. Protección por contraseña, fechas de expiración y análisis de descargas en tiempo real.',
+      ogTitle: 'Subir y Compartir Archivos Gratis — Sin Registro | Filesterr',
+      ogDescription: 'Sube cualquier archivo. Comparte un enlace. Ve quién lo descarga. 200 MB gratis — sin cuenta, sin tarjeta de crédito.',
+    },
+    download: {
+      title: 'Descargar Archivo — Filesterr',
+      titleWithFile: '{name} — Descargar en Filesterr',
+      description: 'Descarga de archivos segura impulsada por Filesterr.',
+      descriptionWithFile: 'Descarga "{name}" en Filesterr — compartir archivos rápido y seguro.',
+      ogTitle: 'Descarga de Archivo — Filesterr',
+      ogTitleWithFile: '{name} — Filesterr',
+      ogDescription: 'Compartir archivos seguro impulsado por Filesterr.',
+    },
+    analyticsPage: {
+      title: 'Análisis de Descargas de Archivos e Inteligencia de Visitantes — Filesterr',
+      description: 'Ve quién descarga tus archivos, dónde están y cuándo — en tiempo real. Detecta bots, VPNs y visitantes recurrentes. El análisis de archivos más inteligente de la web.',
+      keywords: 'análisis de descargas de archivos, seguimiento de visitantes, detección de bots, detección de VPN, análisis de compartir archivos, estadísticas de descargas',
+      ogTitle: 'Análisis de Descargas de Archivos e Inteligencia de Visitantes — Filesterr',
+      ogDescription: 'Ve quién descarga tus archivos, dónde están y cuándo — en tiempo real. Detecta bots, VPNs y visitantes recurrentes.',
+    },
+    features: {
+      title: 'Funcionalidades — Filesterr',
+      description: 'Explora todas las funcionalidades de Filesterr: 10 GB de almacenamiento gratuito, análisis de descargas en tiempo real, huella digital de visitantes, detección de bots y VPN, y más.',
+    },
+    about: {
+      title: 'Sobre Filesterr — Creado por los Fundadores de Linksterr',
+      description: 'Filesterr fue creado por el equipo detrás de Linksterr — un acortador de enlaces de confianza para más de 50.000 usuarios. Creamos la herramienta de compartir archivos que siempre necesitamos.',
+      ogTitle: 'Sobre Filesterr — Creado por los Fundadores de Linksterr',
+      ogDescription: 'La plataforma de compartir archivos creada por el equipo de Linksterr. Análisis de descargas, inteligencia de visitantes y arquitectura orientada a la privacidad.',
+    },
+    blog: {
+      title: 'Blog — Filesterr',
+      description: 'Actualizaciones de productos, consejos e ideas del equipo de Filesterr.',
+    },
+    docs: {
+      title: 'Documentación de API — Filesterr',
+      description: 'Documentación de Filesterr REST API. Sube, gestiona y rastrea archivos mediante programación. Disponible en los planes Pro y Pro Max.',
+    },
+    careers: {
+      title: 'Empleo — Filesterr',
+      description: 'Únete al equipo de Filesterr. Creamos herramientas que proporcionan información real sobre tus archivos compartidos.',
+    },
+    status: {
+      title: 'Estado del Sistema — Filesterr',
+      description: 'Estado operacional en tiempo real de todos los servicios de Filesterr.',
+    },
+    privacy: {
+      title: 'Política de Privacidad — Filesterr',
+      description: 'Política de Privacidad de Filesterr — cómo recopilamos, usamos y protegemos tus datos.',
+    },
+    terms: {
+      title: 'Términos de Servicio — Filesterr',
+      description: 'Lee los Términos de Servicio de Filesterr — uso aceptable, políticas de almacenamiento, pagos y más.',
+    },
+    cookies: {
+      title: 'Política de Cookies — Filesterr',
+      description: 'Cómo Filesterr usa cookies y tecnologías de seguimiento similares.',
+    },
+    gdpr: {
+      title: 'RGPD y Privacidad — Filesterr',
+      description: 'Cómo Filesterr recopila, almacena y protege tus datos personales bajo el RGPD.',
+    },
+    refunds: {
+      title: 'Política de Reembolsos — Filesterr',
+      description: 'Política de reembolso y cancelación de Filesterr para planes de pago.',
+    },
+    notFound: {
+      title: '404 — Página No Encontrada | Filesterr',
+    },
+    dashboard: {
+      title: 'Panel de Control — Filesterr',
+    },
+    dashboardAnalytics: {
+      title: 'Análisis de Visitantes — Filesterr',
+    },
+    deleteFile: {
+      title: 'Eliminar Archivo — Filesterr',
+    },
+    checkout: {
+      title: 'Pago — Filesterr',
+    },
+    checkoutSuccess: {
+      title: 'Pago Exitoso — Filesterr',
+    },
+    login: {
+      title: 'Iniciar Sesión — Filesterr',
+      description: 'Inicia sesión en tu cuenta de Filesterr para acceder a tus archivos, análisis y configuración.',
+    },
+    register: {
+      title: 'Crear Cuenta Gratuita — Filesterr',
+      description: 'Crea una cuenta gratuita de Filesterr. Obtén 10 GB de almacenamiento, análisis de descargas en tiempo real y seguimiento de visitantes. No se requiere tarjeta de crédito.',
+    },
+    forgot: {
+      title: 'Restablecer Contraseña — Filesterr',
+    },
+    resetPassword: {
+      title: 'Establecer Nueva Contraseña — Filesterr',
+    },
+    verifyEmail: {
+      title: 'Verificar Correo Electrónico — Filesterr',
+    },
+    oauthCallback: {
+      title: 'Iniciando sesión — Filesterr',
+    },
+  },
 }

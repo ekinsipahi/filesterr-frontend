@@ -47,9 +47,14 @@
 
 <script setup>
 import { useHead } from '@vueuse/head'
+import { useI18n } from 'vue-i18n'
+import { computed } from 'vue'
+
+const { t } = useI18n()
+
 useHead({
-  title: 'Careers — Filesterr',
-  meta: [{ name: 'description', content: 'Join the Filesterr team. We build tools that give real insight into your shared files.' }],
+  title: computed(() => t('pageMeta.careers.title')),
+  meta: [{ name: 'description', content: computed(() => t('pageMeta.careers.description')) }],
 })
 
 const values = [

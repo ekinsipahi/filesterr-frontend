@@ -250,12 +250,12 @@ const route = useRoute()
 const file  = ref(null)
 
 useHead(computed(() => ({
-  title: file.value ? `${file.value.name} — Download on Filesterr` : 'Download File — Filesterr',
+  title: file.value ? t('pageMeta.download.titleWithFile', { name: file.value.name }) : t('pageMeta.download.title'),
   meta: [
-    { name: 'description',        content: file.value ? `Download "${file.value.name}" on Filesterr — fast, secure file sharing.` : 'Secure file download powered by Filesterr.' },
+    { name: 'description',        content: file.value ? t('pageMeta.download.descriptionWithFile', { name: file.value.name }) : t('pageMeta.download.description') },
     { name: 'robots',             content: 'noindex, follow' },
-    { property: 'og:title',       content: file.value ? `${file.value.name} — Filesterr` : 'File Download — Filesterr' },
-    { property: 'og:description', content: 'Secure file sharing powered by Filesterr.' },
+    { property: 'og:title',       content: file.value ? t('pageMeta.download.ogTitleWithFile', { name: file.value.name }) : t('pageMeta.download.ogTitle') },
+    { property: 'og:description', content: t('pageMeta.download.ogDescription') },
     { property: 'og:image',       content: 'https://filesterr.com/logo.png' },
   ],
 })))

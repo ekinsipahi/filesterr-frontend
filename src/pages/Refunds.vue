@@ -74,3 +74,16 @@
     </div>
   </main>
 </template>
+
+<script setup>
+import { useHead } from '@vueuse/head'
+import { useI18n } from 'vue-i18n'
+import { computed } from 'vue'
+
+const { t } = useI18n()
+
+useHead({
+  title: computed(() => t('pageMeta.refunds.title')),
+  meta: [{ name: 'description', content: computed(() => t('pageMeta.refunds.description')) }],
+})
+</script>

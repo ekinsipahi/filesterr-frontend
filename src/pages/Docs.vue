@@ -214,11 +214,14 @@
 <script setup>
 import { ref, reactive, onMounted, computed } from 'vue'
 import { useHead } from '@vueuse/head'
+import { useI18n } from 'vue-i18n'
+
+const { t } = useI18n()
 
 useHead({
-  title: 'API Documentation — Filesterr',
+  title: computed(() => t('pageMeta.docs.title')),
   meta: [
-    { name: 'description', content: 'Filesterr REST API documentation. Upload, manage and track files programmatically. Available on Pro and Pro Max plans.' },
+    { name: 'description', content: computed(() => t('pageMeta.docs.description')) },
     { name: 'robots', content: 'index, follow' },
   ],
 })

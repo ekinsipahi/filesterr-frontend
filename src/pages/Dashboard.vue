@@ -877,9 +877,15 @@ import { ref, computed, watch, onMounted, onUnmounted } from 'vue'
 import { getMe, resendVerification, getPaddlePortalUrl } from '../api/index.js'
 import { PLANS } from '../data/plans.js'
 import { useI18n } from 'vue-i18n'
+import { useHead } from '@vueuse/head'
 import FileContextMenu from '../components/dashboard/FileContextMenu.vue'
 
 const { t } = useI18n()
+
+useHead({
+  title: computed(() => t('pageMeta.dashboard.title')),
+  meta: [{ name: 'robots', content: 'noindex' }],
+})
 
 const isMounted    = ref(false)
 const user         = ref(null)

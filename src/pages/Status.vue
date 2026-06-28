@@ -73,10 +73,13 @@
 <script setup>
 import { computed } from 'vue'
 import { useHead } from '@vueuse/head'
+import { useI18n } from 'vue-i18n'
+
+const { t } = useI18n()
 
 useHead({
-  title: 'System Status — Filesterr',
-  meta: [{ name: 'description', content: 'Real-time operational status of all Filesterr services.' }],
+  title: computed(() => t('pageMeta.status.title')),
+  meta: [{ name: 'description', content: computed(() => t('pageMeta.status.description')) }],
 })
 
 const lastChecked = new Date().toUTCString()

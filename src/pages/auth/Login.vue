@@ -117,7 +117,7 @@
 </template>
 
 <script setup>
-import { ref, reactive } from 'vue'
+import { ref, reactive, computed } from 'vue'
 import AuthLayout from '../../components/layout/AuthLayout.vue'
 import { login, startOAuth } from '../../api/index.js'
 import { useHead } from '@vueuse/head'
@@ -126,9 +126,9 @@ import { useI18n } from 'vue-i18n'
 const { t } = useI18n()
 
 useHead({
-  title: 'Sign In — Filesterr',
+  title: computed(() => t('pageMeta.login.title')),
   meta: [
-    { name: 'description', content: 'Sign in to your Filesterr account to access your files, analytics, and settings.' },
+    { name: 'description', content: computed(() => t('pageMeta.login.description')) },
     { name: 'robots', content: 'noindex' },
   ],
 })

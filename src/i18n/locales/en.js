@@ -598,4 +598,118 @@ export default {
       errorTitle: 'Link expired',
     },
   },
+  pageMeta: {
+    landing: {
+      title: 'Filesterr — Free File Sharing with Download Analytics',
+      description: 'Share any file in seconds. See exactly who downloads it — country, device, bot or real person. 200MB free, no signup. Upgrade for 50GB, analytics & more.',
+      ogTitle: 'Filesterr — Free File Sharing with Download Analytics',
+      ogDescription: 'Upload any file. Share a link. See who downloads it — real-time analytics, bot & proxy detection. 200MB free, no account.',
+    },
+    upload: {
+      title: 'Upload & Share Files Free — No Signup | Filesterr',
+      description: 'Upload any file and get a shareable link in seconds. 200MB free, no account needed. Password protection, expiry dates, and real-time download analytics.',
+      ogTitle: 'Upload & Share Files Free — No Signup | Filesterr',
+      ogDescription: 'Upload any file. Share a link. See who downloads it. 200MB free — no account, no credit card.',
+    },
+    download: {
+      title: 'Download File — Filesterr',
+      titleWithFile: '{name} — Download on Filesterr',
+      description: 'Secure file download powered by Filesterr.',
+      descriptionWithFile: 'Download "{name}" on Filesterr — fast, secure file sharing.',
+      ogTitle: 'File Download — Filesterr',
+      ogTitleWithFile: '{name} — Filesterr',
+      ogDescription: 'Secure file sharing powered by Filesterr.',
+    },
+    analyticsPage: {
+      title: 'File Download Analytics & Visitor Intelligence — Filesterr',
+      description: 'See who downloads your files, where they are, and when — in real time. Detect bots, VPNs, and returning visitors. The smartest file analytics on the web.',
+      keywords: 'file download analytics, visitor tracking, bot detection, VPN detection, file sharing analytics, download statistics',
+      ogTitle: 'File Download Analytics & Visitor Intelligence — Filesterr',
+      ogDescription: 'See who downloads your files, where they are, and when — in real time. Detect bots, VPNs, and returning visitors.',
+    },
+    features: {
+      title: 'Features — Filesterr',
+      description: 'Explore every Filesterr feature: 10GB free storage, real-time download analytics, visitor fingerprinting, bot & VPN detection, and more.',
+    },
+    about: {
+      title: 'About Filesterr — Built by the Creators of Linksterr',
+      description: 'Filesterr was built by the team behind Linksterr — a link shortener trusted by 50,000+ users. We built the file sharing tool we always needed: with real analytics, bot detection, and download intelligence.',
+      ogTitle: 'About Filesterr — Built by the Creators of Linksterr',
+      ogDescription: 'The file sharing platform built by the Linksterr team. Download analytics, visitor intelligence, and privacy-first architecture.',
+    },
+    blog: {
+      title: 'Blog — Filesterr',
+      description: 'Product updates, tips and insights from the Filesterr team.',
+    },
+    docs: {
+      title: 'API Documentation — Filesterr',
+      description: 'Filesterr REST API documentation. Upload, manage and track files programmatically. Available on Pro and Pro Max plans.',
+    },
+    careers: {
+      title: 'Careers — Filesterr',
+      description: 'Join the Filesterr team. We build tools that give real insight into your shared files.',
+    },
+    status: {
+      title: 'System Status — Filesterr',
+      description: 'Real-time operational status of all Filesterr services.',
+    },
+    privacy: {
+      title: 'Privacy Policy — Filesterr',
+      description: 'Filesterr Privacy Policy — how we collect, use, and protect your data.',
+    },
+    terms: {
+      title: 'Terms of Service — Filesterr',
+      description: 'Read the Filesterr Terms of Service — acceptable use, storage policies, payments, and more.',
+    },
+    cookies: {
+      title: 'Cookie Policy — Filesterr',
+      description: 'How Filesterr uses cookies and similar tracking technologies.',
+    },
+    gdpr: {
+      title: 'GDPR & Privacy — Filesterr',
+      description: 'How Filesterr collects, stores, and protects your personal data under GDPR.',
+    },
+    refunds: {
+      title: 'Refund Policy — Filesterr',
+      description: 'Filesterr refund and cancellation policy for paid plans.',
+    },
+    notFound: {
+      title: '404 — Page Not Found | Filesterr',
+    },
+    dashboard: {
+      title: 'Dashboard — Filesterr',
+    },
+    dashboardAnalytics: {
+      title: 'Visitor Analytics — Filesterr',
+    },
+    deleteFile: {
+      title: 'Delete File — Filesterr',
+    },
+    checkout: {
+      title: 'Checkout — Filesterr',
+    },
+    checkoutSuccess: {
+      title: 'Payment Successful — Filesterr',
+    },
+    login: {
+      title: 'Sign In — Filesterr',
+      description: 'Sign in to your Filesterr account to access your files, analytics, and settings.',
+    },
+    register: {
+      title: 'Create Free Account — Filesterr',
+      description: 'Create a free Filesterr account. Get 10GB storage, real-time download analytics, and visitor tracking. No credit card required.',
+    },
+    forgot: {
+      title: 'Reset Password — Filesterr',
+    },
+    resetPassword: {
+      title: 'Set New Password — Filesterr',
+    },
+    verifyEmail: {
+      title: 'Verify Email — Filesterr',
+    },
+    oauthCallback: {
+      title: 'Signing in — Filesterr',
+    },
+  },
 }

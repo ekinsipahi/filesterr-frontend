@@ -231,7 +231,7 @@ import { useI18n } from 'vue-i18n'
 
 const { t } = useI18n()
 
-useHead({ title: 'Visitor Analytics — Filesterr', meta: [{ name: 'robots', content: 'noindex' }] })
+useHead({ title: computed(() => t('pageMeta.dashboardAnalytics.title')), meta: [{ name: 'robots', content: 'noindex' }] })
 
 const loading    = ref(true)
 const planError  = ref(false)

@@ -598,4 +598,118 @@ export default {
       errorTitle: 'Link abgelaufen',
     },
   },
+  pageMeta: {
+    landing: {
+      title: 'Filesterr — Kostenloser Datei-Sharing-Dienst mit Download-Analysen',
+      description: 'Teilen Sie jede Datei in Sekunden. Sehen Sie genau, wer sie herunterlädt — Land, Gerät, Bot oder echte Person. 200 MB kostenlos, keine Registrierung erforderlich.',
+      ogTitle: 'Filesterr — Kostenloser Datei-Sharing-Dienst mit Download-Analysen',
+      ogDescription: 'Laden Sie eine Datei hoch. Teilen Sie einen Link. Sehen Sie, wer sie herunterlädt — Echtzeit-Analysen, Bot- und Proxy-Erkennung. 200 MB kostenlos.',
+    },
+    upload: {
+      title: 'Dateien kostenlos hochladen und teilen — Keine Registrierung | Filesterr',
+      description: 'Laden Sie eine Datei hoch und erhalten Sie in Sekunden einen teilbaren Link. 200 MB kostenlos, kein Konto erforderlich. Passwortschutz, Ablaufdaten und Echtzeit-Download-Analysen.',
+      ogTitle: 'Dateien kostenlos hochladen und teilen — Keine Registrierung | Filesterr',
+      ogDescription: 'Laden Sie eine Datei hoch. Teilen Sie einen Link. Sehen Sie, wer sie herunterlädt. 200 MB kostenlos — kein Konto, keine Kreditkarte.',
+    },
+    download: {
+      title: 'Datei herunterladen — Filesterr',
+      titleWithFile: '{name} — Bei Filesterr herunterladen',
+      description: 'Sicherer Datei-Download, bereitgestellt von Filesterr.',
+      descriptionWithFile: '"{name}" bei Filesterr herunterladen — schnelles, sicheres Datei-Sharing.',
+      ogTitle: 'Datei-Download — Filesterr',
+      ogTitleWithFile: '{name} — Filesterr',
+      ogDescription: 'Sicheres Datei-Sharing, bereitgestellt von Filesterr.',
+    },
+    analyticsPage: {
+      title: 'Datei-Download-Analysen und Besucher-Intelligence — Filesterr',
+      description: 'Sehen Sie in Echtzeit, wer Ihre Dateien herunterlädt, wo sie sich befinden und wann. Erkennen Sie Bots, VPNs und wiederkehrende Besucher.',
+      keywords: 'Datei-Download-Analysen, Besucherverfolgung, Bot-Erkennung, VPN-Erkennung, Datei-Sharing-Analysen, Download-Statistiken',
+      ogTitle: 'Datei-Download-Analysen und Besucher-Intelligence — Filesterr',
+      ogDescription: 'Sehen Sie in Echtzeit, wer Ihre Dateien herunterlädt, wo sie sich befinden und wann. Erkennen Sie Bots, VPNs und wiederkehrende Besucher.',
+    },
+    features: {
+      title: 'Funktionen — Filesterr',
+      description: 'Entdecken Sie alle Filesterr-Funktionen: 10 GB kostenloser Speicher, Echtzeit-Download-Analysen, Besucher-Fingerabdruck, Bot- und VPN-Erkennung und mehr.',
+    },
+    about: {
+      title: 'Über Filesterr — Erstellt von den Machern von Linksterr',
+      description: 'Filesterr wurde vom Team hinter Linksterr entwickelt — einem Link-Shortener, dem über 50.000 Nutzer vertrauen. Wir haben das Datei-Sharing-Tool gebaut, das wir immer gebraucht haben.',
+      ogTitle: 'Über Filesterr — Erstellt von den Machern von Linksterr',
+      ogDescription: 'Die Datei-Sharing-Plattform vom Linksterr-Team. Download-Analysen, Besucher-Intelligence und datenschutzorientierte Architektur.',
+    },
+    blog: {
+      title: 'Blog — Filesterr',
+      description: 'Produktupdates, Tipps und Einblicke vom Filesterr-Team.',
+    },
+    docs: {
+      title: 'API-Dokumentation — Filesterr',
+      description: 'Filesterr REST API-Dokumentation. Dateien programmgesteuert hochladen, verwalten und verfolgen. Verfügbar in Pro- und Pro Max-Plänen.',
+    },
+    careers: {
+      title: 'Karriere — Filesterr',
+      description: 'Werden Sie Teil des Filesterr-Teams. Wir entwickeln Tools, die echte Einblicke in Ihre geteilten Dateien geben.',
+    },
+    status: {
+      title: 'Systemstatus — Filesterr',
+      description: 'Echtzeit-Betriebsstatus aller Filesterr-Dienste.',
+    },
+    privacy: {
+      title: 'Datenschutzrichtlinie — Filesterr',
+      description: 'Filesterr-Datenschutzrichtlinie — wie wir Ihre Daten erheben, verwenden und schützen.',
+    },
+    terms: {
+      title: 'Nutzungsbedingungen — Filesterr',
+      description: 'Lesen Sie die Filesterr-Nutzungsbedingungen — zulässige Nutzung, Speicherrichtlinien, Zahlungen und mehr.',
+    },
+    cookies: {
+      title: 'Cookie-Richtlinie — Filesterr',
+      description: 'Wie Filesterr Cookies und ähnliche Tracking-Technologien verwendet.',
+    },
+    gdpr: {
+      title: 'DSGVO & Datenschutz — Filesterr',
+      description: 'Wie Filesterr Ihre personenbezogenen Daten gemäß DSGVO erhebt, speichert und schützt.',
+    },
+    refunds: {
+      title: 'Rückerstattungsrichtlinie — Filesterr',
+      description: 'Filesterr-Rückerstattungs- und Stornierungsrichtlinie für kostenpflichtige Pläne.',
+    },
+    notFound: {
+      title: '404 — Seite nicht gefunden | Filesterr',
+    },
+    dashboard: {
+      title: 'Dashboard — Filesterr',
+    },
+    dashboardAnalytics: {
+      title: 'Besucher-Analysen — Filesterr',
+    },
+    deleteFile: {
+      title: 'Datei löschen — Filesterr',
+    },
+    checkout: {
+      title: 'Kasse — Filesterr',
+    },
+    checkoutSuccess: {
+      title: 'Zahlung erfolgreich — Filesterr',
+    },
+    login: {
+      title: 'Anmelden — Filesterr',
+      description: 'Melden Sie sich bei Ihrem Filesterr-Konto an, um auf Ihre Dateien, Analysen und Einstellungen zuzugreifen.',
+    },
+    register: {
+      title: 'Kostenloses Konto erstellen — Filesterr',
+      description: 'Erstellen Sie ein kostenloses Filesterr-Konto. Erhalten Sie 10 GB Speicher, Echtzeit-Download-Analysen und Besucherverfolgung. Keine Kreditkarte erforderlich.',
+    },
+    forgot: {
+      title: 'Passwort zurücksetzen — Filesterr',
+    },
+    resetPassword: {
+      title: 'Neues Passwort festlegen — Filesterr',
+    },
+    verifyEmail: {
+      title: 'E-Mail verifizieren — Filesterr',
+    },
+    oauthCallback: {
+      title: 'Anmeldung läuft — Filesterr',
+    },
+  },
 }

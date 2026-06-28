@@ -30,13 +30,16 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, computed } from 'vue'
 import { useRoute } from 'vue-router'
 import AuthLayout from '../../components/layout/AuthLayout.vue'
 import { handleOAuthCallback } from '../../api/index.js'
 import { useI18n } from 'vue-i18n'
+import { useHead } from '@vueuse/head'
 
 const { t } = useI18n()
+
+useHead({ title: computed(() => t('pageMeta.oauthCallback.title')) })
 
 const route = useRoute()
 const error = ref(null)

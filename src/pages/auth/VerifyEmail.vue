@@ -57,14 +57,14 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, computed } from 'vue'
 import { verifyEmail } from '../../api/index.js'
 import { useHead } from '@vueuse/head'
 import { useI18n } from 'vue-i18n'
 
 const { t } = useI18n()
 
-useHead({ title: 'Verify Email — Filesterr' })
+useHead({ title: computed(() => t('pageMeta.verifyEmail.title')) })
 
 const status = ref('loading')
 const error  = ref('')

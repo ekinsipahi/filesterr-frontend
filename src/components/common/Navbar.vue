@@ -29,7 +29,7 @@
         <a
           :href="localePath('/#testimonials')"
           class="text-sm font-medium text-zinc-500 dark:text-zinc-400 hover:text-brand-500 transition-colors"
-        >Reviews</a>
+        >{{ $t('navbar.reviews') }}</a>
       </nav>
 
       <!-- Right -->
@@ -68,7 +68,7 @@
         <button
           @click="toggle"
           class="p-2 rounded-xl text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-all"
-          :aria-label="isDark ? 'Light mode' : 'Dark mode'"
+          :aria-label="isDark ? $t('navbar.lightMode') : $t('navbar.darkMode')"
         >
           <svg v-if="isDark" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m12.728 0l-.707-.707M6.343 6.343l-.707-.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/>
@@ -84,20 +84,20 @@
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zm10 0a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zm10 0a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"/>
             </svg>
-            Dashboard
+            {{ $t('navbar.dashboard') }}
           </a>
           <button @click="signOut" class="btn-ghost text-sm">
-            Sign Out
+            {{ $t('navbar.signOut') }}
           </button>
         </template>
 
         <!-- Guest -->
         <template v-else>
           <RouterLink :to="lp('login')" class="hidden sm:block text-sm font-medium text-zinc-600 dark:text-zinc-400 hover:text-brand-500 transition-colors px-3 py-2">
-            Sign In
+            {{ $t('nav.signin') }}
           </RouterLink>
           <RouterLink :to="lp('register')" class="btn-primary text-sm">
-            Get Started Free
+            {{ $t('nav.getStarted') }}
           </RouterLink>
         </template>
 
@@ -129,15 +129,15 @@
           :href="localePath('/#testimonials')"
           class="text-sm font-medium text-zinc-600 dark:text-zinc-300 py-1.5"
           @click="mobileOpen = false"
-        >Reviews</a>
+        >{{ $t('navbar.reviews') }}</a>
         <div class="pt-3 border-t border-zinc-200 dark:border-zinc-800 flex gap-3">
           <template v-if="isAuth">
-            <a href="/dashboard" class="btn-ghost text-sm flex-1 justify-center" @click="mobileOpen = false">Dashboard</a>
-            <button @click="signOut" class="btn-primary text-sm flex-1 justify-center">Sign Out</button>
+            <a href="/dashboard" class="btn-ghost text-sm flex-1 justify-center" @click="mobileOpen = false">{{ $t('navbar.dashboard') }}</a>
+            <button @click="signOut" class="btn-primary text-sm flex-1 justify-center">{{ $t('navbar.signOut') }}</button>
           </template>
           <template v-else>
-            <RouterLink :to="lp('login')"    class="btn-ghost text-sm flex-1 justify-center" @click="mobileOpen = false">Sign In</RouterLink>
-            <RouterLink :to="lp('register')" class="btn-primary text-sm flex-1 justify-center" @click="mobileOpen = false">Get Started</RouterLink>
+            <RouterLink :to="lp('login')"    class="btn-ghost text-sm flex-1 justify-center" @click="mobileOpen = false">{{ $t('nav.signin') }}</RouterLink>
+            <RouterLink :to="lp('register')" class="btn-primary text-sm flex-1 justify-center" @click="mobileOpen = false">{{ $t('navbar.getStarted') }}</RouterLink>
           </template>
         </div>
       </div>
@@ -146,7 +146,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onUnmounted } from 'vue'
+import { ref, computed, onMounted, onUnmounted } from 'vue'
 import { RouterLink } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 import { useTheme } from '../../composables/useTheme.js'
@@ -155,7 +155,7 @@ import { SUPPORTED_LOCALES, LOCALE_NAMES, LOCALE_FLAGS } from '../../i18n/index.
 import { onClickOutside } from '@vueuse/core'
 import { clearAuth } from '../../api/index.js'
 
-const { locale } = useI18n()
+const { locale, t } = useI18n()
 const { isDark, init, toggle } = useTheme()
 const { lp, localePath } = useLocalePath()
 
@@ -175,12 +175,12 @@ const localeNames = LOCALE_NAMES
 const flags       = LOCALE_FLAGS
 
 // Route name → label (names match createApp.js children)
-const internalLinks = [
-  { name: 'features',  label: 'Features'  },
-  { name: 'pricing',   label: 'Pricing'   },
-  { name: 'analytics', label: 'Analytics' },
-  { name: 'upload',    label: 'Upload'    },
-]
+const internalLinks = computed(() => [
+  { name: 'features',  label: t('nav.features')  },
+  { name: 'pricing',   label: t('nav.pricing')   },
+  { name: 'analytics', label: t('nav.analytics') },
+  { name: 'upload',    label: t('navbar.upload')  },
+])
 
 function switchLocale(loc) {
   locale.value = loc

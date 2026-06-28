@@ -9,11 +9,16 @@
   </div>
 </template>
 <script setup>
-const proof = [
-  { value:'500K+',  label:'users track downloads' },
-  { value:'12M+',   label:'files monitored' },
-  { value:'99.99%', label:'uptime SLA' },
-  { value:'< 1s',   label:'analytics latency' },
-  { value:'4.8★',   label:'Trustpilot rating' },
-]
+import { computed } from 'vue'
+import { useI18n } from 'vue-i18n'
+
+const { t } = useI18n()
+
+const proof = computed(() => [
+  { value:'500K+',  label: t('analyticsPage.tickerLabel0') },
+  { value:'12M+',   label: t('analyticsPage.tickerLabel1') },
+  { value:'99.99%', label: t('analyticsPage.tickerLabel2') },
+  { value:'< 1s',   label: t('analyticsPage.tickerLabel3') },
+  { value:'4.8★',   label: t('analyticsPage.tickerLabel4') },
+])
 </script>

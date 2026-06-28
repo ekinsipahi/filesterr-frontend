@@ -61,10 +61,10 @@ useHead({
   meta: [{ name: 'robots', content: 'noindex' }],
 })
 
-const quickLinks = [
-  { href: '/features',  label: 'Features' },
-  { href: '/pricing',   label: 'Pricing' },
-  { href: '/analytics', label: 'Analytics' },
-  { href: '/register',  label: 'Sign up free' },
-]
+const quickLinks = computed(() => [
+  { href: '/features',  label: t('notFoundPage.quickLink0') },
+  { href: '/pricing',   label: t('notFoundPage.quickLink1') },
+  { href: '/analytics', label: t('notFoundPage.quickLink2') },
+  { href: '/register',  label: t('notFoundPage.quickLink3') },
+])
 </script>

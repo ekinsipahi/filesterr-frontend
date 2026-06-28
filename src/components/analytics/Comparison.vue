@@ -2,15 +2,15 @@
   <section class="py-24 px-6 section-alt">
     <div class="max-w-4xl mx-auto">
       <div class="text-center mb-14">
-        <p class="text-xs font-bold text-brand-500 uppercase tracking-widest mb-4">Pricing</p>
-        <h2 class="font-display text-4xl font-extrabold mb-4">Analytics for <span class="text-gradient">every level</span></h2>
-        <p class="text-zinc-500 dark:text-zinc-400">Start free. Unlock more as you grow.</p>
+        <p class="text-xs font-bold text-brand-500 uppercase tracking-widest mb-4">{{ $t('analyticsPage.compTagline') }}</p>
+        <h2 class="font-display text-4xl font-extrabold mb-4">{{ $t('analyticsPage.compH2a') }} <span class="text-gradient">{{ $t('analyticsPage.compH2b') }}</span></h2>
+        <p class="text-zinc-500 dark:text-zinc-400">{{ $t('analyticsPage.compSub') }}</p>
       </div>
       <div class="card overflow-hidden">
         <table class="w-full text-sm">
           <thead>
             <tr class="border-b border-zinc-100 dark:border-zinc-800">
-              <th class="p-5 text-left font-semibold text-zinc-500">Feature</th>
+              <th class="p-5 text-left font-semibold text-zinc-500">{{ $t('analyticsPage.compFeature') }}</th>
               <th v-for="plan in plans" :key="plan.name" class="p-5 text-center font-bold" :class="plan.featured ? 'text-brand-600 dark:text-brand-400' : ''">
                 {{ plan.name }}
                 <div v-if="plan.price" class="text-xs font-normal text-zinc-400 mt-0.5">${{ plan.price }}/mo</div>
@@ -32,29 +32,34 @@
         </table>
       </div>
       <div class="flex flex-wrap justify-center gap-4 mt-8">
-        <a href="/register" class="btn-primary-lg">Get started free</a>
-        <a href="/pricing" class="btn-ghost-lg">View all plans</a>
+        <a href="/register" class="btn-primary-lg">{{ $t('analyticsPage.compGetStarted') }}</a>
+        <a href="/pricing" class="btn-ghost-lg">{{ $t('analyticsPage.compViewPlans') }}</a>
       </div>
     </div>
   </section>
 </template>
 <script setup>
+import { computed } from 'vue'
+import { useI18n } from 'vue-i18n'
+
+const { t } = useI18n()
+
 const plans = [
-  { name:'Anonymous', price:null, featured:false },
-  { name:'Free',      price:null, featured:false },
+  { name:'Anonymous', price:null,   featured:false },
+  { name:'Free',      price:null,   featured:false },
   { name:'Premium',   price:'3.99', featured:false },
-  { name:'Pro',       price:'7.99', featured:true },
+  { name:'Pro',       price:'7.99', featured:true  },
 ]
-const rows = [
-  { label:'Download count',         values:[true,  true,  true,  true]  },
-  { label:'Real-time feed',         values:[false, true,  true,  true]  },
-  { label:'IP & location data',     values:[false, true,  true,  true]  },
-  { label:'Device & browser info',  values:[false, true,  true,  true]  },
-  { label:'Visitor fingerprinting', values:[false, false, true,  true]  },
-  { label:'Bot detection',          values:[false, false, false, true]  },
-  { label:'VPN / proxy detection',  values:[false, false, false, true]  },
-  { label:'Geographic heatmaps',    values:[false, false, false, true]  },
-  { label:'API access',             values:[false, false, false, true]  },
-  { label:'Data retention',         values:['7d', '30d', '90d', '365d'] },
-]
+const rows = computed(() => [
+  { label: t('analyticsPage.compRow0'), values:[true,  true,  true,  true]  },
+  { label: t('analyticsPage.compRow1'), values:[false, true,  true,  true]  },
+  { label: t('analyticsPage.compRow2'), values:[false, true,  true,  true]  },
+  { label: t('analyticsPage.compRow3'), values:[false, true,  true,  true]  },
+  { label: t('analyticsPage.compRow4'), values:[false, false, true,  true]  },
+  { label: t('analyticsPage.compRow5'), values:[false, false, false, true]  },
+  { label: t('analyticsPage.compRow6'), values:[false, false, false, true]  },
+  { label: t('analyticsPage.compRow7'), values:[false, false, false, true]  },
+  { label: t('analyticsPage.compRow8'), values:[false, false, false, true]  },
+  { label: t('analyticsPage.compRow9'), values:['7d', '30d', '90d', '365d'] },
+])
 </script>

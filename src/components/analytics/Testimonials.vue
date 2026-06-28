@@ -2,8 +2,8 @@
   <section class="py-24 px-6">
     <div class="max-w-7xl mx-auto">
       <div class="text-center mb-12">
-        <p class="text-xs font-bold text-brand-500 uppercase tracking-widest mb-4">What users say</p>
-        <h2 class="font-display text-4xl font-extrabold">Real results. Real users.</h2>
+        <p class="text-xs font-bold text-brand-500 uppercase tracking-widest mb-4">{{ $t('analyticsPage.reviewsTagline') }}</p>
+        <h2 class="font-display text-4xl font-extrabold">{{ $t('analyticsPage.reviewsH2') }}</h2>
       </div>
       <div class="grid md:grid-cols-3 gap-5">
         <div v-for="q in quotes" :key="q.name" class="card-hover p-7">
@@ -20,9 +20,14 @@
   </section>
 </template>
 <script setup>
-const quotes = [
-  { name:'Yuki N.',   role:'Security Researcher', color:'#8b5cf6', body:'The bot detection and proxy flagging are solid. It caught 90%+ of common VPNs correctly. Finally real data.' },
-  { name:'Marcus T.', role:'Indie Developer',      color:'#22a366', body:"I can see when the same person downloads my demo multiple times — a warm lead I never would have known about." },
-  { name:'Sarah K.',  role:'Marketing Director',   color:'#6366f1', body:"Filesterr's analytics finally let us see if people open the files we send. Absolute game changer for our team." },
-]
+import { computed } from 'vue'
+import { useI18n } from 'vue-i18n'
+
+const { t } = useI18n()
+
+const quotes = computed(() => [
+  { name:'Yuki N.',   role:'Security Researcher', color:'#8b5cf6', body: t('analyticsPage.r0_body') },
+  { name:'Marcus T.', role:'Indie Developer',      color:'#22a366', body: t('analyticsPage.r1_body') },
+  { name:'Sarah K.',  role:'Marketing Director',   color:'#6366f1', body: t('analyticsPage.r2_body') },
+])
 </script>

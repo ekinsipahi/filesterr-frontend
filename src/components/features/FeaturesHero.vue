@@ -16,12 +16,12 @@
           <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-400 opacity-75" />
           <span class="relative inline-flex rounded-full h-2 w-2 bg-brand-500" />
         </span>
-        Used by 500,000+ creators, developers &amp; teams
+        {{ $t('featuresHero.badge') }}
       </div>
 
       <h1 class="font-display text-5xl sm:text-6xl xl:text-[68px] font-extrabold leading-[1.04] tracking-tight mb-7 animate-slide-up">
-        File Sharing That<br/>
-        <span class="text-gradient">Actually Works for You</span>
+        {{ $t('featuresHero.h1a') }}<br/>
+        <span class="text-gradient">{{ $t('featuresHero.h1b') }}</span>
       </h1>
 
       <p class="text-xl text-zinc-500 dark:text-zinc-400 max-w-2xl mx-auto mb-10 leading-relaxed animate-fade-in" style="animation-delay:.1s">
@@ -32,12 +32,12 @@
 
       <div class="flex flex-wrap justify-center gap-4 mb-12 animate-slide-up" style="animation-delay:.2s">
         <a href="/register" class="btn-primary-lg group">
-          Start Free — No Card Needed
+          {{ $t('featuresHero.cta1') }}
           <svg class="w-5 h-5 group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
           </svg>
         </a>
-        <a href="#feature-grid" class="btn-ghost-lg">See All Features</a>
+        <a href="#feature-grid" class="btn-ghost-lg">{{ $t('featuresHero.cta2') }}</a>
       </div>
 
       <div class="flex flex-wrap items-center justify-center gap-6 animate-fade-in" style="animation-delay:.35s">
@@ -53,12 +53,16 @@
 </template>
 
 <script setup>
+import { computed } from 'vue'
+import { useI18n } from 'vue-i18n'
 import FeaturesGearBg from './FeaturesGearBg.vue'
 
-const heroStats = [
-  { val: '99.99%',  label: 'uptime SLA' },
-  { val: '< 50ms',  label: 'global latency' },
-  { val: '256-bit', label: 'AES encryption' },
-  { val: '50+',     label: 'CDN locations' },
-]
+const { t } = useI18n()
+
+const heroStats = computed(() => [
+  { val: '99.99%',  label: t('featuresHero.stat0') },
+  { val: '< 50ms',  label: t('featuresHero.stat1') },
+  { val: '256-bit', label: t('featuresHero.stat2') },
+  { val: '50+',     label: t('featuresHero.stat3') },
+])
 </script>

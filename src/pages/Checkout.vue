@@ -21,22 +21,22 @@
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/>
               </svg>
             </span>
-            Create account
+            {{ $t('checkoutPage.createAccount') }}
           </span>
           <div class="w-8 h-px bg-zinc-300 dark:bg-zinc-700" />
           <span class="flex items-center gap-1.5 text-zinc-900 dark:text-white font-semibold">
             <span class="w-5 h-5 rounded-full bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 flex items-center justify-center font-bold text-[10px]">2</span>
-            Choose payment
+            {{ $t('checkoutPage.choosePayment') }}
           </span>
           <div class="w-8 h-px bg-zinc-300 dark:bg-zinc-700" />
           <span class="flex items-center gap-1.5">
             <span class="w-5 h-5 rounded-full border-2 border-zinc-300 dark:border-zinc-600 text-zinc-400 flex items-center justify-center font-bold text-[10px]">3</span>
-            All set
+            {{ $t('checkoutPage.allSet') }}
           </span>
         </div>
 
         <a href="/dashboard" class="text-xs text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-200 transition-colors">
-          Skip for now →
+          {{ $t('checkoutPage.skipForNow') }}
         </a>
       </div>
     </header>
@@ -46,11 +46,11 @@
 
       <!-- Invalid plan guard -->
       <div v-if="plan && !planData" class="flex flex-col items-center justify-center py-32 text-center">
-        <p class="text-zinc-400 mb-4">Invalid plan selected.</p>
-        <a href="/pricing" class="btn-primary text-sm">View Plans</a>
+        <p class="text-zinc-400 mb-4">{{ $t('checkoutPage.invalidPlan') }}</p>
+        <a href="/pricing" class="btn-primary text-sm">{{ $t('checkoutPage.viewPlans') }}</a>
       </div>
       <div v-else-if="!plan" class="flex flex-col items-center justify-center py-32 text-center">
-        <p class="text-zinc-400 mb-4">Loading...</p>
+        <p class="text-zinc-400 mb-4">{{ $t('checkoutPage.loading') }}</p>
       </div>
 
       <template v-else-if="planData">
@@ -66,13 +66,13 @@
             <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/>
             </svg>
-            {{ plan === 'promax' ? 'Pro Max Plan' : plan === 'pro' ? 'Pro Plan' : 'Premium Plan' }}
+            {{ plan === 'promax' ? $t('checkoutPage.planLabelPromax') : plan === 'pro' ? $t('checkoutPage.planLabelPro') : $t('checkoutPage.planLabelPremium') }}
           </div>
           <h1 class="font-display text-3xl font-extrabold text-zinc-900 dark:text-white mb-2">
-            Activate your plan
+            {{ $t('checkoutPage.activateYourPlan') }}
           </h1>
           <p class="text-zinc-500 dark:text-zinc-400 text-sm max-w-sm mx-auto">
-            Choose how you'd like to pay. All methods unlock your plan instantly after confirmation.
+            {{ $t('checkoutPage.activateSub') }}
           </p>
         </div>
 
@@ -95,13 +95,13 @@
                     </svg>
                   </div>
                   <div>
-                    <h3 class="font-bold text-zinc-900 dark:text-white">Pay with Crypto</h3>
-                    <p class="text-xs text-zinc-400 mt-0.5">One-time or recurring via crypto wallet</p>
+                    <h3 class="font-bold text-zinc-900 dark:text-white">{{ $t('checkoutPage.cryptoTitle') }}</h3>
+                    <p class="text-xs text-zinc-400 mt-0.5">{{ $t('checkoutPage.cryptoSub') }}</p>
                   </div>
                 </div>
                 <span class="shrink-0 inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-brand-50 dark:bg-brand-900/30 text-brand-600 dark:text-brand-400 text-xs font-semibold">
                   <span class="w-1.5 h-1.5 rounded-full bg-brand-500 animate-pulse" />
-                  Available
+                  {{ $t('checkoutPage.cryptoAvailable') }}
                 </span>
               </div>
 
@@ -119,19 +119,19 @@
                   <svg class="w-4 h-4 text-brand-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
                   </svg>
-                  Plan activates after 1 confirmation on-chain
+                  {{ $t('checkoutPage.cryptoInfo0') }}
                 </div>
                 <div class="flex items-center gap-2">
                   <svg class="w-4 h-4 text-brand-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
                   </svg>
-                  Non-custodial · you keep your keys
+                  {{ $t('checkoutPage.cryptoInfo1') }}
                 </div>
                 <div class="flex items-center gap-2">
                   <svg class="w-4 h-4 text-brand-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
                   </svg>
-                  Auto-renew by sending again before expiry
+                  {{ $t('checkoutPage.cryptoInfo2') }}
                 </div>
               </div>
 
@@ -150,7 +150,7 @@
                 <svg v-else class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"/>
                 </svg>
-                {{ cryptoLoading ? 'Preparing payment…' : 'Continue with Crypto' }}
+                {{ cryptoLoading ? $t('checkoutPage.cryptoBtnLoading') : $t('checkoutPage.cryptoBtn') }}
               </button>
             </div>
 
@@ -164,13 +164,13 @@
                     </svg>
                   </div>
                   <div>
-                    <h3 class="font-bold text-zinc-900 dark:text-white">Card & Digital Wallets</h3>
-                    <p class="text-xs text-zinc-400 mt-0.5">18 payment methods · powered by Paddle</p>
+                    <h3 class="font-bold text-zinc-900 dark:text-white">{{ $t('checkoutPage.cardTitle') }}</h3>
+                    <p class="text-xs text-zinc-400 mt-0.5">{{ $t('checkoutPage.cardSub') }}</p>
                   </div>
                 </div>
                 <span class="shrink-0 inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-green-50 dark:bg-green-900/30 text-green-600 dark:text-green-400 text-xs font-semibold">
                   <span class="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
-                  Available
+                  {{ $t('checkoutPage.cardAvailable') }}
                 </span>
               </div>
 
@@ -187,19 +187,19 @@
                   <svg class="w-4 h-4 text-blue-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
                   </svg>
-                  Secure checkout · PCI-DSS compliant
+                  {{ $t('checkoutPage.cardInfo0') }}
                 </div>
                 <div class="flex items-center gap-2">
                   <svg class="w-4 h-4 text-blue-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
                   </svg>
-                  Recurring subscription · cancel anytime
+                  {{ $t('checkoutPage.cardInfo1') }}
                 </div>
                 <div class="flex items-center gap-2">
                   <svg class="w-4 h-4 text-blue-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
                   </svg>
-                  Plan activates instantly after payment
+                  {{ $t('checkoutPage.cardInfo2') }}
                 </div>
               </div>
 
@@ -217,7 +217,7 @@
                 <svg v-else class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/>
                 </svg>
-                {{ !paddleReady ? 'Loading…' : 'Pay Now' }}
+                {{ !paddleReady ? $t('checkoutPage.payLoading') : $t('checkoutPage.payNow') }}
               </button>
             </div>
           </div>
@@ -225,7 +225,7 @@
           <!-- Plan summary sidebar -->
           <div class="space-y-4">
             <div class="card p-5 sticky top-6">
-              <h3 class="text-xs font-semibold text-zinc-400 uppercase tracking-wide mb-4">Order summary</h3>
+              <h3 class="text-xs font-semibold text-zinc-400 uppercase tracking-wide mb-4">{{ $t('checkoutPage.orderSummary') }}</h3>
 
               <!-- Plan name -->
               <div class="flex items-center gap-3 mb-4 pb-4 border-b border-zinc-100 dark:border-zinc-800">
@@ -244,7 +244,7 @@
                 <div>
                   <p class="font-bold text-zinc-900 dark:text-white capitalize">{{ planData.slug === 'promax' ? 'Pro Max' : planData.slug }} Plan</p>
                   <p class="text-xs text-zinc-400">
-                    {{ billingMode === 'annual' ? 'Annual billing' : 'Monthly billing' }}
+                    {{ billingMode === 'annual' ? $t('checkoutPage.annualBilling') : $t('checkoutPage.monthlyBilling') }}
                   </p>
                 </div>
               </div>
@@ -257,7 +257,7 @@
                   :class="billingMode === 'monthly'
                     ? 'bg-white dark:bg-zinc-700 text-zinc-900 dark:text-white shadow-sm'
                     : 'text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-300'"
-                >Monthly</button>
+                >{{ $t('checkoutPage.monthly') }}</button>
                 <button
                   @click="billingMode = 'annual'"
                   class="flex-1 py-1.5 rounded-lg text-xs font-semibold transition-all flex items-center justify-center gap-1"
@@ -265,7 +265,7 @@
                     ? 'bg-white dark:bg-zinc-700 text-zinc-900 dark:text-white shadow-sm'
                     : 'text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-300'"
                 >
-                  Annual
+                  {{ $t('checkoutPage.annual') }}
                   <span class="px-1.5 py-0.5 rounded-full bg-brand-100 dark:bg-brand-900/40 text-brand-600 dark:text-brand-400 text-[10px] font-bold leading-none">-20%</span>
                 </button>
               </div>
@@ -275,7 +275,7 @@
                 <svg class="w-4 h-4 text-brand-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"/>
                 </svg>
-                <span class="text-xs font-semibold text-brand-700 dark:text-brand-300">12+1 months — 1 month free!</span>
+                <span class="text-xs font-semibold text-brand-700 dark:text-brand-300">{{ $t('checkoutPage.annualBonus') }}</span>
               </div>
 
               <!-- Features -->
@@ -292,35 +292,35 @@
               <div class="bg-zinc-50 dark:bg-zinc-800 rounded-xl p-4">
                 <template v-if="billingMode === 'monthly'">
                   <div class="flex items-end justify-between">
-                    <span class="text-sm text-zinc-500">Monthly</span>
+                    <span class="text-sm text-zinc-500">{{ $t('checkoutPage.priceMonthly') }}</span>
                     <div class="text-right">
                       <span class="text-2xl font-extrabold text-zinc-900 dark:text-white">${{ planData.price.monthly }}</span>
-                      <span class="text-xs text-zinc-400">/mo</span>
+                      <span class="text-xs text-zinc-400">{{ $t('checkoutPage.pricePerMonth') }}</span>
                     </div>
                   </div>
-                  <p class="text-xs text-zinc-400 mt-1.5">Billed monthly. Switch to annual to save 20%.</p>
+                  <p class="text-xs text-zinc-400 mt-1.5">{{ $t('checkoutPage.priceMonthlyNote') }}</p>
                 </template>
                 <template v-else>
                   <div class="flex items-end justify-between">
-                    <span class="text-sm text-zinc-500">Annual total</span>
+                    <span class="text-sm text-zinc-500">{{ $t('checkoutPage.priceAnnualTotal') }}</span>
                     <div class="text-right">
                       <span class="text-2xl font-extrabold text-zinc-900 dark:text-white">${{ annualTotal }}</span>
                     </div>
                   </div>
                   <div class="flex items-center justify-between mt-1.5">
-                    <span class="text-xs text-zinc-400">${{ monthlyEquiv }}/mo × 12 months</span>
+                    <span class="text-xs text-zinc-400">{{ $t('checkoutPage.priceMonthsNote', { equiv: monthlyEquiv }) }}</span>
                     <span class="text-xs font-semibold text-brand-500">Save ${{ (planData.price.monthly * 12 - Number(annualTotal)).toFixed(2) }}</span>
                   </div>
-                  <p class="text-xs text-zinc-400 mt-1.5">Billed once per year. Includes 1 bonus month.</p>
+                  <p class="text-xs text-zinc-400 mt-1.5">{{ $t('checkoutPage.priceAnnualNote') }}</p>
                 </template>
               </div>
             </div>
 
             <!-- Skip -->
             <div class="card p-4 text-center">
-              <p class="text-xs text-zinc-400 mb-2">Not ready to commit?</p>
+              <p class="text-xs text-zinc-400 mb-2">{{ $t('checkoutPage.notReady') }}</p>
               <a href="/dashboard" class="text-sm font-semibold text-brand-500 hover:underline">
-                Continue with Free plan →
+                {{ $t('checkoutPage.continueWithFree') }}
               </a>
             </div>
           </div>
@@ -384,13 +384,13 @@ const planFeatures = computed(() => {
   const p = planData.value
   if (!p) return []
   return [
-    `${p.storage} storage`,
-    `${p.perFile} per file`,
-    'No ads on downloads',
-    'Password protection',
-    'One-time & expirable links',
-    p.slug === 'promax' ? 'Priority CDN speed' : 'Advanced analytics',
-    'Direct download links',
+    `${p.storage} ${t('checkoutPage.planStorage')}`,
+    `${p.perFile} ${t('checkoutPage.planPerFile')}`,
+    t('checkoutPage.planFeature0'),
+    t('checkoutPage.planFeature1'),
+    t('checkoutPage.planFeature2'),
+    p.slug === 'promax' ? t('checkoutPage.planFeaturePromax') : t('checkoutPage.planFeaturePro'),
+    t('checkoutPage.planFeatureAll'),
   ]
 })
 

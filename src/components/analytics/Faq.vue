@@ -2,7 +2,7 @@
   <section class="py-24 px-6">
     <div class="max-w-3xl mx-auto">
       <div class="text-center mb-12">
-        <h2 class="font-display text-3xl font-extrabold mb-4">Frequently asked</h2>
+        <h2 class="font-display text-3xl font-extrabold mb-4">{{ $t('analyticsPage.faqH2') }}</h2>
       </div>
       <div class="space-y-2">
         <div v-for="(faq, i) in faqs" :key="i" class="card overflow-hidden">
@@ -17,14 +17,18 @@
   </section>
 </template>
 <script setup>
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
+import { useI18n } from 'vue-i18n'
+
+const { t } = useI18n()
 const open = ref(null)
-const faqs = [
-  { q:'Does the free plan include analytics?', a:'Yes. Free accounts get a real-time download feed with IP, location, and device data. Visitor fingerprinting, bot detection, and heatmaps require Premium or Pro.' },
-  { q:'Can I detect if the same person downloads multiple times?', a:'Yes — Visitor Fingerprinting, available on Premium and Pro. We identify returning visitors across sessions, even incognito mode or after cookie clear.' },
-  { q:'How accurate is the VPN and bot detection?', a:'Our database covers 99%+ of known datacenter IP ranges, major VPN providers, and Tor exit nodes. Updated daily. Users report 90%+ accuracy in real-world testing.' },
-  { q:'Does analytics tracking work for anonymous uploads?', a:'Anonymous uploads (no account) only show a download count. For full analytics including real-time feed and visitor data, you need a free account or above.' },
-  { q:'Can I export my analytics data?', a:'Pro plan users can export all download data as CSV. API access is also included on Pro for programmatic data retrieval.' },
-  { q:'Is analytics GDPR compliant?', a:'Yes. Filesterr is GDPR compliant. We collect minimum data necessary, files are encrypted at rest with AES-256. We never sell your data.' },
-]
+
+const faqs = computed(() => [
+  { q: t('analyticsPage.faq0_q'), a: t('analyticsPage.faq0_a') },
+  { q: t('analyticsPage.faq1_q'), a: t('analyticsPage.faq1_a') },
+  { q: t('analyticsPage.faq2_q'), a: t('analyticsPage.faq2_a') },
+  { q: t('analyticsPage.faq3_q'), a: t('analyticsPage.faq3_a') },
+  { q: t('analyticsPage.faq4_q'), a: t('analyticsPage.faq4_a') },
+  { q: t('analyticsPage.faq5_q'), a: t('analyticsPage.faq5_a') },
+])
 </script>

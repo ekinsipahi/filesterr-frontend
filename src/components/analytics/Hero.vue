@@ -28,14 +28,14 @@
         <div>
           <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-brand-50 dark:bg-brand-500/10 border border-brand-200 dark:border-brand-500/20 text-brand-700 dark:text-brand-400 text-xs font-semibold mb-8">
             <span class="w-2 h-2 rounded-full bg-brand-500 animate-pulse" />
-            Live analytics — updated in real time
+            {{ $t('analyticsPage.heroBadge') }}
           </div>
           <h1 class="font-display text-5xl sm:text-6xl xl:text-[66px] font-extrabold leading-[1.04] tracking-tight mb-6">
-            Stop guessing.<br/>Start <span class="text-gradient">knowing.</span>
+            {{ $t('analyticsPage.heroH1a') }}<br/>Start <span class="text-gradient">{{ $t('analyticsPage.heroH1b') }}</span>
           </h1>
           <p class="text-lg text-zinc-500 dark:text-zinc-400 leading-relaxed max-w-lg mb-8">
             Every file you share becomes a data source. See
-            <strong class="text-zinc-900 dark:text-white">who downloaded it</strong>,
+            <strong class="text-zinc-900 dark:text-white">{{ $t('analyticsPage.heroStrongText') }}</strong>,
             from where, with what device — and whether they were a bot, a VPN, or a real person.
           </p>
           <div class="flex flex-wrap gap-3 mb-10">
@@ -49,14 +49,14 @@
           </div>
           <div class="flex flex-wrap gap-4">
             <a href="/register?plan=pro" class="btn-primary-lg group">
-              Start tracking free
+              {{ $t('analyticsPage.heroCtaBtn') }}
               <svg class="w-5 h-5 group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
               </svg>
             </a>
-            <a href="#features" class="btn-ghost-lg">See what you get</a>
+            <a href="#features" class="btn-ghost-lg">{{ $t('analyticsPage.heroSeeBtn') }}</a>
           </div>
-          <p class="text-xs text-zinc-400 mt-4">Free tier includes basic stats · No credit card required</p>
+          <p class="text-xs text-zinc-400 mt-4">{{ $t('analyticsPage.heroMicro') }}</p>
         </div>
 
         <!-- Live feed mock -->
@@ -71,7 +71,7 @@
               </div>
               <span class="ml-2 font-mono text-xs text-zinc-400">filesterr.com / analytics</span>
               <span class="ml-auto flex items-center gap-1.5 text-xs text-emerald-500 font-medium">
-                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />LIVE
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />{{ $t('analyticsPage.liveLabel') }}
               </span>
             </div>
             <div class="grid grid-cols-3 divide-x divide-zinc-100 dark:divide-zinc-800 border-b border-zinc-100 dark:border-zinc-800">
@@ -89,7 +89,7 @@
                   <div class="flex items-center gap-2 flex-wrap">
                     <span class="text-sm font-medium truncate">{{ v.city }}</span>
                     <span v-if="v.badge" class="text-[10px] px-1.5 py-0.5 rounded-full font-bold uppercase shrink-0" :class="v.badgeColor">{{ v.badge }}</span>
-                    <span v-if="i === 0" class="text-[10px] px-1.5 py-0.5 rounded-full font-bold uppercase bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-400 shrink-0">New</span>
+                    <span v-if="i === 0" class="text-[10px] px-1.5 py-0.5 rounded-full font-bold uppercase bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-400 shrink-0">{{ $t('analyticsPage.newLabel') }}</span>
                   </div>
                   <div class="text-xs text-zinc-400 font-mono">{{ v.ip }}</div>
                 </div>
@@ -111,7 +111,7 @@
                 </div>
               </div>
               <div class="absolute inset-0 flex items-center justify-center">
-                <a href="/register?plan=pro" class="btn-primary text-xs">Unlock all data →</a>
+                <a href="/register?plan=pro" class="btn-primary text-xs">{{ $t('analyticsPage.unlockDataBtn') }}</a>
               </div>
             </div>
           </div>
@@ -122,16 +122,21 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onUnmounted } from 'vue'
+import { ref, computed, onMounted, onUnmounted } from 'vue'
+import { useI18n } from 'vue-i18n'
 
+const { t } = useI18n()
 const matrixCanvas = ref(null)
 
-const pills = ['Real-time feed','Visitor fingerprinting','Bot detection','VPN / proxy flags','Geographic heatmaps','API access']
-const stats = [
-  { value: '24', label: 'Total downloads', color: '' },
-  { value: '17', label: 'Unique visitors',  color: '' },
-  { value: '3',  label: 'Flagged IPs',      color: 'text-red-500' },
-]
+const pills = computed(() => [
+  t('analyticsPage.pill0'), t('analyticsPage.pill1'), t('analyticsPage.pill2'),
+  t('analyticsPage.pill3'), t('analyticsPage.pill4'), t('analyticsPage.pill5'),
+])
+const stats = computed(() => [
+  { value: '24', label: t('analyticsPage.statTotalDownloads'), color: '' },
+  { value: '17', label: t('analyticsPage.statUniqueVisitors'),  color: '' },
+  { value: '3',  label: t('analyticsPage.statFlaggedIPs'),      color: 'text-red-500' },
+])
 const feedRows = [
   { flag:'🇺🇸', city:'New York, US',    ip:'104.28.x.x',  time:'just now',   device:'Chrome / Mac',  badge:'Returning', badgeColor:'bg-brand-100 dark:bg-brand-900/30 text-brand-700 dark:text-brand-400' },
   { flag:'🇩🇪', city:'Berlin, DE',      ip:'185.220.x.x', time:'8 min ago',  device:'Firefox / Win', badge:'VPN',       badgeColor:'bg-amber-100 dark:bg-amber-900/30 text-amber-700' },

@@ -12,15 +12,14 @@
           </svg>
         </div>
         <h1 class="font-display text-2xl font-extrabold text-zinc-900 dark:text-white mb-3">
-          Waiting for payment…
+          {{ $t('checkoutSuccessPage.waitingH1') }}
         </h1>
         <p class="text-zinc-500 dark:text-zinc-400 text-sm mb-6">
-          Your transaction is being confirmed on-chain. This usually takes 1–3 minutes.
-          This page will update automatically.
+          {{ $t('checkoutSuccessPage.waitingP') }}
         </p>
         <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-amber-50 dark:bg-amber-900/20 text-amber-600 dark:text-amber-400 text-sm font-semibold">
           <span class="w-2 h-2 rounded-full bg-amber-500 animate-pulse" />
-          Checking every 10 seconds…
+          {{ $t('checkoutSuccessPage.checkingEvery') }}
         </div>
       </template>
 
@@ -32,15 +31,14 @@
           </svg>
         </div>
         <h1 class="font-display text-2xl font-extrabold text-zinc-900 dark:text-white mb-3">
-          You're all set!
+          {{ $t('checkoutSuccessPage.successH1') }}
         </h1>
         <p class="text-zinc-500 dark:text-zinc-400 text-sm mb-8">
-          Your <span class="font-semibold text-zinc-700 dark:text-zinc-200 capitalize">{{ planLabel }}</span> plan
-          is now active. Enjoy faster uploads, no ads, and all premium features.
+          {{ $t('checkoutSuccessPage.successP', { plan: planLabel }) }}
         </p>
         <div class="flex flex-col sm:flex-row gap-3 justify-center">
-          <a href="/dashboard" class="btn-primary px-8 py-3">Go to Dashboard</a>
-          <a href="/upload" class="btn-secondary px-8 py-3">Upload a file</a>
+          <a href="/dashboard" class="btn-primary px-8 py-3">{{ $t('checkoutSuccessPage.toDashboard') }}</a>
+          <a href="/upload" class="btn-secondary px-8 py-3">{{ $t('checkoutSuccessPage.uploadFile') }}</a>
         </div>
       </template>
 
@@ -52,13 +50,13 @@
           </svg>
         </div>
         <h1 class="font-display text-2xl font-extrabold text-zinc-900 dark:text-white mb-3">
-          Payment {{ paymentStatus === 'expired' ? 'expired' : 'failed' }}
+          {{ $t('checkoutSuccessPage.failedH1', { status: paymentStatus === 'expired' ? $t('checkoutSuccessPage.failedExpired') : $t('checkoutSuccessPage.failedFailed') }) }}
         </h1>
         <p class="text-zinc-500 dark:text-zinc-400 text-sm mb-8">
-          Your payment was not completed. No charge was made.
+          {{ $t('checkoutSuccessPage.failedP') }}
         </p>
         <a :href="`/checkout?plan=${plan}&billing=${billing}`" class="btn-primary px-8 py-3">
-          Try again
+          {{ $t('checkoutSuccessPage.tryAgain') }}
         </a>
       </template>
 
@@ -70,7 +68,7 @@
             <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"/>
           </svg>
         </div>
-        <p class="text-zinc-400 text-sm">Checking payment status…</p>
+        <p class="text-zinc-400 text-sm">{{ $t('checkoutSuccessPage.checkingStatus') }}</p>
       </template>
 
     </div>

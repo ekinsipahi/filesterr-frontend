@@ -88,7 +88,7 @@
                   : planExpiryDays !== null && planExpiryDays <= 7
                     ? 'text-amber-500'
                     : 'text-zinc-400'">
-                {{ planExpiryDays !== null && planExpiryDays <= 0 ? 'Expired' : `Expires ${formatDate(user.plan_expires_at)}` }}
+                {{ planExpiryDays !== null && planExpiryDays <= 0 ? $t('dashboardPage.expired') : $t('dashboardPage.expiresDate', { date: formatDate(user.plan_expires_at) }) }}
               </p>
               <!-- Paddle subscription: manage portal -->
               <button
@@ -101,12 +101,12 @@
                   <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"/>
                   <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"/>
                 </svg>
-                {{ portalLoading ? 'Opening…' : 'Manage subscription →' }}
+                {{ portalLoading ? '…' : $t('dashboardPage.manageSub') }}
               </button>
               <!-- Crypto / renew -->
               <a v-else-if="user.plan_expires_at && !['free','anonymous'].includes(user.plan)"
                 :href="`/checkout?plan=${user.plan}`"
-                class="text-xs text-brand-500 hover:underline mt-0.5 inline-block">Renew →</a>
+                class="text-xs text-brand-500 hover:underline mt-0.5 inline-block">{{ $t('dashboardPage.renew') }}</a>
               <a v-else-if="user.plan !== 'promax'" href="/pricing"
                 class="text-xs text-brand-500 hover:underline mt-1 inline-block">{{ t('dashboard.upgradeLink') }}</a>
             </div>
@@ -228,7 +228,7 @@
               <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
               </svg>
-              Upload
+              {{ $t('dashboardPage.upload') }}
               <input type="file" class="hidden" multiple @change="onFileInputChange" />
             </label>
           </div>
@@ -240,7 +240,7 @@
               <svg class="w-3.5 h-3.5 text-brand-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
               </svg>
-              <span class="text-xs font-semibold text-brand-700 dark:text-brand-300">{{ selectedIds.size }} selected</span>
+              <span class="text-xs font-semibold text-brand-700 dark:text-brand-300">{{ $t('dashboardPage.selectNFiles', { n: selectedIds.size }) }}</span>
               <div class="flex-1" />
               <button v-if="canZipDownload" @click="zipDownload" :disabled="zipDownloading"
                 class="inline-flex items-center gap-1.5 text-xs py-1.5 px-3 rounded-lg bg-brand-500 hover:bg-brand-400 disabled:opacity-60 text-white font-semibold transition-colors">
@@ -251,17 +251,17 @@
                 <svg v-else class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4 4m0 0l-4-4m4 4V4"/>
                 </svg>
-                {{ zipDownloading ? 'Zipping…' : `ZIP (${selectedIds.size})` }}
+                {{ zipDownloading ? $t('dashboardPage.zipping') : $t('dashboardPage.zipN', { n: selectedIds.size }) }}
               </button>
               <button @click="bulkDeleteConfirm = true"
                 class="inline-flex items-center gap-1.5 text-xs py-1.5 px-3 rounded-lg bg-red-500 hover:bg-red-400 text-white font-semibold transition-colors">
                 <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
                 </svg>
-                Delete ({{ selectedIds.size }})
+                {{ $t('dashboardPage.deleteN', { n: selectedIds.size }) }}
               </button>
               <button @click="clearSelection" class="text-xs py-1.5 px-2.5 rounded-lg hover:bg-brand-100 dark:hover:bg-brand-800/30 text-brand-600 dark:text-brand-400 font-medium transition-colors">
-                Clear
+                {{ $t('dashboardPage.clear') }}
               </button>
             </div>
           </Transition>
@@ -328,10 +328,10 @@
               </svg>
             </div>
             <h3 class="font-bold text-zinc-900 dark:text-white text-base mb-1">
-              {{ isDraggingOverSection ? 'Drop to upload' : (search ? t('dashboard.noMatchTitle') : t('dashboard.noFilesTitle')) }}
+              {{ isDraggingOverSection ? $t('dashboardPage.dropToUpload') : (search ? t('dashboard.noMatchTitle') : t('dashboard.noFilesTitle')) }}
             </h3>
             <p class="text-xs text-zinc-400 mb-5 max-w-xs">
-              {{ isDraggingOverSection ? 'Files will be uploaded to your dashboard' : (search ? t('dashboard.noMatchBody') : t('dashboard.noFilesBody')) }}
+              {{ isDraggingOverSection ? $t('dashboardPage.dropToUploadSub') : (search ? t('dashboard.noMatchBody') : t('dashboard.noFilesBody')) }}
             </p>
             <label v-if="!search && !isDraggingOverSection" class="btn-primary text-sm cursor-pointer inline-flex items-center gap-2">
               <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -377,7 +377,7 @@
                   </div>
                   <div class="min-w-0">
                     <p class="text-sm font-medium text-zinc-900 dark:text-white truncate">{{ folder.name }}</p>
-                    <p class="text-[10px] text-zinc-400 mt-0.5">{{ folder.file_count }} file{{ folder.file_count !== 1 ? 's' : '' }}</p>
+                    <p class="text-[10px] text-zinc-400 mt-0.5">{{ $t('dashboardPage.filesPerFolder', folder.file_count, { n: folder.file_count }) }}</p>
                   </div>
                 </div>
                 <span class="text-xs text-zinc-300 dark:text-zinc-600 hidden md:block">—</span>
@@ -517,7 +517,7 @@
                 </div>
                 <div class="p-3">
                   <p class="text-xs font-semibold text-zinc-900 dark:text-white truncate mb-0.5">{{ folder.name }}</p>
-                  <p class="text-[10px] text-zinc-400">{{ folder.file_count }} file{{ folder.file_count !== 1 ? 's' : '' }}</p>
+                  <p class="text-[10px] text-zinc-400">{{ $t('dashboardPage.filesPerFolder', folder.file_count, { n: folder.file_count }) }}</p>
                 </div>
                 <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2" @click.stop>
                   <button @click.stop="startRename(folder)" class="p-2 rounded-xl bg-white/90 hover:bg-white text-zinc-700 transition-colors">
@@ -604,11 +604,11 @@
             <span class="text-xs text-zinc-400">
               <template v-if="selectedIds.size > 0">
                 <span class="text-brand-600 dark:text-brand-400 font-semibold">{{ selectedIds.size }}</span>
-                / {{ filteredFiles.length }} selected
+                / {{ $t('dashboardPage.selectNFiles', { n: filteredFiles.length }) }}
               </template>
-              <template v-else>{{ filteredFiles.length }} file{{ filteredFiles.length !== 1 ? 's' : '' }}</template>
+              <template v-else>{{ $t('dashboardPage.nFilesTotal', filteredFiles.length, { n: filteredFiles.length }) }}</template>
             </span>
-            <span class="text-xs text-zinc-400">{{ formatBytes(stats.total_size) }} used</span>
+            <span class="text-xs text-zinc-400">{{ formatBytes(stats.total_size) }} {{ $t('dashboardPage.used') }}</span>
           </div>
         </div>
 
@@ -721,26 +721,26 @@
               </svg>
             </div>
             <h3 class="font-display font-bold text-center text-zinc-900 dark:text-white text-lg mb-1">
-              {{ pwModal.is_password_protected ? 'Change Password' : 'Set Password' }}
+              {{ pwModal.is_password_protected ? $t('dashboardPage.changePassword') : $t('dashboardPage.setPassword') }}
             </h3>
             <p class="text-xs text-zinc-400 text-center mb-5 truncate px-2">{{ pwModal.original_name }}</p>
-            <input v-model="pwInput" type="password" placeholder="New password…"
+            <input v-model="pwInput" type="password" :placeholder="$t('dashboardPage.newPassword')"
               @keydown.enter="savePw" @keydown.esc="pwModal = null"
               autofocus
               class="w-full px-4 py-3 rounded-xl border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 text-sm outline-none focus:ring-2 focus:ring-brand-500/40 focus:border-brand-500 mb-4"/>
             <div class="flex gap-2">
               <button v-if="pwModal.is_password_protected" @click="savePw(true)" :disabled="pwSaving"
                 class="flex-1 py-2.5 rounded-xl border border-zinc-200 dark:border-zinc-700 text-zinc-600 dark:text-zinc-400 hover:bg-zinc-50 dark:hover:bg-zinc-800 text-sm font-medium transition-colors">
-                Remove
+                {{ $t('dashboardPage.remove') }}
               </button>
-              <button @click="pwModal = null" class="flex-1 btn-ghost py-2.5 text-sm justify-center">Cancel</button>
+              <button @click="pwModal = null" class="flex-1 btn-ghost py-2.5 text-sm justify-center">{{ $t('dashboardPage.cancel') }}</button>
               <button @click="savePw(false)" :disabled="!pwInput.trim() || pwSaving"
                 class="flex-1 btn-primary py-2.5 text-sm justify-center">
                 <svg v-if="pwSaving" class="w-4 h-4 animate-spin mr-1" fill="none" viewBox="0 0 24 24">
                   <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"/>
                   <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"/>
                 </svg>
-                Save
+                {{ $t('dashboardPage.save') }}
               </button>
             </div>
           </div>
@@ -759,14 +759,14 @@
               <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"/>
             </svg>
             <span class="text-sm font-semibold text-zinc-900 dark:text-white truncate">
-              Uploading {{ dashUploadState.name }}
+              {{ $t('dashboardPage.uploadingFile', { name: dashUploadState.name }) }}
             </span>
           </div>
           <div class="w-full bg-zinc-100 dark:bg-zinc-800 rounded-full h-1.5">
             <div class="h-1.5 rounded-full bg-brand-500 transition-all duration-200"
               :style="`width:${dashUploadState.progress}%`" />
           </div>
-          <p class="text-[10px] text-zinc-400 mt-1.5">{{ dashUploadState.current }} / {{ dashUploadState.total }} file{{ dashUploadState.total > 1 ? 's' : '' }}</p>
+          <p class="text-[10px] text-zinc-400 mt-1.5">{{ $t('dashboardPage.fileOfFiles', dashUploadState.total, { current: dashUploadState.current, total: dashUploadState.total }) }}</p>
         </div>
       </Transition>
     </Teleport>
@@ -785,8 +785,8 @@
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/>
               </svg>
             </div>
-            <p class="font-display font-extrabold text-xl text-zinc-900 dark:text-white mb-1">Drop to upload</p>
-            <p class="text-sm text-zinc-400">Files will be added to your dashboard</p>
+            <p class="font-display font-extrabold text-xl text-zinc-900 dark:text-white mb-1">{{ $t('dashboardPage.dropToUploadPage') }}</p>
+            <p class="text-sm text-zinc-400">{{ $t('dashboardPage.dropToUploadPageSub') }}</p>
           </div>
         </div>
       </div>
@@ -803,17 +803,17 @@
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
               </svg>
             </div>
-            <h3 class="font-display font-bold text-center text-zinc-900 dark:text-white text-lg mb-1">Delete {{ selectedIds.size }} Files?</h3>
-            <p class="text-xs text-zinc-400 text-center mb-6">This cannot be undone. All selected files and their download links will stop working.</p>
+            <h3 class="font-display font-bold text-center text-zinc-900 dark:text-white text-lg mb-1">{{ $t('dashboardPage.deleteNFiles', { n: selectedIds.size }) }}</h3>
+            <p class="text-xs text-zinc-400 text-center mb-6">{{ $t('dashboardPage.bulkDeleteNote') }}</p>
             <div class="flex gap-3">
-              <button @click="bulkDeleteConfirm = false" class="flex-1 btn-ghost py-2.5 text-sm justify-center">Cancel</button>
+              <button @click="bulkDeleteConfirm = false" class="flex-1 btn-ghost py-2.5 text-sm justify-center">{{ $t('dashboardPage.cancel') }}</button>
               <button @click="doBulkDelete" :disabled="bulkDeleting"
                 class="flex-1 py-2.5 rounded-xl bg-red-500 hover:bg-red-400 disabled:opacity-60 text-white font-semibold text-sm transition-all flex items-center justify-center gap-2">
                 <svg v-if="bulkDeleting" class="w-4 h-4 animate-spin" fill="none" viewBox="0 0 24 24">
                   <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"/>
                   <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"/>
                 </svg>
-                Delete All
+                {{ $t('dashboardPage.bulkDeleteAll') }}
               </button>
             </div>
           </div>
@@ -1104,7 +1104,7 @@ function formatDate(iso) {
 function retentionBadge(file) {
   if (!file.delete_at) return null
   const msLeft = new Date(file.delete_at).getTime() - Date.now()
-  if (msLeft <= 0) return { text: 'Expired', cls: 'text-red-500' }
+  if (msLeft <= 0) return { text: t('dashboardPage.expired'), cls: 'text-red-500' }
   const hoursLeft = Math.ceil(msLeft / 3600000)
   const daysLeft  = Math.ceil(msLeft / 86400000)
   const text = daysLeft <= 1 ? `${hoursLeft}h left` : `${daysLeft}d left`

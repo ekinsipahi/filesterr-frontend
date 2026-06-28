@@ -90,27 +90,27 @@
                 <svg class="w-4 h-4 shrink-0 mt-0.5" :class="plan.featured ? 'text-brand-300' : 'text-brand-500'" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/>
                 </svg>
-                {{ plan.storage }} storage
+                {{ plan.storage }} {{ $t('plans.storageSuffix') }}
               </li>
               <li class="flex items-start gap-2.5 text-sm" :class="plan.featured ? 'text-brand-100' : 'text-zinc-600 dark:text-zinc-400'">
                 <svg class="w-4 h-4 shrink-0 mt-0.5" :class="plan.featured ? 'text-brand-300' : 'text-brand-500'" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/>
                 </svg>
-                {{ plan.perFile }} per file
+                {{ plan.perFile }} {{ $t('plans.perFileSuffix') }}
               </li>
               <!-- Retention -->
               <li v-if="plan.retention" class="flex items-start gap-2.5 text-sm">
                 <template v-if="plan.retention === 'Forever'">
                   <span class="shrink-0 mt-0.5 text-base leading-none font-black" :class="plan.featured ? 'text-brand-300' : 'text-brand-500'">∞</span>
                   <span :class="plan.featured ? 'text-brand-100' : 'text-zinc-600 dark:text-zinc-400'">
-                    <strong :class="plan.featured ? 'text-white' : 'text-zinc-900 dark:text-white'">Files kept forever</strong> — never auto-deleted
+                    <strong :class="plan.featured ? 'text-white' : 'text-zinc-900 dark:text-white'">{{ $t('plans.filesKeptForever') }}</strong> — {{ $t('plans.neverAutoDeleted') }}
                   </span>
                 </template>
                 <template v-else>
                   <svg class="w-4 h-4 shrink-0 mt-0.5 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
                   </svg>
-                  <span :class="plan.featured ? 'text-brand-100' : 'text-zinc-600 dark:text-zinc-400'">Files kept for {{ plan.retention }}</span>
+                  <span :class="plan.featured ? 'text-brand-100' : 'text-zinc-600 dark:text-zinc-400'">{{ $t('plans.filesKeptFor', { retention: plan.retention }) }}</span>
                 </template>
               </li>
               <!-- Rest of features from i18n (skip f1/f2 which were storage/perFile) -->

@@ -2,13 +2,13 @@
   <section id="feature-grid" class="py-24 px-6 section-alt">
     <div class="max-w-7xl mx-auto">
       <div class="text-center mb-16">
-        <p class="text-xs font-bold text-brand-500 uppercase tracking-widest mb-4">Everything You Need</p>
+        <p class="text-xs font-bold text-brand-500 uppercase tracking-widest mb-4">{{ $t('featuresGrid.tagline') }}</p>
         <h2 class="font-display text-4xl sm:text-5xl font-extrabold mb-5">
-          Features Built Around<br/>
-          <span class="text-gradient">What Matters Most</span>
+          {{ $t('featuresGrid.h2a') }}<br/>
+          <span class="text-gradient">{{ $t('featuresGrid.h2b') }}</span>
         </h2>
         <p class="text-lg text-zinc-500 dark:text-zinc-400 max-w-xl mx-auto">
-          No bloat. No mystery settings. Every feature ships with a clear reason to exist — and a result you can measure.
+          {{ $t('featuresGrid.sub') }}
         </p>
       </div>
 
@@ -46,15 +46,20 @@
 </template>
 
 <script setup>
-const featureCards = [
-  { icon: 'M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z', iconBg: 'bg-brand-50 dark:bg-brand-900/20', iconColor: 'text-brand-500', glow: 'bg-brand-400/10', title: 'Real-Time Download Analytics', desc: 'See every download the moment it happens — country, city, device, browser, and time. Know your audience, not just your numbers.', stat: 'Live feed, zero delay', badge: '★ Most Used', badgeCls: 'bg-brand-50 dark:bg-brand-900/30 text-brand-600 dark:text-brand-400 border-brand-200 dark:border-brand-700', featured: true },
-  { icon: 'M15 12a3 3 0 11-6 0 3 3 0 016 0z M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z', iconBg: 'bg-violet-50 dark:bg-violet-900/20', iconColor: 'text-violet-500', glow: 'bg-violet-400/10', title: 'Visitor Fingerprinting Across Sessions', desc: 'Identify returning visitors even if they use a different browser or clear their cookies. Know who keeps coming back.', stat: 'Works across incognito & VPNs', badge: null, badgeCls: '', featured: false },
-  { icon: 'M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636', iconBg: 'bg-red-50 dark:bg-red-900/20', iconColor: 'text-red-500', glow: 'bg-red-400/10', title: 'Bot & Datacenter IP Detection', desc: 'Automatically flag crawlers, scrapers, and datacenter traffic so your download stats reflect real human interest — not noise.', stat: '99.2% bot detection accuracy', badge: 'Pro', badgeCls: 'bg-zinc-100 dark:bg-zinc-800 text-zinc-500 dark:text-zinc-400 border-zinc-200 dark:border-zinc-700', featured: false },
-  { icon: 'M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064', iconBg: 'bg-amber-50 dark:bg-amber-900/20', iconColor: 'text-amber-500', glow: 'bg-amber-400/10', title: 'VPN & Proxy Detection', desc: 'Know when someone is masking their real location. Useful for content restrictions, fraud prevention, and honest geo-analytics.', stat: 'Covers 2,000+ known VPN ranges', badge: null, badgeCls: '', featured: false },
-  { icon: 'M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z', iconBg: 'bg-blue-50 dark:bg-blue-900/20', iconColor: 'text-blue-500', glow: 'bg-blue-400/10', title: 'Password-Protected File Sharing', desc: 'Add a password to any file in one click. Only the right people get in. No account required on their end.', stat: 'Set in under 5 seconds', badge: null, badgeCls: '', featured: false },
-  { icon: 'M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16', iconBg: 'bg-zinc-100 dark:bg-zinc-800', iconColor: 'text-zinc-500', glow: 'bg-zinc-400/10', title: 'Auto-Expiring & One-Time Links', desc: 'Set a download link to expire after N days, N downloads, or self-destruct after a single use. Total control, zero maintenance.', stat: 'Custom expiry per file', badge: null, badgeCls: '', featured: false },
-  { icon: 'M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z', iconBg: 'bg-emerald-50 dark:bg-emerald-900/20', iconColor: 'text-emerald-500', glow: 'bg-emerald-400/10', title: 'Direct, Clean Download Links', desc: 'Share a URL that goes straight to the file — no redirect pages, no "wait 5 seconds", no ads between your user and their download.', stat: 'Available on Premium & Pro', badge: null, badgeCls: '', featured: false },
-  { icon: 'M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4', iconBg: 'bg-indigo-50 dark:bg-indigo-900/20', iconColor: 'text-indigo-500', glow: 'bg-indigo-400/10', title: 'Bulk Upload & ZIP Batch Downloads', desc: 'Upload entire folders, bundle multiple files into one shareable ZIP, and let your recipients download everything in one click.', stat: 'Up to 50 GB per file on Pro', badge: null, badgeCls: '', featured: false },
-  { icon: 'M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4', iconBg: 'bg-pink-50 dark:bg-pink-900/20', iconColor: 'text-pink-500', glow: 'bg-pink-400/10', title: 'Developer API Access', desc: 'Integrate Filesterr directly into your product. Upload files, generate links, and pull analytics data programmatically — full REST API with docs.', stat: 'Full REST API · Webhook support', badge: 'Pro', badgeCls: 'bg-zinc-100 dark:bg-zinc-800 text-zinc-500 dark:text-zinc-400 border-zinc-200 dark:border-zinc-700', featured: false },
-]
+import { computed } from 'vue'
+import { useI18n } from 'vue-i18n'
+
+const { t } = useI18n()
+
+const featureCards = computed(() => [
+  { icon: 'M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z', iconBg: 'bg-brand-50 dark:bg-brand-900/20', iconColor: 'text-brand-500', glow: 'bg-brand-400/10', title: t('featuresGrid.card0_title'), desc: t('featuresGrid.card0_desc'), stat: t('featuresGrid.card0_stat'), badge: t('featuresGrid.card0_badge'), badgeCls: 'bg-brand-50 dark:bg-brand-900/30 text-brand-600 dark:text-brand-400 border-brand-200 dark:border-brand-700', featured: true },
+  { icon: 'M15 12a3 3 0 11-6 0 3 3 0 016 0z M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z', iconBg: 'bg-violet-50 dark:bg-violet-900/20', iconColor: 'text-violet-500', glow: 'bg-violet-400/10', title: t('featuresGrid.card1_title'), desc: t('featuresGrid.card1_desc'), stat: t('featuresGrid.card1_stat'), badge: null, badgeCls: '', featured: false },
+  { icon: 'M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636', iconBg: 'bg-red-50 dark:bg-red-900/20', iconColor: 'text-red-500', glow: 'bg-red-400/10', title: t('featuresGrid.card2_title'), desc: t('featuresGrid.card2_desc'), stat: t('featuresGrid.card2_stat'), badge: t('featuresGrid.card2_badge'), badgeCls: 'bg-zinc-100 dark:bg-zinc-800 text-zinc-500 dark:text-zinc-400 border-zinc-200 dark:border-zinc-700', featured: false },
+  { icon: 'M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064', iconBg: 'bg-amber-50 dark:bg-amber-900/20', iconColor: 'text-amber-500', glow: 'bg-amber-400/10', title: t('featuresGrid.card3_title'), desc: t('featuresGrid.card3_desc'), stat: t('featuresGrid.card3_stat'), badge: null, badgeCls: '', featured: false },
+  { icon: 'M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z', iconBg: 'bg-blue-50 dark:bg-blue-900/20', iconColor: 'text-blue-500', glow: 'bg-blue-400/10', title: t('featuresGrid.card4_title'), desc: t('featuresGrid.card4_desc'), stat: t('featuresGrid.card4_stat'), badge: null, badgeCls: '', featured: false },
+  { icon: 'M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16', iconBg: 'bg-zinc-100 dark:bg-zinc-800', iconColor: 'text-zinc-500', glow: 'bg-zinc-400/10', title: t('featuresGrid.card5_title'), desc: t('featuresGrid.card5_desc'), stat: t('featuresGrid.card5_stat'), badge: null, badgeCls: '', featured: false },
+  { icon: 'M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z', iconBg: 'bg-emerald-50 dark:bg-emerald-900/20', iconColor: 'text-emerald-500', glow: 'bg-emerald-400/10', title: t('featuresGrid.card6_title'), desc: t('featuresGrid.card6_desc'), stat: t('featuresGrid.card6_stat'), badge: null, badgeCls: '', featured: false },
+  { icon: 'M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4', iconBg: 'bg-indigo-50 dark:bg-indigo-900/20', iconColor: 'text-indigo-500', glow: 'bg-indigo-400/10', title: t('featuresGrid.card7_title'), desc: t('featuresGrid.card7_desc'), stat: t('featuresGrid.card7_stat'), badge: null, badgeCls: '', featured: false },
+  { icon: 'M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4', iconBg: 'bg-pink-50 dark:bg-pink-900/20', iconColor: 'text-pink-500', glow: 'bg-pink-400/10', title: t('featuresGrid.card8_title'), desc: t('featuresGrid.card8_desc'), stat: t('featuresGrid.card8_stat'), badge: t('featuresGrid.card8_badge'), badgeCls: 'bg-zinc-100 dark:bg-zinc-800 text-zinc-500 dark:text-zinc-400 border-zinc-200 dark:border-zinc-700', featured: false },
+])
 </script>

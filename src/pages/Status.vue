@@ -3,8 +3,8 @@
     <div class="max-w-3xl mx-auto px-6 py-16">
 
       <div class="mb-10">
-        <h1 class="font-display text-3xl font-bold text-zinc-900 dark:text-zinc-50 mb-2">System Status</h1>
-        <p class="text-sm text-zinc-500">Real-time operational status of all Filesterr services.</p>
+        <h1 class="font-display text-3xl font-bold text-zinc-900 dark:text-zinc-50 mb-2">{{ $t('statusPage.h1') }}</h1>
+        <p class="text-sm text-zinc-500">{{ $t('statusPage.sub') }}</p>
       </div>
 
       <!-- Overall status -->
@@ -17,9 +17,9 @@
         <div>
           <p class="font-bold text-lg"
             :class="allOperational ? 'text-green-800 dark:text-green-300' : 'text-amber-800 dark:text-amber-300'">
-            {{ allOperational ? 'All Systems Operational' : 'Partial Disruption' }}
+            {{ allOperational ? $t('statusPage.allOperational') : $t('statusPage.partialDisruption') }}
           </p>
-          <p class="text-sm text-zinc-500">Last checked: {{ lastChecked }}</p>
+          <p class="text-sm text-zinc-500">{{ $t('statusPage.lastChecked', { time: lastChecked }) }}</p>
         </div>
       </div>
 
@@ -41,13 +41,13 @@
               'bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-400': svc.status === 'degraded',
               'bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-400':         svc.status === 'outage',
             }">
-            {{ svc.status === 'operational' ? 'Operational' : svc.status === 'degraded' ? 'Degraded' : 'Outage' }}
+            {{ svc.status === 'operational' ? $t('statusPage.operational') : svc.status === 'degraded' ? $t('statusPage.degraded') : $t('statusPage.outage') }}
           </span>
         </div>
       </div>
 
       <!-- Uptime stats -->
-      <h2 class="font-display text-xl font-bold text-zinc-900 dark:text-zinc-50 mb-4">Uptime — Last 90 days</h2>
+      <h2 class="font-display text-xl font-bold text-zinc-900 dark:text-zinc-50 mb-4">{{ $t('statusPage.uptimeH2') }}</h2>
       <div class="space-y-4 mb-12">
         <div v-for="svc in services" :key="'up-' + svc.name">
           <div class="flex items-center justify-between mb-1.5">
@@ -61,9 +61,9 @@
       </div>
 
       <!-- Incident history -->
-      <h2 class="font-display text-xl font-bold text-zinc-900 dark:text-zinc-50 mb-4">Recent Incidents</h2>
+      <h2 class="font-display text-xl font-bold text-zinc-900 dark:text-zinc-50 mb-4">{{ $t('statusPage.incidentsH2') }}</h2>
       <div class="rounded-2xl border border-zinc-200 dark:border-zinc-800 p-8 text-center text-zinc-400 text-sm">
-        No incidents in the last 90 days.
+        {{ $t('statusPage.noIncidents') }}
       </div>
 
     </div>

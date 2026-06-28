@@ -12,18 +12,18 @@
         <!-- Linksterr badge -->
         <div class="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-zinc-100 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 mb-8 animate-fade-in">
           <img src="/linksterr.ico" alt="Linksterr" class="w-4 h-4 rounded-sm object-contain" />
-          <span class="text-xs font-semibold text-zinc-600 dark:text-zinc-400">From the creators of</span>
+          <span class="text-xs font-semibold text-zinc-600 dark:text-zinc-400">{{ $t('aboutPage.badge') }}</span>
           <a href="https://linksterr.com" target="_blank" rel="noopener" class="text-xs font-bold text-brand-600 dark:text-brand-400 hover:underline">Linksterr</a>
         </div>
 
         <h1 class="text-5xl md:text-6xl font-display font-extrabold text-zinc-900 dark:text-zinc-50 leading-tight mb-6 animate-slide-up">
-          We built the file sharing tool<br>
-          <span class="text-brand-500">we always needed.</span>
+          {{ $t('aboutPage.h1a') }}<br>
+          <span class="text-brand-500">{{ $t('aboutPage.h1b') }}</span>
         </h1>
 
         <p class="text-xl text-zinc-500 dark:text-zinc-400 leading-relaxed max-w-2xl mx-auto animate-slide-up animation-delay-100">
           Filesterr isn't another file host. It's the answer to the question nobody was asking loudly enough:
-          <em>"Who actually downloaded my file?"</em>
+          <em>{{ $t('aboutPage.heroQuote') }}</em>
         </p>
       </div>
     </section>
@@ -33,9 +33,9 @@
       <div class="max-w-4xl mx-auto">
         <div class="grid md:grid-cols-2 gap-16 items-center">
           <div class="reveal">
-            <p class="text-xs font-bold text-brand-500 uppercase tracking-widest mb-4">Our Story</p>
+            <p class="text-xs font-bold text-brand-500 uppercase tracking-widest mb-4">{{ $t('aboutPage.ourStory') }}</p>
             <h2 class="text-3xl font-display font-bold text-zinc-900 dark:text-zinc-100 mb-6 leading-tight">
-              It started with a link shortener.
+              {{ $t('aboutPage.storyH2') }}
             </h2>
             <p class="text-zinc-600 dark:text-zinc-400 leading-relaxed mb-4">
               We built <a href="https://linksterr.com" target="_blank" rel="noopener" class="text-brand-500 font-semibold hover:underline">Linksterr</a>
@@ -74,9 +74,9 @@
     <section class="py-24 px-6 bg-white dark:bg-zinc-950">
       <div class="max-w-4xl mx-auto">
         <div class="text-center mb-16 reveal">
-          <p class="text-xs font-bold text-brand-500 uppercase tracking-widest mb-3">Why Filesterr</p>
+          <p class="text-xs font-bold text-brand-500 uppercase tracking-widest mb-3">{{ $t('aboutPage.whyTagline') }}</p>
           <h2 class="text-3xl font-display font-bold text-zinc-900 dark:text-zinc-100">
-            File sharing is broken.<br>We fixed it.
+            {{ $t('aboutPage.whyH2a') }}<br>{{ $t('aboutPage.whyH2b') }}
           </h2>
         </div>
 
@@ -97,13 +97,12 @@
     <!-- ── Built for you ── -->
     <section class="py-24 px-6 bg-zinc-50 dark:bg-zinc-900">
       <div class="max-w-3xl mx-auto text-center reveal">
-        <p class="text-xs font-bold text-brand-500 uppercase tracking-widest mb-4">Built for you</p>
+        <p class="text-xs font-bold text-brand-500 uppercase tracking-widest mb-4">{{ $t('aboutPage.builtForTagline') }}</p>
         <h2 class="text-3xl font-display font-bold text-zinc-900 dark:text-zinc-100 mb-6">
-          Every feature exists because<br>a real user asked for it.
+          {{ $t('aboutPage.builtForH2') }}
         </h2>
         <p class="text-zinc-500 dark:text-zinc-400 leading-relaxed mb-12 max-w-xl mx-auto">
-          Password-protected files. One-time download links. Real-time analytics. Bot & VPN detection.
-          We didn't invent a product — we listened to 50,000 users across Linksterr and built what they needed.
+          {{ $t('aboutPage.builtForPara') }}
         </p>
 
         <div class="flex flex-wrap items-center justify-center gap-3 mb-10">
@@ -114,11 +113,11 @@
         </div>
 
         <div class="flex flex-col sm:flex-row items-center justify-center gap-3">
-          <a href="/upload" class="btn-primary px-6 py-3 text-base">Try It Free — No Signup</a>
+          <a href="/upload" class="btn-primary px-6 py-3 text-base">{{ $t('aboutPage.ctaTryFree') }}</a>
           <a href="https://linksterr.com" target="_blank" rel="noopener"
             class="inline-flex items-center gap-2 px-6 py-3 rounded-xl border border-zinc-200 dark:border-zinc-700 text-sm font-semibold text-zinc-600 dark:text-zinc-300 hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-colors">
             <img src="/linksterr.ico" alt="" class="w-4 h-4 rounded-sm object-contain" />
-            Visit Linksterr
+            {{ $t('aboutPage.ctaVisit') }}
           </a>
         </div>
       </div>
@@ -131,11 +130,10 @@
           <span class="text-white font-display font-black text-2xl">F</span>
         </div>
         <p class="text-zinc-500 dark:text-zinc-400 leading-relaxed">
-          Filesterr is an independent product by the Linksterr team. We're a small, focused team that
-          builds tools we'd use ourselves. No VC money, no growth-hacking. Just software that works.
+          {{ $t('aboutPage.closingPara') }}
         </p>
         <p class="mt-4 text-sm text-zinc-400">
-          Questions?
+          {{ $t('aboutPage.questions') }}
           <a href="mailto:hello@filesterr.com" class="text-brand-500 hover:underline">hello@filesterr.com</a>
         </p>
       </div>
@@ -163,39 +161,39 @@ useHead({
   link: [{ rel: 'canonical', href: 'https://filesterr.com/about' }],
 })
 
-const stats = [
-  { emoji: '📁', value: '2M+',    label: 'Files shared',            bg: 'bg-brand-50 dark:bg-brand-900/20' },
-  { emoji: '👤', value: '50K+',   label: 'Active users',            bg: 'bg-blue-50 dark:bg-blue-900/20' },
-  { emoji: '🌍', value: '120+',   label: 'Countries reached',       bg: 'bg-purple-50 dark:bg-purple-900/20' },
-  { emoji: '⚡', value: '99.99%', label: 'Uptime SLA',              bg: 'bg-emerald-50 dark:bg-emerald-900/20' },
-]
+const stats = computed(() => [
+  { emoji: '📁', value: '2M+',    label: t('aboutPage.stat0_label'), bg: 'bg-brand-50 dark:bg-brand-900/20' },
+  { emoji: '👤', value: '50K+',   label: t('aboutPage.stat1_label'), bg: 'bg-blue-50 dark:bg-blue-900/20' },
+  { emoji: '🌍', value: '120+',   label: t('aboutPage.stat2_label'), bg: 'bg-purple-50 dark:bg-purple-900/20' },
+  { emoji: '⚡', value: '99.99%', label: t('aboutPage.stat3_label'), bg: 'bg-emerald-50 dark:bg-emerald-900/20' },
+])
 
-const cards = [
+const cards = computed(() => [
   {
     emoji: '📊',
-    title: 'Analytics-first',
-    body: 'Most file hosts give you a link. We give you a window into every person who uses it — country, device, bot or human.',
+    title: t('aboutPage.card0_title'),
+    body: t('aboutPage.card0_body'),
     bg: 'bg-brand-50 dark:bg-brand-900/20',
   },
   {
     emoji: '🔒',
-    title: 'Privacy by default',
-    body: 'Password protection, one-time links, expiry dates. Your files, your rules — no one gets in without permission.',
+    title: t('aboutPage.card1_title'),
+    body: t('aboutPage.card1_body'),
     bg: 'bg-amber-50 dark:bg-amber-900/20',
   },
   {
     emoji: '🤖',
-    title: 'Bot & proxy detection',
-    body: 'Our fingerprinting engine catches bots, VPNs, and datacenter IPs. Know the difference between real humans and automated traffic.',
+    title: t('aboutPage.card2_title'),
+    body: t('aboutPage.card2_body'),
     bg: 'bg-red-50 dark:bg-red-900/20',
   },
-]
+])
 
-const tags = [
-  'Download Analytics', 'Password Protection', 'One-Time Links',
-  'Bot Detection', 'VPN Detection', 'Expiring Links',
-  'Folder Organization', 'Visitor Fingerprinting', 'Real-time Tracking',
-]
+const tags = computed(() => [
+  t('aboutPage.tag0'), t('aboutPage.tag1'), t('aboutPage.tag2'),
+  t('aboutPage.tag3'), t('aboutPage.tag4'), t('aboutPage.tag5'),
+  t('aboutPage.tag6'), t('aboutPage.tag7'), t('aboutPage.tag8'),
+])
 
 onMounted(() => {
   const observer = new IntersectionObserver(

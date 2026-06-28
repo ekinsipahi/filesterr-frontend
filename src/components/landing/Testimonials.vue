@@ -19,7 +19,7 @@
               {{ t(`reviews.r${i}_name`)[0] }}
             </div>
             <div><div class="text-sm font-semibold">{{ t(`reviews.r${i}_name`) }}</div><div class="text-xs text-zinc-400">{{ t(`reviews.r${i}_role`) }}</div></div>
-            <span class="ml-auto text-[10px] px-2 py-0.5 rounded-full bg-brand-50 dark:bg-brand-900/30 text-brand-600 dark:text-brand-400 font-semibold">✓ Verified</span>
+            <span class="ml-auto text-[10px] px-2 py-0.5 rounded-full bg-brand-50 dark:bg-brand-900/30 text-brand-600 dark:text-brand-400 font-semibold">{{ t('reviews.verified') }}</span>
           </div>
         </div>
       </div>

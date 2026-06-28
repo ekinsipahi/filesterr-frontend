@@ -33,19 +33,18 @@
               <span v-for="n in 4" :key="n"
                 class="w-4 h-4 rounded-full bg-gradient-to-br from-brand-400 to-brand-600 border-2 border-white dark:border-zinc-950 inline-block" />
             </span>
-            500,000+ users trust Filesterr
+            {{ $t('hero.badge', { count: '500,000+' }) }}
           </div>
 
           <h1 class="font-display text-5xl sm:text-6xl xl:text-[70px] font-extrabold leading-[1.03] tracking-tight mb-6">
-            The file sharing<br/>
-            platform that<br/>
-            <span class="text-gradient">thinks for you.</span>
+            {{ $t('hero.h1a') }}<br/>
+            {{ $t('hero.h1b') }}<br/>
+            <span class="text-gradient">{{ $t('hero.h1c') }}</span>
           </h1>
 
           <p class="text-lg text-zinc-500 dark:text-zinc-400 leading-relaxed max-w-lg mb-8">
-            Drop a file. Share a link. Watch who downloads it in real time.
-            Track visitors, detect bots, block proxies.
-            <strong class="text-zinc-900 dark:text-white">10GB free</strong>, no credit card needed.
+            {{ $t('hero.sub') }}
+            <strong class="text-zinc-900 dark:text-white">{{ $t('hero.freeLabel') }}</strong>{{ $t('hero.noCreditCard') }}
           </p>
 
           <div class="flex flex-wrap gap-2 mb-10">
@@ -60,14 +59,14 @@
 
           <div class="flex flex-wrap gap-4 mb-6">
             <RouterLink :to="lp('register')" class="btn-primary-lg group">
-              Start Free — 10GB Storage
+              {{ $t('hero.cta1') }}
               <svg class="w-5 h-5 group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
               </svg>
             </RouterLink>
-            <a href="#features" class="btn-ghost-lg">See How It Works</a>
+            <a href="#features" class="btn-ghost-lg">{{ $t('hero.cta2') }}</a>
           </div>
-          <p class="text-xs text-zinc-400">No credit card · Cancel anytime · Files encrypted at rest</p>
+          <p class="text-xs text-zinc-400">{{ $t('hero.microcopy') }}</p>
         </div>
 
         <!-- Upload widget -->
@@ -91,7 +90,7 @@
 
             <!-- What you get strip -->
             <div class="border-t border-zinc-100 dark:border-zinc-800 bg-zinc-50/60 dark:bg-zinc-950/40 px-5 py-4">
-              <p class="text-[10px] font-semibold text-zinc-400 uppercase tracking-wider mb-3">After upload you instantly get</p>
+              <p class="text-[10px] font-semibold text-zinc-400 uppercase tracking-wider mb-3">{{ $t('hero2.afterUpload') }}</p>
               <div class="grid grid-cols-3 gap-3">
                 <div class="flex flex-col gap-1">
                   <div class="w-7 h-7 rounded-lg bg-brand-50 dark:bg-brand-900/30 flex items-center justify-center">
@@ -99,8 +98,8 @@
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/>
                     </svg>
                   </div>
-                  <p class="text-[11px] font-semibold text-zinc-700 dark:text-zinc-300">Share link</p>
-                  <p class="text-[10px] text-zinc-400 leading-tight">Copy & send instantly</p>
+                  <p class="text-[11px] font-semibold text-zinc-700 dark:text-zinc-300">{{ $t('hero2.shareLink') }}</p>
+                  <p class="text-[10px] text-zinc-400 leading-tight">{{ $t('hero2.shareLinkSub') }}</p>
                 </div>
                 <div class="flex flex-col gap-1">
                   <div class="w-7 h-7 rounded-lg bg-violet-50 dark:bg-violet-900/30 flex items-center justify-center">
@@ -108,8 +107,8 @@
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
                     </svg>
                   </div>
-                  <p class="text-[11px] font-semibold text-zinc-700 dark:text-zinc-300">Analytics</p>
-                  <p class="text-[10px] text-zinc-400 leading-tight">Who, when, where</p>
+                  <p class="text-[11px] font-semibold text-zinc-700 dark:text-zinc-300">{{ $t('hero2.analytics') }}</p>
+                  <p class="text-[10px] text-zinc-400 leading-tight">{{ $t('hero2.analyticsSub') }}</p>
                 </div>
                 <div class="flex flex-col gap-1">
                   <div class="w-7 h-7 rounded-lg bg-red-50 dark:bg-red-900/30 flex items-center justify-center">
@@ -117,8 +116,8 @@
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
                     </svg>
                   </div>
-                  <p class="text-[11px] font-semibold text-zinc-700 dark:text-zinc-300">Delete link</p>
-                  <p class="text-[10px] text-zinc-400 leading-tight">Remove anytime</p>
+                  <p class="text-[11px] font-semibold text-zinc-700 dark:text-zinc-300">{{ $t('hero2.deleteLink') }}</p>
+                  <p class="text-[10px] text-zinc-400 leading-tight">{{ $t('hero2.deleteLinkSub') }}</p>
                 </div>
               </div>
             </div>
@@ -127,7 +126,7 @@
             <div class="flex items-center justify-between px-5 py-3 border-t border-zinc-100 dark:border-zinc-800 bg-white dark:bg-zinc-900">
               <div class="flex items-center gap-1.5">
                 <span class="w-1.5 h-1.5 rounded-full bg-brand-500 inline-block" style="box-shadow:0 0 0 3px rgba(34,163,102,.18)"/>
-                <span class="text-[11px] text-zinc-500">No account needed</span>
+                <span class="text-[11px] text-zinc-500">{{ $t('hero2.noAccountNeeded') }}</span>
               </div>
               <div class="flex items-center gap-4">
                 <span class="flex items-center gap-1 text-[11px] text-zinc-400">
@@ -136,7 +135,7 @@
                 </span>
                 <span class="flex items-center gap-1 text-[11px] text-zinc-400">
                   <svg class="w-3 h-3 text-brand-400" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
-                  Any file type
+                  {{ $t('hero2.anyFileType') }}
                 </span>
               </div>
             </div>
@@ -150,19 +149,21 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onUnmounted } from 'vue'
+import { ref, computed, onMounted, onUnmounted } from 'vue'
 import { RouterLink } from 'vue-router'
+import { useI18n } from 'vue-i18n'
 import UploadWidget from '../upload/UploadWidget.vue'
 import { useLocalePath } from '../../composables/useLocalePath.js'
 
 const { lp } = useLocalePath()
+const { t } = useI18n()
 
 const matrixCanvas = ref(null)
 
-const pills = [
-  'Download analytics', 'Visitor detection', 'Bot filtering',
-  'Proxy detection', 'End-to-end encrypted', 'Instant CDN',
-]
+const pills = computed(() => [
+  t('hero.pill1'), t('hero.pill2'), t('hero.pill3'),
+  t('hero.pill4'), t('hero.pill5'), t('hero.pill6'),
+])
 
 // ── Matrix rain ──────────────────────────────────────────
 const CHARS   = '01アイウエオカキクケコサシスセソタチツテトナニヌネノ'

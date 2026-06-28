@@ -2,8 +2,8 @@
   <section class="py-24 px-6">
     <div class="max-w-5xl mx-auto">
       <div class="text-center mb-16">
-        <p class="text-xs font-bold text-brand-500 uppercase tracking-widest mb-4">The problem</p>
-        <h2 class="font-display text-4xl sm:text-5xl font-extrabold mb-5">You send files blind.<br/><span class="text-gradient">We fix that.</span></h2>
+        <p class="text-xs font-bold text-brand-500 uppercase tracking-widest mb-4">{{ $t('analyticsPage.painTagline') }}</p>
+        <h2 class="font-display text-4xl sm:text-5xl font-extrabold mb-5">{{ $t('analyticsPage.painH2a') }}<br/><span class="text-gradient">{{ $t('analyticsPage.painH2b') }}</span></h2>
       </div>
       <div class="grid md:grid-cols-2 gap-6">
         <div class="card p-8 border-red-200 dark:border-red-800/40">
@@ -11,7 +11,7 @@
             <div class="w-9 h-9 rounded-xl bg-red-100 dark:bg-red-900/30 flex items-center justify-center shrink-0">
               <svg class="w-5 h-5 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
             </div>
-            <h3 class="font-display font-bold text-lg text-red-600 dark:text-red-400">Before Filesterr</h3>
+            <h3 class="font-display font-bold text-lg text-red-600 dark:text-red-400">{{ $t('analyticsPage.beforeFilesterr') }}</h3>
           </div>
           <ul class="space-y-3">
             <li v-for="pain in painPoints" :key="pain" class="flex items-start gap-3 text-sm text-zinc-600 dark:text-zinc-400">
@@ -25,7 +25,7 @@
             <div class="w-9 h-9 rounded-xl bg-brand-100 dark:bg-brand-900/40 flex items-center justify-center shrink-0">
               <svg class="w-5 h-5 text-brand-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
             </div>
-            <h3 class="font-display font-bold text-lg text-brand-600 dark:text-brand-400">With Filesterr Analytics</h3>
+            <h3 class="font-display font-bold text-lg text-brand-600 dark:text-brand-400">{{ $t('analyticsPage.withFilesterr') }}</h3>
           </div>
           <ul class="space-y-3">
             <li v-for="gain in gainPoints" :key="gain" class="flex items-start gap-3 text-sm text-zinc-700 dark:text-zinc-300">
@@ -39,6 +39,23 @@
   </section>
 </template>
 <script setup>
-const painPoints = ["\"Did they even open it?\" — you never know","No idea if bots are skewing your download count","Can't tell if the same person downloaded 10 times","Zero visibility on VPN or proxy downloads","No data on where in the world your files go"]
-const gainPoints = ["See every download — IP, location, device, timestamp","Bot and datacenter traffic automatically flagged","Fingerprint returning visitors across sessions and incognito","VPN, proxy, and Tor exit node detection built in","Geographic heatmap of every download, updated live"]
+import { computed } from 'vue'
+import { useI18n } from 'vue-i18n'
+
+const { t } = useI18n()
+
+const painPoints = computed(() => [
+  t('analyticsPage.pain0'),
+  t('analyticsPage.pain1'),
+  t('analyticsPage.pain2'),
+  t('analyticsPage.pain3'),
+  t('analyticsPage.pain4'),
+])
+const gainPoints = computed(() => [
+  t('analyticsPage.gain0'),
+  t('analyticsPage.gain1'),
+  t('analyticsPage.gain2'),
+  t('analyticsPage.gain3'),
+  t('analyticsPage.gain4'),
+])
 </script>

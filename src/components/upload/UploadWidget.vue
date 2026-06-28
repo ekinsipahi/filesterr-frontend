@@ -27,9 +27,9 @@
         </div>
         <div class="text-center">
           <p class="font-semibold text-zinc-800 dark:text-zinc-200 text-sm">
-            {{ dragging ? 'Release to add files' : 'Drop files here or click to browse' }}
+            {{ dragging ? $t('uploadWidget.releaseToAdd') : $t('uploadWidget.dropOrBrowseMulti') }}
           </p>
-          <p class="text-xs text-zinc-400 mt-1">Multiple files supported · Up to {{ formatSize(sizeLimit) }} each</p>
+          <p class="text-xs text-zinc-400 mt-1">{{ $t('uploadWidget.multipleSupported', { size: formatSize(sizeLimit) }) }}</p>
         </div>
         <input ref="multiInputRef" type="file" class="hidden" multiple @change="onMultiSelect" />
       </div>
@@ -47,11 +47,11 @@
               <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
               </svg>
-              Add more
+              {{ $t('uploadWidget.addMore') }}
               <input type="file" class="hidden" multiple @change="onMultiSelect" />
             </label>
             <button @click="resetQueue" class="text-xs text-zinc-400 hover:text-zinc-600 transition-colors">
-              Clear all
+              {{ $t('uploadWidget.clearAll') }}
             </button>
           </div>
         </div>
@@ -77,7 +77,7 @@
                 <p class="text-[10px] text-zinc-400 mt-0.5">{{ item.progress }}%</p>
               </div>
               <p v-else-if="item.status === 'pending'" class="text-[10px] text-zinc-400 mt-0.5">
-                {{ formatSize(item.size) }} · Waiting…
+                {{ formatSize(item.size) }} · {{ $t('uploadWidget.waiting') }}
               </p>
               <p v-else-if="item.status === 'error'" class="text-[10px] text-red-500 mt-0.5 truncate">{{ item.error }}</p>
               <p v-else-if="item.status === 'done'" class="text-[10px] text-zinc-400 mt-0.5 truncate">{{ formatSize(item.size) }}</p>
@@ -96,7 +96,7 @@
                 <svg v-else class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/>
                 </svg>
-                {{ item.copied ? 'Copied' : 'Copy' }}
+                {{ item.copied ? $t('uploadWidget.copied') : $t('uploadWidget.copy') }}
               </button>
               <!-- Uploading spinner -->
               <svg v-else-if="item.status === 'uploading'" class="w-4 h-4 text-brand-500 animate-spin" fill="none" viewBox="0 0 24 24">
@@ -106,7 +106,7 @@
               <!-- Error retry -->
               <button v-else-if="item.status === 'error'" @click="retryItem(item)"
                 class="text-[10px] text-red-500 hover:text-red-400 font-semibold underline">
-                Retry
+                {{ $t('uploadWidget.retry') }}
               </button>
               <!-- Pending: remove -->
               <button v-else @click="removeItem(item.id)"
@@ -133,8 +133,8 @@
             <svg class="w-3.5 h-3.5 text-red-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
             </svg>
-            <span class="text-xs font-medium text-zinc-700 dark:text-zinc-300">One-time download</span>
-            <span class="text-[10px] text-zinc-400 ml-1">deleted after first download</span>
+            <span class="text-xs font-medium text-zinc-700 dark:text-zinc-300">{{ $t('uploadWidget.oneTimeDownload') }}</span>
+            <span class="text-[10px] text-zinc-400 ml-1">{{ $t('uploadWidget.deletedAfterFirst') }}</span>
           </label>
         </div>
 
@@ -150,13 +150,13 @@
             <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/>
             </svg>
-            Upload {{ pendingItems.length }} file{{ pendingItems.length !== 1 ? 's' : '' }}
+            {{ $t('uploadWidget.uploadN', pendingItems.length, { n: pendingItems.length }) }}
           </button>
           <span v-else-if="queueDoneCount < multiQueue.length" class="text-xs text-zinc-400">
-            Uploading…
+            {{ $t('uploadWidget.uploadingEllipsis') }}
           </span>
           <button v-else @click="resetQueue" class="btn-ghost text-xs py-2 px-4">
-            Upload more files
+            {{ $t('uploadWidget.uploadMoreFiles') }}
           </button>
         </div>
       </div>
@@ -189,9 +189,9 @@
         </div>
         <div class="text-center">
           <p class="font-semibold text-zinc-800 dark:text-zinc-200 text-sm">
-            {{ dragging ? 'Release to select' : 'Drop file here or click to browse' }}
+            {{ dragging ? $t('uploadWidget.releaseToSelect') : $t('uploadWidget.dropOrBrowse') }}
           </p>
-          <p class="text-xs text-zinc-400 mt-1">Up to {{ formatSize(sizeLimit) }} · Any file type</p>
+          <p class="text-xs text-zinc-400 mt-1">{{ $t('uploadWidget.upToSize', { size: formatSize(sizeLimit) }) }}</p>
         </div>
         <input ref="fileInputRef" type="file" class="hidden" @change="onSelect" />
       </div>
@@ -207,7 +207,7 @@
           </div>
           <div class="flex-1 min-w-0">
             <p class="text-sm font-medium text-zinc-900 dark:text-white truncate">{{ cachedFile?.name }}</p>
-            <p class="text-xs text-zinc-400 mt-0.5">{{ stage === 'hashing' ? `Verifying integrity… ${hashProgress}%` : 'Checking file…' }}</p>
+            <p class="text-xs text-zinc-400 mt-0.5">{{ stage === 'hashing' ? $t('uploadWidget.verifyingIntegrity', { pct: hashProgress }) : $t('uploadWidget.checkingFile') }}</p>
           </div>
         </div>
         <div v-if="stage === 'hashing'" class="h-1 bg-zinc-100 dark:bg-zinc-800">
@@ -225,14 +225,14 @@
             <p class="text-sm font-medium text-zinc-900 dark:text-white truncate">{{ cachedFile?.name }}</p>
             <p class="text-xs text-zinc-400">{{ readableSize }}</p>
           </div>
-          <button @click="reset" class="p-1 rounded-lg text-zinc-400 hover:text-zinc-600 hover:bg-zinc-200 dark:hover:bg-zinc-700 transition-colors" title="Remove file">
+          <button @click="reset" class="p-1 rounded-lg text-zinc-400 hover:text-zinc-600 hover:bg-zinc-200 dark:hover:bg-zinc-700 transition-colors" :title="$t('uploadWidget.removeFile')">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
             </svg>
           </button>
         </div>
         <div class="p-5">
-          <p class="text-xs font-semibold text-zinc-500 uppercase tracking-wide mb-3">Verify you're human</p>
+          <p class="text-xs font-semibold text-zinc-500 uppercase tracking-wide mb-3">{{ $t('uploadWidget.verifyHuman') }}</p>
           <div ref="turnstileContainer" class="cf-turnstile-container" />
           <p v-if="captchaError" class="text-xs text-red-500 mt-2 flex items-center gap-1.5">
             <svg class="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -257,9 +257,9 @@
             <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/>
             </svg>
-            Verified
+            {{ $t('uploadWidget.verified') }}
           </span>
-          <button @click="reset" class="p-1 rounded-lg text-zinc-400 hover:text-zinc-600 hover:bg-zinc-200 dark:hover:bg-zinc-700 transition-colors ml-1" title="Remove file">
+          <button @click="reset" class="p-1 rounded-lg text-zinc-400 hover:text-zinc-600 hover:bg-zinc-200 dark:hover:bg-zinc-700 transition-colors ml-1" :title="$t('uploadWidget.removeFile')">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
             </svg>
@@ -268,7 +268,7 @@
 
         <!-- Premium options -->
         <div v-if="isPremiumUser" class="px-4 pt-3.5 pb-1 border-b border-zinc-100 dark:border-zinc-800 space-y-3">
-          <p class="text-[10px] font-semibold text-zinc-400 uppercase tracking-wider">Upload options</p>
+          <p class="text-[10px] font-semibold text-zinc-400 uppercase tracking-wider">{{ $t('uploadWidget.uploadOptions') }}</p>
           <div class="space-y-1.5">
             <label class="flex items-center gap-2.5 cursor-pointer group">
               <div class="relative w-4 h-4 shrink-0">
@@ -282,10 +282,10 @@
               <svg class="w-3.5 h-3.5 text-amber-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
               </svg>
-              <span class="text-xs font-medium text-zinc-700 dark:text-zinc-300">Password protection</span>
+              <span class="text-xs font-medium text-zinc-700 dark:text-zinc-300">{{ $t('uploadWidget.passwordProtection') }}</span>
             </label>
             <div v-if="usePassword" class="pl-6">
-              <input v-model="uploadPassword" type="password" placeholder="Set a password…"
+              <input v-model="uploadPassword" type="password" :placeholder="$t('uploadWidget.setPassword')"
                 class="w-full px-3 py-1.5 text-xs rounded-lg border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 outline-none focus:ring-1 focus:ring-brand-500/40 focus:border-brand-500 text-zinc-900 dark:text-white placeholder-zinc-400"/>
             </div>
           </div>
@@ -301,21 +301,21 @@
             <svg class="w-3.5 h-3.5 text-red-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 17h8m0 0V9m0 8l-8-8-4 4-6-6"/>
             </svg>
-            <span class="text-xs font-medium text-zinc-700 dark:text-zinc-300">One-time download</span>
-            <span class="text-[10px] text-zinc-400 ml-1">deleted after first download</span>
+            <span class="text-xs font-medium text-zinc-700 dark:text-zinc-300">{{ $t('uploadWidget.oneTimeDownload') }}</span>
+            <span class="text-[10px] text-zinc-400 ml-1">{{ $t('uploadWidget.deletedAfterFirst') }}</span>
           </label>
           <div class="flex items-center gap-2.5">
             <svg class="w-3.5 h-3.5 text-zinc-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
             </svg>
-            <span class="text-xs text-zinc-600 dark:text-zinc-400">Expires:</span>
+            <span class="text-xs text-zinc-600 dark:text-zinc-400">{{ $t('uploadWidget.expires') }}</span>
             <select v-model="expiresIn"
               class="text-xs px-2 py-1 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 text-zinc-700 dark:text-zinc-300 outline-none focus:ring-1 focus:ring-brand-500/40 cursor-pointer">
-              <option :value="0">Never</option>
-              <option :value="1">24 hours</option>
-              <option :value="7">7 days</option>
-              <option :value="30">30 days</option>
-              <option :value="90">90 days</option>
+              <option :value="0">{{ $t('uploadWidget.expiresNever') }}</option>
+              <option :value="1">{{ $t('uploadWidget.expires24h') }}</option>
+              <option :value="7">{{ $t('uploadWidget.expires7d') }}</option>
+              <option :value="30">{{ $t('uploadWidget.expires30d') }}</option>
+              <option :value="90">{{ $t('uploadWidget.expires90d') }}</option>
             </select>
           </div>
         </div>
@@ -326,7 +326,7 @@
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/>
             </svg>
-            Upload File
+            {{ $t('uploadWidget.uploadFile') }}
           </button>
         </div>
       </div>
@@ -345,7 +345,7 @@
         </div>
         <div class="px-4 py-4">
           <div class="flex items-center justify-between text-xs text-zinc-400 mb-2">
-            <span>Uploading…</span>
+            <span>{{ $t('uploadWidget.uploading') }}</span>
             <span>{{ uploadProgress }}% complete</span>
           </div>
           <div class="h-2 bg-zinc-100 dark:bg-zinc-800 rounded-full overflow-hidden">
@@ -363,11 +363,11 @@
             </svg>
           </div>
           <div class="flex-1 min-w-0">
-            <p class="text-sm font-semibold text-brand-700 dark:text-brand-300">Uploaded successfully</p>
+            <p class="text-sm font-semibold text-brand-700 dark:text-brand-300">{{ $t('uploadWidget.uploadedSuccessfully') }}</p>
             <p class="text-xs text-zinc-500 truncate">{{ result.name }}</p>
           </div>
           <button @click="reset" class="text-xs text-zinc-400 hover:text-zinc-600 transition-colors px-2 py-1 rounded-md hover:bg-white/60 dark:hover:bg-zinc-800 shrink-0">
-            Upload another
+            {{ $t('uploadWidget.uploadAnother') }}
           </button>
         </div>
         <div class="p-4 space-y-3">
@@ -377,7 +377,7 @@
                 alt="QR code" class="w-full h-full object-contain" loading="lazy" />
             </div>
             <div class="flex-1 min-w-0 space-y-2">
-              <p class="text-[10px] font-semibold text-zinc-400 uppercase tracking-wide">Download link</p>
+              <p class="text-[10px] font-semibold text-zinc-400 uppercase tracking-wide">{{ $t('uploadWidget.downloadLink') }}</p>
               <div class="flex items-center gap-2 p-2 rounded-lg bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700">
                 <span class="text-[11px] font-mono text-zinc-500 dark:text-zinc-400 truncate flex-1 min-w-0">
                   {{ origin }}{{ result.shareUrl }}
@@ -393,26 +393,26 @@
                   <svg v-else class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/>
                   </svg>
-                  {{ copied ? 'Copied!' : 'Copy link' }}
+                  {{ copied ? $t('uploadWidget.copiedBang') : $t('uploadWidget.copyLink') }}
                 </button>
                 <a :href="origin + result.shareUrl" target="_blank" rel="noopener"
                   class="text-xs px-3 py-1.5 rounded-lg font-semibold bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-300 hover:bg-zinc-200 dark:hover:bg-zinc-700 transition-colors flex items-center gap-1.5">
                   <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
                   </svg>
-                  Open
+                  {{ $t('uploadWidget.openLink') }}
                 </a>
               </div>
             </div>
           </div>
           <div class="flex items-center justify-between pt-1 border-t border-zinc-100 dark:border-zinc-800">
-            <p class="text-xs text-zinc-400">Need to remove this file?</p>
+            <p class="text-xs text-zinc-400">{{ $t('uploadWidget.needToRemove') }}</p>
             <a :href="result.deleteUrl"
               class="text-xs text-red-500 hover:text-red-400 font-medium flex items-center gap-1 transition-colors">
               <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
               </svg>
-              Delete file
+              {{ $t('uploadWidget.deleteFile') }}
             </a>
           </div>
         </div>
@@ -422,11 +422,11 @@
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
             </svg>
             <div class="flex-1 min-w-0">
-              <p class="text-xs font-semibold text-amber-800 dark:text-amber-300">This file expires in 24 hours</p>
-              <p class="text-xs text-amber-700 dark:text-amber-400 mt-0.5 leading-relaxed">Create a free account to keep it permanently.</p>
+              <p class="text-xs font-semibold text-amber-800 dark:text-amber-300">{{ $t('uploadWidget.fileExpires24h') }}</p>
+              <p class="text-xs text-amber-700 dark:text-amber-400 mt-0.5 leading-relaxed">{{ $t('uploadWidget.createFreeAccount') }}</p>
               <a :href="`/register?claim=${result.fileId}`"
                 class="inline-flex items-center gap-1 mt-2 text-xs font-semibold text-white bg-amber-500 hover:bg-amber-400 px-2.5 py-1.5 rounded-lg transition-colors">
-                Claim this file — free
+                {{ $t('uploadWidget.claimFile') }}
               </a>
             </div>
           </div>
@@ -436,14 +436,14 @@
       <!-- ── CAPACITY LIMIT UPSELL ── -->
       <div v-if="stage === 'error' && errorCode === 'capacity_limited'"
         class="mt-3 p-5 rounded-xl bg-gradient-to-br from-brand-50 to-indigo-50 dark:from-brand-900/20 dark:to-indigo-900/20 border border-brand-200 dark:border-brand-700">
-        <p class="text-sm font-semibold text-zinc-800 dark:text-zinc-100 mb-1">Free uploads are currently at capacity.</p>
-        <p class="text-xs text-zinc-500 dark:text-zinc-400 mb-4">Demand is high right now. Premium members upload instantly, without limits.</p>
+        <p class="text-sm font-semibold text-zinc-800 dark:text-zinc-100 mb-1">{{ $t('uploadWidget.capacityLimitTitle') }}</p>
+        <p class="text-xs text-zinc-500 dark:text-zinc-400 mb-4">{{ $t('uploadWidget.capacityLimitSub') }}</p>
         <div class="flex gap-2 flex-wrap">
           <a href="/pricing" class="px-4 py-2 rounded-lg bg-brand-500 hover:bg-brand-600 text-white text-sm font-medium transition-colors">
-            Get Premium — from $4.99/mo
+            {{ $t('uploadWidget.getPremium') }}
           </a>
           <button @click="reset" class="px-4 py-2 rounded-lg border border-zinc-300 dark:border-zinc-600 text-zinc-600 dark:text-zinc-300 text-sm hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors">
-            Try later
+            {{ $t('uploadWidget.tryLater') }}
           </button>
         </div>
       </div>
@@ -457,27 +457,27 @@
           </svg>
           <div>
             <p class="text-sm font-semibold text-zinc-800 dark:text-zinc-100 mb-1">
-              {{ isLoggedIn ? 'Your storage is full' : 'Anonymous storage limit reached' }}
+              {{ isLoggedIn ? $t('uploadWidget.storageFull') : $t('uploadWidget.anonStorageLimit') }}
             </p>
             <p class="text-xs text-zinc-500 dark:text-zinc-400">
               {{ isPremiumUser
-                  ? 'Upgrade to Pro for 500 GB or ProMax for 2 TB of storage.'
+                  ? $t('uploadWidget.storageFullProSub')
                   : isLoggedIn
-                    ? 'Free accounts include 5 GB. Upgrade to Premium for 100 GB.'
-                    : 'Anonymous uploads share a 512 MB pool. Sign up free for 5 GB, or get Premium for 100 GB.'
+                    ? $t('uploadWidget.storageFullFreeSub')
+                    : $t('uploadWidget.storageFullAnonSub')
               }}
             </p>
           </div>
         </div>
         <div class="flex gap-2 flex-wrap">
           <a href="/pricing" class="px-4 py-2 rounded-lg bg-brand-500 hover:bg-brand-600 text-white text-sm font-medium transition-colors">
-            {{ isPremiumUser ? 'Upgrade plan' : 'Get Premium — from $4.99/mo' }}
+            {{ isPremiumUser ? $t('uploadWidget.upgradePlan') : $t('uploadWidget.getPremium') }}
           </a>
           <a v-if="!isLoggedIn" href="/register" class="px-4 py-2 rounded-lg border border-zinc-300 dark:border-zinc-600 text-zinc-700 dark:text-zinc-300 text-sm font-medium hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors">
-            Sign up free — 5 GB
+            {{ $t('uploadWidget.signupFree5GB') }}
           </a>
           <a v-else href="/dashboard" class="px-4 py-2 rounded-lg border border-zinc-300 dark:border-zinc-600 text-zinc-700 dark:text-zinc-300 text-sm font-medium hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors">
-            Manage files
+            {{ $t('uploadWidget.manageFiles') }}
           </a>
         </div>
       </div>
@@ -485,21 +485,21 @@
       <!-- ── FILE TOO LARGE UPSELL ── -->
       <div v-else-if="stage === 'error' && errorCode === 'file_too_large'"
         class="mt-3 p-5 rounded-xl bg-gradient-to-br from-violet-50 to-purple-50 dark:from-violet-900/20 dark:to-purple-900/20 border border-violet-200 dark:border-violet-700">
-        <p class="text-sm font-semibold text-zinc-800 dark:text-zinc-100 mb-1">File too large for your current plan</p>
+        <p class="text-sm font-semibold text-zinc-800 dark:text-zinc-100 mb-1">{{ $t('uploadWidget.fileTooLarge') }}</p>
         <p class="text-xs text-zinc-500 dark:text-zinc-400 mb-4">
           {{ isPremiumUser
-              ? 'Pro supports up to 20 GB per file. ProMax supports up to 50 GB.'
+              ? $t('uploadWidget.fileTooLargeProSub')
               : isLoggedIn
-                ? 'Free accounts support up to 1 GB per file. Premium supports up to 5 GB.'
-                : 'Anonymous uploads are limited to 200 MB. Sign up free for 1 GB, or get Premium for 5 GB per file.'
+                ? $t('uploadWidget.fileTooLargeFreeSub')
+                : $t('uploadWidget.fileTooLargeAnonSub')
           }}
         </p>
         <div class="flex gap-2 flex-wrap">
           <a href="/pricing" class="px-4 py-2 rounded-lg bg-brand-500 hover:bg-brand-600 text-white text-sm font-medium transition-colors">
-            {{ isPremiumUser ? 'Upgrade plan' : 'Get Premium — from $4.99/mo' }}
+            {{ isPremiumUser ? $t('uploadWidget.upgradePlan') : $t('uploadWidget.getPremium') }}
           </a>
           <a v-if="!isLoggedIn" href="/register" class="px-4 py-2 rounded-lg border border-zinc-300 dark:border-zinc-600 text-zinc-700 dark:text-zinc-300 text-sm font-medium hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors">
-            Sign up free — 1 GB/file
+            {{ $t('uploadWidget.signupFree1GB') }}
           </a>
         </div>
       </div>
@@ -511,7 +511,7 @@
         </svg>
         <div class="flex-1">
           <p class="text-sm text-red-700 dark:text-red-400">{{ error }}</p>
-          <button @click="reset" class="text-xs text-red-500 hover:text-red-400 mt-1 underline">Try again</button>
+          <button @click="reset" class="text-xs text-red-500 hover:text-red-400 mt-1 underline">{{ $t('uploadWidget.tryAgain') }}</button>
         </div>
       </div>
 
@@ -522,8 +522,11 @@
 
 <script setup>
 import { ref, computed, onMounted, nextTick } from 'vue'
+import { useI18n } from 'vue-i18n'
 import { useUpload, formatSize } from '../../composables/useUpload.js'
 import { useClipboard } from '@vueuse/core'
+
+const { t } = useI18n()
 
 const TURNSTILE_SITE_KEY = import.meta.env.VITE_TURNSTILE_SITE_KEY || '1x00000000000000000000AA'
 const CONCURRENCY = 3  // max parallel uploads

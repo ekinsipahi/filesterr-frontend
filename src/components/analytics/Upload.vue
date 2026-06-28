@@ -13,11 +13,11 @@
         <div class="text-center mb-10">
           <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-brand-50 dark:bg-brand-500/10 border border-brand-200 dark:border-brand-500/20 text-brand-700 dark:text-brand-400 text-xs font-semibold mb-6">
             <span class="w-1.5 h-1.5 rounded-full bg-brand-500 animate-pulse" />
-            Anonymous · No account needed
+            {{ $t('analyticsPage.uploadBadge') }}
           </div>
           <h1 class="font-display text-4xl sm:text-5xl font-extrabold mb-4 tracking-tight">
-            Drop a file.<br/>
-            <span class="text-gradient">Get a link.</span>
+            {{ $t('analyticsPage.uploadH1a') }}<br/>
+            <span class="text-gradient">{{ $t('analyticsPage.uploadH1b') }}</span>
           </h1>
           <p class="text-zinc-500 dark:text-zinc-400">
             Up to 1GB free · <a href="/pricing" class="text-brand-500 hover:underline font-medium">Upgrade</a> for 50GB+
@@ -49,9 +49,9 @@
 
         <!-- Signup upsell -->
         <div class="mt-8 p-5 rounded-2xl bg-zinc-50 dark:bg-zinc-900/50 border border-zinc-200 dark:border-zinc-800 text-center">
-          <p class="text-sm font-semibold mb-1">Want 10GB free + download analytics?</p>
-          <p class="text-xs text-zinc-500 mb-4">Free account includes real-time download feed, visitor location, and device info.</p>
-          <a href="/register" class="btn-primary text-sm">Create Free Account</a>
+          <p class="text-sm font-semibold mb-1">{{ $t('analyticsPage.uploadUpsellTitle') }}</p>
+          <p class="text-xs text-zinc-500 mb-4">{{ $t('analyticsPage.uploadUpsellSub') }}</p>
+          <a href="/register" class="btn-primary text-sm">{{ $t('analyticsPage.uploadUpsellBtn') }}</a>
         </div>
       </div>
     </section>
@@ -60,7 +60,11 @@
 
 <script setup>
 import UploadWidget from '../components/upload/UploadWidget.vue'
+import { computed } from 'vue'
+import { useI18n } from 'vue-i18n'
 import { useHead } from '@vueuse/head'
+
+const { t } = useI18n()
 
 useHead({
   title: 'Upload a File — Filesterr',
@@ -73,10 +77,10 @@ useHead({
   link: [{ rel: 'canonical', href: 'https://filesterr.com/upload' }],
 })
 
-const perks = [
-  'Delete link included',
-  'Any file type',
-  'Instant CDN delivery',
-  'AES-256 encrypted',
-]
+const perks = computed(() => [
+  t('analyticsPage.uploadPerk0'),
+  t('analyticsPage.uploadPerk1'),
+  t('analyticsPage.uploadPerk2'),
+  t('analyticsPage.uploadPerk3'),
+])
 </script>

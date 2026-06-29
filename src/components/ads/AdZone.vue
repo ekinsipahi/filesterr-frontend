@@ -101,15 +101,14 @@ async function injectTag(cfg) {
     return true
   }
   if (tag_type === 'aclib_banner') {
-    const ok = await ensureAclib(cfg.aclib_src)
-    if (!ok) return false
-    const wrapper = container.value || document.createElement('div')
-    const s = document.createElement('script')
-    s.type = 'text/javascript'
-    s.text = `if(window.aclib) aclib.runBanner({ zoneId: '${cfg.zone_id}' });`
-    wrapper.appendChild(s)
-    injected.value.push(s)
-    return true
+    const wrapper = container.value
+    if (!wrapper) return false
+    const ins = document.createElement('ins')
+    ins.className = 'aclib-adSlot'
+    ins.setAttribute('data-ac-zone', cfg.zone_id)
+    wrapper.appendChild(ins)
+    injected.value.push(ins)
+    return loadScript(cfg.aclib_src || ACLIB_SRC)
   }
   if (tag_type === 'monetag_script') {
     return loadScript(cfg.src, s => { s.dataset.zone = cfg.zone_id })

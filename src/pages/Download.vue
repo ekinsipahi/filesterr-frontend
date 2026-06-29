@@ -229,8 +229,9 @@
         <AdZone v-if="showBannerAd" zone="popunder" class="hidden" />
 
         <!-- Bottom banner ad (all non-premium users) -->
-        <div v-if="showBannerAd" class="flex justify-center">
-          <AdZone :zone="isMobile ? 'banner_mobile' : 'banner_728x90'" />
+        <div v-if="showBannerAd" class="flex justify-center mt-4">
+          <AdZone :zone="isMobile ? 'banner_mobile' : 'banner_728x90'"
+                  :container-class="isMobile ? 'min-h-[50px] w-[320px]' : 'min-h-[90px] w-[728px]'" />
         </div>
       </template>
 

@@ -122,6 +122,8 @@ async function injectTag(cfg) {
     const ins = document.createElement('ins')
     ins.className      = cfg.ins_class
     ins.dataset.zoneid = cfg.zone_id
+    ins.style.display  = 'block'
+    ins.style.width    = '100%'
     const wrapper = container.value
     if (wrapper) wrapper.appendChild(ins)
     ;(window.AdProvider = window.AdProvider || []).push({ serve: {} })
